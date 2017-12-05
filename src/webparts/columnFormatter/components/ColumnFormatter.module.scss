@@ -6,6 +6,9 @@
   border: 1px solid;
   border-color: $ms-color-neutralLight;
 
+//***************
+// Split Pane
+//***************
   .SplitPane {
     :global {
       .Resizer {
@@ -40,7 +43,14 @@
       }
     }
   }
+  .SplitPaneInTab {
+    height: calc(100% - 19px) !important;
+    @extend .SplitPane
+  }
 
+//***************
+// Tabs
+//***************
   :global{
     .react-tabs {
       &__tab-list {
@@ -70,7 +80,7 @@
         &--selected {
           background: #fff;
           border-color: $ms-color-neutralLight;
-          color: $ms-color-themePrimary;
+          color: $ms-color-themeDarkAlt;
         }
     
         &--disabled {
@@ -94,8 +104,10 @@
           }
         }
 
+        //Tab Label
         i {
           padding-right: 4px;
+          color: $ms-color-themeDarkAlt;
         }
         span {
           line-height: 13px;
@@ -108,9 +120,15 @@
     
         &--selected {
           display: block;
-          padding:5px;
         }
       }
     }
+  }
+
+//***************
+// Panels
+//***************
+  .panel {
+    padding:5px;
   }
 }
