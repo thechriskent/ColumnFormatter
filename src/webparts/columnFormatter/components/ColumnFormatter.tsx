@@ -4,6 +4,9 @@ import { IColumnFormatterProps } from './IColumnFormatterProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 var SplitPane = require('react-split-pane');
 
+import ColumnFormatterPropertyPane from './Panes/ColumnFormatterPropertyPane';
+import ColumnFormatterViewPane from './Panes/ColumnFormatterViewPane';
+
 export default class ColumnFormatter extends React.Component<IColumnFormatterProps, {}> {
   public render(): React.ReactElement<IColumnFormatterProps> {
     return (
@@ -11,11 +14,10 @@ export default class ColumnFormatter extends React.Component<IColumnFormatterPro
         <SplitPane
          split="vertical"
          className={styles.SplitPane}
-         resizerClassName={styles.Resizer}
-         size="30%"
+         size={185}
          minSize={100}>
-          <div>dog</div>
-          <div>cat</div>
+          <ColumnFormatterPropertyPane/>
+          <ColumnFormatterViewPane/>
         </SplitPane>
       </div>
     );
