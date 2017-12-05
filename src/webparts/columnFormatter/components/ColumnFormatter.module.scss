@@ -1,0 +1,33 @@
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/_SPFabricCore.scss';
+
+.columnFormatter {
+  position: relative;
+  height: 200px;
+  border: 1px solid;
+  border-color: $ms-color-neutralLight;
+
+  .SplitPane {
+    .Resizer {
+      background: $ms-color-neutralLight;
+      z-index: 1;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -moz-background-clip: padding;
+      -webkit-background-clip: padding;
+      background-clip: padding-box;
+
+      width: 11px;
+      margin: 0 -5px;
+      border-left: 5px solid rgba(255, 255, 255, 0);
+      border-right: 5px solid rgba(255, 255, 255, 0);
+      cursor: col-resize;
+    }
+    .Resizer:hover {
+      -webkit-transition: all 2s ease;
+      transition: all 2s ease;
+      border-left: 5px solid rgba(0, 0, 0, 0.5);
+      border-right: 5px solid rgba(0, 0, 0, 0.5);
+    }
+  }
+}
