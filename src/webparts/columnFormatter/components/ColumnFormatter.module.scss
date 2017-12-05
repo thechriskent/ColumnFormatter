@@ -1,10 +1,13 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/_SPFabricCore.scss';
 
 .columnFormatter {
-  position: relative;
-  height: 200px;
   border: 1px solid;
   border-color: $ms-color-neutralLight;
+
+  .app {
+    position: relative;
+    height: 200px;
+  }
 
 //***************
 // Split Pane
