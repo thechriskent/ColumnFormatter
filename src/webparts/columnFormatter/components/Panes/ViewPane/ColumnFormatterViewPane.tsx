@@ -3,8 +3,8 @@ import styles from '../../ColumnFormatter.module.scss';
 import IColumnFormatterViewPaneProps from './IColumnFormatterViewPaneProps';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import ColumnFormatterPreviewPanel from '../../Panels/Preview/ColumnFormatterPreviewPanel';
-import ColumnFormatterCodePanel from '../../Panels/Code/ColumnFormatterCodePanel';
+import { ColumnFormatterPreviewPanel } from '../../Panels/Preview/ColumnFormatterPreviewPanel';
+import { ColumnFormatterCodePanel } from '../../Panels/Code/ColumnFormatterCodePanel';
 var SplitPane = require('react-split-pane');
 
 export default class ColumnFormatterViewPane extends React.Component<IColumnFormatterViewPaneProps, {}> {

@@ -3,6 +3,8 @@ import styles from '../../ColumnFormatter.module.scss';
 import IColumnFormatterPropertyPaneProps from './IColumnFormatterPropertyPaneProps';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import { ColumnFormatterTreePanel } from '../../Panels/Tree/ColumnFormatterTreePanel';
+import { ColumnFormatterDataPanel } from '../../Panels/Data/ColumnFormatterDataPanel';
 
 export default class ColumnFormatterPropertyPane extends React.Component<IColumnFormatterPropertyPaneProps, {}> {
 	public render(): React.ReactElement<IColumnFormatterPropertyPaneProps> {
@@ -12,10 +14,10 @@ export default class ColumnFormatterPropertyPane extends React.Component<IColumn
 				Wowee!
 			</TabPanel>
 			<TabPanel>
-				Terrific!
+				<ColumnFormatterTreePanel/>
 			</TabPanel>
 			<TabPanel>
-				Delicious!
+				<ColumnFormatterDataPanel/>
 			</TabPanel>
 			<TabList>
 				<Tab><Icon iconName='LightningBolt'/><span>Wizard</span></Tab>
