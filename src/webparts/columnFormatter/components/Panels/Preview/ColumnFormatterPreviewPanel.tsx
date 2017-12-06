@@ -1,6 +1,8 @@
 import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
-import IColumnFormatterPreviewPanelProps from './IColumnFormatterPreviewPanelProps';
+
+export interface IColumnFormatterPreviewPanelProps {
+}  
 
 export class ColumnFormatterPreviewPanel extends React.Component<IColumnFormatterPreviewPanelProps, {}> {
 	public render(): React.ReactElement<IColumnFormatterPreviewPanelProps> {

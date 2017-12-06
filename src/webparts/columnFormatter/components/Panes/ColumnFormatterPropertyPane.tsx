@@ -1,10 +1,12 @@
 import * as React from 'react';
-import styles from '../../ColumnFormatter.module.scss';
-import IColumnFormatterPropertyPaneProps from './IColumnFormatterPropertyPaneProps';
+import styles from '../ColumnFormatter.module.scss';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { ColumnFormatterTreePanel } from '../../Panels/Tree/ColumnFormatterTreePanel';
-import { ColumnFormatterDataPanel } from '../../Panels/Data/ColumnFormatterDataPanel';
+import { ColumnFormatterTreePanel } from '../Panels/Tree/ColumnFormatterTreePanel';
+import { ColumnFormatterDataPanel } from '../Panels/Data/ColumnFormatterDataPanel';
+
+export interface IColumnFormatterPropertyPaneProps {
+}
 
 export default class ColumnFormatterPropertyPane extends React.Component<IColumnFormatterPropertyPaneProps, {}> {
 	public render(): React.ReactElement<IColumnFormatterPropertyPaneProps> {

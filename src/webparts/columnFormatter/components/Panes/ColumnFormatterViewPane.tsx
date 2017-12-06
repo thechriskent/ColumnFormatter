@@ -1,11 +1,13 @@
 import * as React from 'react';
-import styles from '../../ColumnFormatter.module.scss';
-import IColumnFormatterViewPaneProps from './IColumnFormatterViewPaneProps';
+import styles from '../ColumnFormatter.module.scss';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { ColumnFormatterPreviewPanel } from '../../Panels/Preview/ColumnFormatterPreviewPanel';
-import { ColumnFormatterCodePanel } from '../../Panels/Code/ColumnFormatterCodePanel';
+import { ColumnFormatterPreviewPanel } from '../Panels/Preview/ColumnFormatterPreviewPanel';
+import { ColumnFormatterCodePanel } from '../Panels/Code/ColumnFormatterCodePanel';
 var SplitPane = require('react-split-pane');
+
+export interface IColumnFormatterViewPaneProps {
+}
 
 export default class ColumnFormatterViewPane extends React.Component<IColumnFormatterViewPaneProps, {}> {
 	public render(): React.ReactElement<IColumnFormatterViewPaneProps> {

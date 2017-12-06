@@ -8,8 +8,7 @@ import {
 } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'ColumnFormatterWebPartStrings';
-import ColumnFormatter from './components/ColumnFormatter';
-import { IColumnFormatterProps } from './components/IColumnFormatterProps';
+import ColumnFormatter, {IColumnFormatterProps} from './components/ColumnFormatter';
 
 export interface IColumnFormatterWebPartProps {
   description: string;
