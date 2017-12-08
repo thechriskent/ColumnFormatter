@@ -133,5 +133,9 @@
 //***************
   .panel {
     padding:5px;
+
+    .panelHeader {
+      font-weight: bold;
+    }
   }
 }

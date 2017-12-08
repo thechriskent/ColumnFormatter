@@ -30,7 +30,7 @@ export default class ColumnFormatterViewPane extends React.Component<IColumnForm
           <ColumnFormatterCodePanel/>
         </SplitPane>
 			</TabPanel>
-			<TabList style={{"text-align":"right"}}>
+			<TabList style={{"textAlign":"right"}}>
 				<Tab><Icon iconName='RedEye'/><span>Preview</span></Tab>
 				<Tab><Icon iconName='Embed'/><span>Code</span></Tab>
 				<Tab><Icon iconName='DoubleColumn'/><span>Side by Side</span></Tab>
