@@ -13,8 +13,6 @@ export class SampleBoolean extends React.Component<ISampleBooleanProps, {}> {
 		  <div>
 				<Toggle
 				 defaultChecked={this.props.value}
-				 onText="Yes"
-				 offText="No"
 				 onChanged={this.props.onChanged}/>
 		  </div>
 		);
