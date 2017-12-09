@@ -2,10 +2,11 @@ import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { IData, IApplicationState, IColumn, columnTypes } from '../../../state/State';
+import { IData, IApplicationState, IColumn, columnTypes, ILookupFieldValue } from '../../../state/State';
 import { updateDataRow } from '../../../state/Actions';
 import { SampleText } from './SampleValues/SampleText';
 import { SampleBoolean } from './SampleValues/SampleBoolean';
+import { SampleLookup } from './SampleValues/SampleLookup';
 
 export interface ISampleDataProps {
 	data?: IData;
@@ -52,6 +53,8 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 		switch (this.props.data.columns[cIndex].type) {
 			case columnTypes.boolean:
 				return (<SampleBoolean value={value} onChanged={(newValue:any) => {this.props.update(rIndex, cIndex, newValue);}}/> );
+			case columnTypes.lookup:
+				return (<SampleLookup value={value} onChanged={(newValue:ILookupFieldValue) => {this.props.update(rIndex, cIndex, newValue);}}/>);
 			default:
 				return (<SampleText value={value} onChanged={(newValue:any) => {this.props.update(rIndex, cIndex, newValue);}}/>);
 		}

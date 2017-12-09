@@ -10,6 +10,11 @@ export enum columnTypes {
 	lookup
 }
 
+export interface ILookupFieldValue {
+	lookupValue: string;
+	lookupId: number;
+}
+
 export interface IColumn {
 	name: string;
 	type: columnTypes;
@@ -31,13 +36,17 @@ export const initialState: IApplicationState = {
 			type: columnTypes.text
 		},
 		{
+			name: 'someLookup',
+			type: columnTypes.lookup
+		},
+		{
 			name: 'someBool',
 			type: columnTypes.boolean
 		}],
 		rows: [
-			["Dog", false],
-			["Cat", true],
-			["Mouse", true]
+			["Dog", {lookupValue:"Main",lookupId:3}, false],
+			["Cat", {lookupValue:"West",lookupId:1}, true],
+			["Mouse", {lookupValue:"East",lookupId:7}, true]
 		]
 	}
 };

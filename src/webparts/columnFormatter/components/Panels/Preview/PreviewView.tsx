@@ -48,6 +48,8 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		switch (this.props.columns[cIndex].type) {
 			case columnTypes.boolean:
 				return (<span>{value ? "Yes" : "No"}</span>);
+			case columnTypes.lookup:
+				return (<span>{value.lookupValue}</span>);
 			default:
 				return (<span>{value}</span>);
 		}
