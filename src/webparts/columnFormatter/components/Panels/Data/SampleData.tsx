@@ -11,6 +11,7 @@ import { SampleText } from './SampleValues/SampleText';
 import { SampleBoolean } from './SampleValues/SampleBoolean';
 import { SampleLookup } from './SampleValues/SampleLookup';
 import { SampleLink } from './SampleValues/SampleLink';
+import { SampleNumber } from './SampleValues/SampleNumber';
 
 export interface ISampleDataProps {
 	data?: IData;
@@ -59,8 +60,10 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 				return (<SampleBoolean value={value} onChanged={(newValue:any) => {this.props.update(rIndex, cIndex, newValue);}}/> );
 			case columnTypes.lookup:
 				return (<SampleLookup value={value} onChanged={(newValue:ILookupFieldValue) => {this.props.update(rIndex, cIndex, newValue);}}/>);
-				case columnTypes.link:
+			case columnTypes.link:
 				return (<SampleLink value={value} onChanged={(newValue:ILinkFieldValue) => {this.props.update(rIndex, cIndex, newValue);}}/>);
+			case columnTypes.number:
+				return (<SampleNumber value={value} onChanged={(newValue:number) => {this.props.update(rIndex, cIndex, newValue);}}/>);
 			default:
 				return (<SampleText value={value} onChanged={(newValue:any) => {this.props.update(rIndex, cIndex, newValue);}}/>);
 		}

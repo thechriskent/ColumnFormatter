@@ -40,6 +40,10 @@ export const initialState: IApplicationState = {
 			type: columnTypes.text
 		},
 		{
+			name: 'someNum',
+			type: columnTypes.number
+		},
+		{
 			name: 'someLink',
 			type: columnTypes.link
 		},
@@ -52,9 +56,9 @@ export const initialState: IApplicationState = {
 			type: columnTypes.boolean
 		}],
 		rows: [
-			["Dog", {URL:"http://google.com",desc:"Google"}, {lookupValue:"Main",lookupId:3}, false],
-			["Cat", {URL:"http://bing.com",desc:"Bing"}, {lookupValue:"West",lookupId:1}, true],
-			["Mouse", {URL:"https://thechriskent.com",desc:"Chris' Blog"}, {lookupValue:"East",lookupId:7}, true]
+			["Dog", 4, {URL:"http://google.com",desc:"Google"}, {lookupValue:"Main",lookupId:3}, false],
+			["Cat", -37, {URL:"http://bing.com",desc:"Bing"}, {lookupValue:"West",lookupId:1}, true],
+			["Mouse", 9.3478, {URL:"https://thechriskent.com",desc:"Chris' Blog"}, {lookupValue:"East",lookupId:7}, true]
 		]
 	}
 };
