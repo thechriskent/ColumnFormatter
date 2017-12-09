@@ -65,7 +65,7 @@ export class DataColumnHeader extends React.Component<IDataColumnHeaderProps, ID
 					 onDismiss={this.onTypeIconClick}>
 					 	<div className={styles.tbChoiceGroupOverride}>
 							<ChoiceGroup
-							 selectedKey={this.props.type}
+							 selectedKey={this.props.type.toString()}
 							 onChange={this.onTypeChange}
 							 options={[
 								this.optionForType(columnTypes.choice),
