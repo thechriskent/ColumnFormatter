@@ -4,8 +4,7 @@ export enum columnTypes {
 	choice,
 	person,
 	boolean,
-	hyperlink,
-	picture,
+	link,
 	datetime,
 	lookup
 }
@@ -13,6 +12,11 @@ export enum columnTypes {
 export interface ILookupFieldValue {
 	lookupValue: string;
 	lookupId: number;
+}
+
+export interface ILinkFieldValue {
+	URL: string;
+	desc: string;
 }
 
 export interface IColumn {
@@ -36,6 +40,10 @@ export const initialState: IApplicationState = {
 			type: columnTypes.text
 		},
 		{
+			name: 'someLink',
+			type: columnTypes.link
+		},
+		{
 			name: 'someLookup',
 			type: columnTypes.lookup
 		},
@@ -44,9 +52,9 @@ export const initialState: IApplicationState = {
 			type: columnTypes.boolean
 		}],
 		rows: [
-			["Dog", {lookupValue:"Main",lookupId:3}, false],
-			["Cat", {lookupValue:"West",lookupId:1}, true],
-			["Mouse", {lookupValue:"East",lookupId:7}, true]
+			["Dog", {URL:"http://google.com",desc:"Google"}, {lookupValue:"Main",lookupId:3}, false],
+			["Cat", {URL:"http://bing.com",desc:"Bing"}, {lookupValue:"West",lookupId:1}, true],
+			["Mouse", {URL:"https://thechriskent.com",desc:"Chris' Blog"}, {lookupValue:"East",lookupId:7}, true]
 		]
 	}
 };

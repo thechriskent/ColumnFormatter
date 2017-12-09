@@ -50,6 +50,8 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 				return (<span>{value ? "Yes" : "No"}</span>);
 			case columnTypes.lookup:
 				return (<span>{value.lookupValue}</span>);
+			case columnTypes.link:
+				return (<span>{value.URL}</span>);
 			default:
 				return (<span>{value}</span>);
 		}
