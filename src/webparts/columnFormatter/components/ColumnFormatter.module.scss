@@ -178,6 +178,16 @@
         border-left: 1px solid;
         border-color: $ms-color-themeLight;
       }
+
+      .subPropBox {
+        display: flex;
+        .mainBox {
+          flex-grow: 1;
+        }
+        .buttonBox {
+          width: 24px;
+        }
+      }
     }
   }
 }

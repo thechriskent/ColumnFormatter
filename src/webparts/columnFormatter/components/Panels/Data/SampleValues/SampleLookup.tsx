@@ -8,13 +8,25 @@ import { IButtonStyles } from 'office-ui-fabric-react/lib/Button';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { ILookupFieldValue } from '../../../../state/State';
 
+const propButtonStyles: Partial<IButtonStyles> = {
+	root: {
+		width: "14px",
+		height: "24px",
+		padding: "0"
+	},
+	icon: {
+		fontSize: "20px",
+		lineHeight: "20px"
+	}
+};
+
 const spinStyles: Partial<ISpinButtonStyles> = {
 	label: {
 		color: "white !important"
 	}
 };
 
-const buttonStyles: Partial<IButtonStyles> = {
+const sbuttonStyles: Partial<IButtonStyles> = {
 	root: {
 		backgroundColor: "white"
 	}
@@ -42,15 +54,23 @@ export class SampleLookup extends React.Component<ISampleLookupProps, ISampleLoo
 
 	public render(): React.ReactElement<ISampleLookupProps> {
 		return (
-		  <div ref={(container) => this._container = container!}>
-				<TextField value={this.props.value.lookupValue} onChanged={this.props.onChanged}/>
-				<IconButton iconProps={{iconName:'Emoji2'}} title="Sub Properties" onClick={this.subPropertiesButtonClick}/>
+		  <div className={styles.subPropBox} ref={(container) => this._container = container!}>
+				<div className={styles.mainBox}>
+					<TextField value={this.props.value.lookupValue} onChanged={this.props.onChanged}/>
+				</div>
+				<div className={styles.buttonBox}>
+					<IconButton
+					 iconProps={{iconName:'CaretHollow'}}
+					 title="Sub Properties"
+					 onClick={this.subPropertiesButtonClick}
+					 styles={propButtonStyles}/>
+				</div>
 				{this.state.subPropertiesVisible && (
 					<TeachingBubble
 					 targetElement={this._container}
 					 hasCloseIcon={true}
 					 hasCondensedHeadline={true}
-					 headline="Lookup Sub Properties"
+					 headline="Sub Properties"
 					 onDismiss={this.subPropertiesButtonClick}>
 						<SpinButton
 						 value={this.props.value.lookupId.toString()}
@@ -58,8 +78,8 @@ export class SampleLookup extends React.Component<ISampleLookupProps, ISampleLoo
 						 onIncrement={this.onLookupIdIncrement}
 						 onDecrement={this.onLookupIdDecrement}
 						 styles={spinStyles}
-						 upArrowButtonStyles={buttonStyles}
-						 downArrowButtonStyles={buttonStyles}/>
+						 upArrowButtonStyles={sbuttonStyles}
+						 downArrowButtonStyles={sbuttonStyles}/>
 					</TeachingBubble>
 				)}
 		  </div>
