@@ -44,6 +44,9 @@
           }
         }
       }
+      .Pane {
+        overflow: auto;
+      }
     }
   }
   .SplitPaneInTab {
@@ -56,6 +59,8 @@
 //***************
   :global{
     .react-tabs {
+      height: 100%;
+
       &__tab-list {
         //border-top: 1px solid;
         //border-top-color: $ms-color-neutralLight;
@@ -123,6 +128,7 @@
     
         &--selected {
           display: block;
+          height: calc(100% - 19px); //account for tabs
         }
       }
     }
@@ -133,7 +139,8 @@
 //***************
   .panel {
     padding:5px;
-    overflow: hidden;
+    overflow: auto;
+    height: calc(100% - 10px); //account for padding
 
     .panelHeader {
       font-weight: bold;
