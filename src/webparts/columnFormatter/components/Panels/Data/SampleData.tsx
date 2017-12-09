@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import {
 	IData, IApplicationState, IColumn, columnTypes,
-	ILookupFieldValue, ILinkFieldValue
+	ILookupFieldValue, ILinkFieldValue, IPersonFieldValue
 } from '../../../state/State';
 import { updateDataRow } from '../../../state/Actions';
 import { SampleText } from './SampleValues/SampleText';
@@ -12,6 +12,7 @@ import { SampleBoolean } from './SampleValues/SampleBoolean';
 import { SampleLookup } from './SampleValues/SampleLookup';
 import { SampleLink } from './SampleValues/SampleLink';
 import { SampleNumber } from './SampleValues/SampleNumber';
+import { SamplePerson } from './SampleValues/SamplePerson';
 
 export interface ISampleDataProps {
 	data?: IData;
@@ -64,6 +65,8 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 				return (<SampleLink value={value} onChanged={(newValue:ILinkFieldValue) => {this.props.update(rIndex, cIndex, newValue);}}/>);
 			case columnTypes.number:
 				return (<SampleNumber value={value} onChanged={(newValue:number) => {this.props.update(rIndex, cIndex, newValue);}}/>);
+			case columnTypes.person:
+				return (<SamplePerson value={value} onChanged={(newValue:IPersonFieldValue) => {this.props.update(rIndex, cIndex, newValue);}}/>);
 			default:
 				return (<SampleText value={value} onChanged={(newValue:any) => {this.props.update(rIndex, cIndex, newValue);}}/>);
 		}

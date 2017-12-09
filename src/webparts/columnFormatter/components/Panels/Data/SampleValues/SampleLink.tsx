@@ -66,7 +66,7 @@ export class SampleLink extends React.Component<ISampleLinkProps, ISampleLinkSta
 							 value={this.props.value.desc}
 							 onChanged={this.linkDescChanged}
 							 label="desc:"/>
-						 </div>
+						</div>
 					</TeachingBubble>
 				)}
 		  </div>
@@ -76,8 +76,8 @@ export class SampleLink extends React.Component<ISampleLinkProps, ISampleLinkSta
 	@autobind
 	private linkURLChanged(newValue: string): void {
 		this.props.onChanged({
-			URL: newValue,
-			desc: this.props.value.desc
+			...this.props.value,
+			URL: newValue
 		});
 	}
 
@@ -91,7 +91,7 @@ export class SampleLink extends React.Component<ISampleLinkProps, ISampleLinkSta
 	@autobind
 	private linkDescChanged(newValue: string): void {
 		this.props.onChanged({
-			URL: this.props.value.URL,
+			...this.props.value,
 			desc: newValue
 		});
 	}

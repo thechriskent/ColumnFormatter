@@ -26,7 +26,7 @@ export class SampleNumber extends React.Component<ISampleNumberProps, {}> {
 	private onValidate(value:string): string {
 		if(isNaN(+value)){
 			this.props.onChanged(0);
-			return "0"
+			return "0";
 		}
 		this.props.onChanged(+value);
 		return value;

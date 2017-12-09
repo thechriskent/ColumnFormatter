@@ -45,16 +45,25 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 	}
 
 	private previewElement(value:any, rIndex:number, cIndex:number): JSX.Element {
+		let translatedValue: string;
 		switch (this.props.columns[cIndex].type) {
 			case columnTypes.boolean:
-				return (<span>{value ? "Yes" : "No"}</span>);
+				translatedValue = value ? "Yes" : "No";
+				break;
 			case columnTypes.lookup:
-				return (<span>{value.lookupValue}</span>);
+				translatedValue = value.lookupValue;
+				break;
 			case columnTypes.link:
-				return (<span>{value.URL}</span>);
+				translatedValue = value.URL;
+				break;
+			case columnTypes.person:
+				translatedValue = value.title;
+				break;
 			default:
-				return (<span>{value}</span>);
+				translatedValue = value;
+				break;
 		}
+		return (<span>{translatedValue}</span>);
 	}
 }
 

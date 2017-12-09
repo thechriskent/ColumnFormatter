@@ -7,7 +7,7 @@ import { SpinButton, ISpinButtonStyles } from 'office-ui-fabric-react/lib/SpinBu
 import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
 import { IButtonStyles } from 'office-ui-fabric-react/lib/Button';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { ILookupFieldValue } from '../../../../state/State';
+import { IPersonFieldValue } from '../../../../state/State';
 
 const propButtonStyles: Partial<IButtonStyles> = {
 	root: {
@@ -36,16 +36,16 @@ const sbuttonStyles: Partial<IButtonStyles> = {
 	}
 };
 
-export interface ISampleLookupProps {
-	value: ILookupFieldValue;
-	onChanged: (newValue:ILookupFieldValue) => void;
+export interface ISamplePersonProps {
+	value: IPersonFieldValue;
+	onChanged: (newValue:IPersonFieldValue) => void;
 }
 
-export interface ISampleLookupState {
+export interface ISamplePersonState {
 	subPropertiesVisible: boolean;
 }
 
-export class SampleLookup extends React.Component<ISampleLookupProps, ISampleLookupState> {
+export class SamplePerson extends React.Component<ISamplePersonProps, ISamplePersonState> {
 	
 	private _container: HTMLElement;
 
@@ -56,13 +56,13 @@ export class SampleLookup extends React.Component<ISampleLookupProps, ISampleLoo
 		};
 	}
 
-	public render(): React.ReactElement<ISampleLookupProps> {
+	public render(): React.ReactElement<ISamplePersonProps> {
 		return (
 		  <div className={styles.subPropBox} ref={(container) => this._container = container!}>
 				<div className={styles.mainBox}>
 					<TextField
-					 value={this.props.value.lookupValue}
-					 onChanged={this.lookupValueChanged}/>
+					 value={this.props.value.title}
+					 onChanged={this.titleChanged}/>
 				</div>
 				<div className={styles.buttonBox}>
 					<IconButton
@@ -80,16 +80,34 @@ export class SampleLookup extends React.Component<ISampleLookupProps, ISampleLoo
 					 onDismiss={this.subPropertiesButtonClick}>
 					 	<div className={styles.tbSpinButtonOverride}>
 							<SpinButton
-							value={this.props.value.lookupId.toString()}
-							label="lookupId:"
+							value={this.props.value.id.toString()}
+							label="id:"
 							labelPosition={Position.top}
-							onValidate={this.onLookupIdValidate}
-							onIncrement={this.onLookupIdIncrement}
-							onDecrement={this.onLookupIdDecrement}
+							onValidate={this.onIdValidate}
+							onIncrement={this.onIdIncrement}
+							onDecrement={this.onIdDecrement}
 							styles={spinStyles}
 							upArrowButtonStyles={sbuttonStyles}
 							downArrowButtonStyles={sbuttonStyles}/>
 						 </div>
+						 <div className={styles.tbTextFieldOverride}>
+							<TextField
+							 value={this.props.value.email}
+							 onChanged={this.emailChanged}
+							 label="email:"/>
+						</div>
+						<div className={styles.tbTextFieldOverride}>
+							<TextField
+							 value={this.props.value.sip}
+							 onChanged={this.sipChanged}
+							 label="sip:"/>
+						</div>
+						<div className={styles.tbTextFieldOverride}>
+							<TextField
+							 value={this.props.value.picture}
+							 onChanged={this.pictureChanged}
+							 label="picture:"/>
+						</div>
 					</TeachingBubble>
 				)}
 		  </div>
@@ -97,10 +115,10 @@ export class SampleLookup extends React.Component<ISampleLookupProps, ISampleLoo
 	}
 
 	@autobind
-	private lookupValueChanged(newValue: string): void {
+	private titleChanged(newValue: string): void {
 		this.props.onChanged({
 			...this.props.value,
-			lookupValue: newValue
+			title: newValue
 		});
 	}
 
@@ -112,41 +130,65 @@ export class SampleLookup extends React.Component<ISampleLookupProps, ISampleLoo
 	}
 
 	@autobind
-	private onLookupIdValidate(value:string): string {
+	private onIdValidate(value:string): string {
 		if(isNaN(+value)){
 			this.props.onChanged({
 				...this.props.value,
-				lookupId: 1
+				id: 1
 			});
 			return "1";
 		}
 		this.props.onChanged({
 			...this.props.value,
-			lookupId: +value
+			id: +value
 		});
 		return value;
 	}
 
 	@autobind
-	private onLookupIdIncrement(value:string): string {
+	private onIdIncrement(value:string): string {
 		let newValue: number = +value + 1;
 		this.props.onChanged({
 			...this.props.value,
-			lookupId: newValue
+			id: newValue
 		});
 		return newValue.toString();
 	}
 
 	@autobind
-	private onLookupIdDecrement(value:string): string {
+	private onIdDecrement(value:string): string {
 		let newValue: number = +value - 1;
 		if(newValue < 1) {
 			newValue = 1;
 		}
 		this.props.onChanged({
 			...this.props.value,
-			lookupId: newValue
+			id: newValue
 		});
 		return newValue.toString();
+	}
+
+	@autobind
+	private emailChanged(newValue: string): void {
+		this.props.onChanged({
+			...this.props.value,
+			email: newValue
+		});
+	}
+
+	@autobind
+	private sipChanged(newValue: string): void {
+		this.props.onChanged({
+			...this.props.value,
+			sip: newValue
+		});
+	}
+
+	@autobind
+	private pictureChanged(newValue: string): void {
+		this.props.onChanged({
+			...this.props.value,
+			picture: newValue
+		});
 	}
 }
