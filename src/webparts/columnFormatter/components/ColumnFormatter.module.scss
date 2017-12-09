@@ -186,7 +186,7 @@
         border-color: $ms-color-themeLight;
       }
 
-      .subPropBox {
+      .propAndButtonBox {
         display: flex;
         .mainBox {
           flex-grow: 1;
@@ -207,5 +207,41 @@
 .tbTextFieldOverride {
   label {
     color: white;
+  }
+}
+.tbChoiceGroupOverride {
+  margin-top: 8px;
+  
+  :global {
+    .ms-ChoiceField--icon {
+      height: 64px;
+      width: 64px;
+
+      .ms-ChoiceField-field {
+        min-width: 64px;
+        padding-top: 20px;
+
+        &::before{
+          width: 13px;
+          height: 13px;
+        }
+
+        .ms-ChoiceField-innerField {
+          padding: 0;
+
+          .ms-ChoiceField-iconWrapper {
+            font-size: 22px;
+            line-height: 18px;
+            height: 18px;
+          }
+        }
+
+        .ms-ChoiceField-labelWrapper {
+          .ms-Label {
+            font-size: 11px;
+          }
+        }
+      }
+    }
   }
 }

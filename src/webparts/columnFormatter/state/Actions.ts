@@ -1,11 +1,15 @@
+import { columnTypes } from './State';
+
 export type ActionTypes = 
 	| IUpdateDataRowAction
 	| IUpdateDataColumnNameAction
+	| IUpdateDataColumnTypeAction
 	| IOtherAction;
 
 export enum typeKeys {
 	UPDATE_DATA_ROW = "UPDATE_DATA_ROW",
 	UPDATE_DATA_COLUMN_NAME = "UPDATE_DATA_COLUMN_NAME",
+	UPDATE_DATA_COLUMN_TYPE = "UPDATE_DATA_COLUMN_TYPE",
 	ADD_DATA_ROW = "ADD_DATA_ROW",
 	REMOVE_DATA_ROW = "REMOVE_DATA_ROW",
 	ADD_DATA_COLUMN = "ADD_DATA_COLUMN",
@@ -37,6 +41,18 @@ export const updateDataColumnName = (colIndex: number, name: string): IUpdateDat
 	type: typeKeys.UPDATE_DATA_COLUMN_NAME,
 	colIndex,
 	name
+});
+
+export interface IUpdateDataColumnTypeAction {
+	type: typeKeys.UPDATE_DATA_COLUMN_TYPE;
+	colIndex: number;
+	colType: columnTypes;
+}
+
+export const updateDataColumnType = (colIndex: number, colType: columnTypes): IUpdateDataColumnTypeAction => ({
+	type: typeKeys.UPDATE_DATA_COLUMN_TYPE,
+	colIndex,
+	colType
 });
 
 export interface IOtherAction {

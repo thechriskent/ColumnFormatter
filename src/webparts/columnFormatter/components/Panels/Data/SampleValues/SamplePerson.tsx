@@ -47,7 +47,7 @@ export class SamplePerson extends React.Component<ISamplePersonProps, ISamplePer
 
 	public render(): React.ReactElement<ISamplePersonProps> {
 		return (
-		  <div className={styles.subPropBox} ref={(container) => this._container = container!}>
+		  <div className={styles.propAndButtonBox} ref={(container) => this._container = container!}>
 				<div className={styles.mainBox}>
 					<TextField
 					 value={this.props.value.title}

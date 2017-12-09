@@ -22,7 +22,17 @@ export const dataReducer = (state:IApplicationState = initialState, action:Actio
 					...newState.data.columns[action.colIndex],
 					name: action.name
 				},
-				...newState.data.columns.slice(action.colIndex)
+				...newState.data.columns.slice(action.colIndex+1)
+			];
+			return newState;
+		case typeKeys.UPDATE_DATA_COLUMN_TYPE:
+			newState.data.columns = [
+				...newState.data.columns.slice(0,action.colIndex),
+				{
+					...newState.data.columns[action.colIndex],
+					type: action.colType
+				},
+				...newState.data.columns.slice(action.colIndex+1)
 			];
 			return newState;
 		default:

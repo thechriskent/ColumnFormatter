@@ -29,7 +29,7 @@ export class SampleLink extends React.Component<ISampleLinkProps, ISampleLinkSta
 
 	public render(): React.ReactElement<ISampleLinkProps> {
 		return (
-		  <div className={styles.subPropBox} ref={(container) => this._container = container!}>
+		  <div className={styles.propAndButtonBox} ref={(container) => this._container = container!}>
 				<div className={styles.mainBox}>
 					<TextField
 					 value={this.props.value.URL}

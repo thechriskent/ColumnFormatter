@@ -5,6 +5,7 @@ export enum columnTypes {
 	person,
 	boolean,
 	link,
+	picture,
 	datetime,
 	lookup
 }

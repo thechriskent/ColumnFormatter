@@ -6,7 +6,7 @@ import {
 	IData, IApplicationState, IColumn, columnTypes,
 	ILookupFieldValue, ILinkFieldValue, IPersonFieldValue
 } from '../../../state/State';
-import { updateDataRow, updateDataColumnName } from '../../../state/Actions';
+import { updateDataRow, updateDataColumnName, updateDataColumnType } from '../../../state/Actions';
 import { DataColumnHeader } from './DataColumnHeader';
 import { SampleText } from './SampleValues/SampleText';
 import { SampleBoolean } from './SampleValues/SampleBoolean';
@@ -19,6 +19,7 @@ export interface ISampleDataProps {
 	data?: IData;
 	updateRow?: (rowIndex:number, colIndex:number, value:any) => void;
 	updateColumnName?: (colIndex:number, name:string) => void;
+	updateColumnType?: (colIndex:number, colType:columnTypes) => void;
 }
 
 class SampleData_ extends React.Component<ISampleDataProps, {}> {
@@ -35,7 +36,9 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 										{index > 0 && (
 											<DataColumnHeader
 											 name={column.name}
-											 onNameChanged={(newValue:string): void => {this.props.updateColumnName(index,newValue);}}/>
+											 type={column.type}
+											 onNameChanged={(newValue:string): void => {this.props.updateColumnName(index,newValue);}}
+											 onTypeChanged={(newValue:columnTypes): void => {this.props.updateColumnType(index,newValue);}}/>
 										)}
 									</td>
 								);
@@ -68,7 +71,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 				return (<SampleBoolean value={value} onChanged={(newValue:any) => {this.props.updateRow(rIndex, cIndex, newValue);}}/> );
 			case columnTypes.lookup:
 				return (<SampleLookup value={value} onChanged={(newValue:ILookupFieldValue) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
-			case columnTypes.link:
+			case columnTypes.link || columnTypes.picture:
 				return (<SampleLink value={value} onChanged={(newValue:ILinkFieldValue) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
 			case columnTypes.number:
 				return (<SampleNumber value={value} onChanged={(newValue:number) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
@@ -93,6 +96,9 @@ function mapDispatchToProps(dispatch: Dispatch<ISampleDataProps>): ISampleDataPr
 		},
 		updateColumnName: (colIndex:number, name:string) => {
 			dispatch(updateDataColumnName(colIndex, name));
+		},
+		updateColumnType: (colIndex:number, colType:columnTypes) => {
+			dispatch(updateDataColumnType(colIndex, colType));
 		}
 	};
 }

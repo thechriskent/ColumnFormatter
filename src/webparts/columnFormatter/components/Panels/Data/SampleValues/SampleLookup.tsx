@@ -44,7 +44,7 @@ export class SampleLookup extends React.Component<ISampleLookupProps, ISampleLoo
 
 	public render(): React.ReactElement<ISampleLookupProps> {
 		return (
-		  <div className={styles.subPropBox} ref={(container) => this._container = container!}>
+		  <div className={styles.propAndButtonBox} ref={(container) => this._container = container!}>
 				<div className={styles.mainBox}>
 					<TextField
 					 value={this.props.value.lookupValue}

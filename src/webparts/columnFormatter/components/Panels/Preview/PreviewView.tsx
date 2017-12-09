@@ -53,7 +53,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 			case columnTypes.lookup:
 				translatedValue = value.lookupValue;
 				break;
-			case columnTypes.link:
+			case columnTypes.link || columnTypes.picture:
 				translatedValue = value.URL;
 				break;
 			case columnTypes.person:
