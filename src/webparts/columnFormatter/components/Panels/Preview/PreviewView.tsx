@@ -1,9 +1,10 @@
 import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
 import { connect } from 'react-redux';
-import { IData, IApplicationState } from '../../../state/State';
+import { IData, IApplicationState, IColumn, columnTypes } from '../../../state/State';
 
 export interface IPreviewViewProps {
+	columns: Array<IColumn>;
 	rows: Array<Array<any>>;
 }
 
@@ -12,6 +13,17 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		return (
 		  <div>
 				<table>
+					<thead>
+						<tr>
+							{this.props.columns.map((column:IColumn, index:number) => {
+								return (
+									<td key={index}>
+										{column.name}
+									</td>
+								);
+							})}
+						</tr>
+					</thead>
 					<tbody>
 					{this.props.rows.map((row:Array<any>, rIndex:number) => {
 						return (
@@ -19,7 +31,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 								{row.map((value:any, cIndex:number) =>{
 									return (
 										<td key={cIndex}>
-											{value}
+											{this.previewElement(value,rIndex,cIndex)}
 										</td>
 									);
 								})}
@@ -31,10 +43,20 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		  </div>
 		);
 	}
+
+	private previewElement(value:any, rIndex:number, cIndex:number): JSX.Element {
+		switch (this.props.columns[cIndex].type) {
+			case columnTypes.boolean:
+				return (<span>{value ? "Yes" : "No"}</span>);
+			default:
+				return (<span>{value}</span>);
+		}
+	}
 }
 
 function mapStateToProps(state: IApplicationState): IPreviewViewProps{
 	return {
+		columns: state.data.columns,
 		rows: state.data.rows
 	};
 }

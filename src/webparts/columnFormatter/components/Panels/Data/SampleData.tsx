@@ -2,10 +2,10 @@ import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { IData, IApplicationState } from '../../../state/State';
+import { IData, IApplicationState, IColumn, columnTypes } from '../../../state/State';
 import { updateDataRow } from '../../../state/Actions';
 import { SampleText } from './SampleValues/SampleText';
-//import { IApplicationState } from '../../../../../../lib/webparts/columnFormatter/state/State';
+import { SampleBoolean } from './SampleValues/SampleBoolean';
 
 export interface ISampleDataProps {
 	data?: IData;
@@ -14,22 +14,20 @@ export interface ISampleDataProps {
 
 class SampleData_ extends React.Component<ISampleDataProps, {}> {
 	public render(): React.ReactElement<ISampleDataProps> {
-		/*let data = {
-			columns: [
-				{
-					name:'currentField',
-					type: 'person' //eventually an enum
-				}
-			],
-			rows: [
-				["Bugs Bunny", 4],
-				["Porky Pig", 2],
-				["Daffy Duck", 16]
-			]
-		};*/
 		return (
 		  <div>
-				<table>
+				<table className={styles.dataTable} cellPadding={0} cellSpacing={0}>
+					<thead>
+						<tr>
+							{this.props.data.columns.map((column:IColumn, index:number) => {
+								return (
+									<td key={index}>
+										{column.name}
+									</td>
+								);
+							})}
+						</tr>
+					</thead>
 					<tbody>
 					{this.props.data.rows.map((row:Array<any>, rIndex:number) => {
 						return (
@@ -37,7 +35,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 								{row.map((value:any, cIndex:number) =>{
 									return (
 										<td key={cIndex}>
-											<SampleText value={value} onChanged={(newValue:any)=>{this.props.update(rIndex,cIndex,newValue);}}/>
+											{this.sampleElement(value, rIndex, cIndex)}
 										</td>
 									);
 								})}
@@ -48,6 +46,15 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 				</table>
 		  </div>
 		);
+	}
+
+	private sampleElement(value:any, rIndex:number, cIndex:number): JSX.Element {
+		switch (this.props.data.columns[cIndex].type) {
+			case columnTypes.boolean:
+				return (<SampleBoolean value={value} onChanged={(newValue:any) => {this.props.update(rIndex, cIndex, newValue);}}/> );
+			default:
+				return (<SampleText value={value} onChanged={(newValue:any) => {this.props.update(rIndex, cIndex, newValue);}}/>);
+		}
 	}
 }
 

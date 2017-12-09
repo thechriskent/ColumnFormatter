@@ -137,5 +137,46 @@
     .panelHeader {
       font-weight: bold;
     }
+
+    .dataTable {
+      margin:4px;
+      border-collapse: collapse;
+      border: 1px solid;
+      border-color: $ms-color-themeLight;
+
+      :global{
+        .ms-TextField {
+          margin-bottom: 0;
+          padding: 1px;
+
+          input {
+            padding:0 6px 0 6px;
+          }
+        }
+        .ms-TextField-fieldGroup {
+          height:26px;
+        }
+
+        .ms-Toggle {
+          margin-bottom: 0;
+          padding: 1px;
+
+          .ms-Toggle-innerContainer{
+            vertical-align: middle;
+          }
+        }
+      }
+
+      thead td {
+        background-color: $ms-color-themeLighter;
+        border-bottom: 1px solid;
+        border-color: $ms-color-themeLight;
+      }
+      tbody td {
+        border-right: 1px solid;
+        border-left: 1px solid;
+        border-color: $ms-color-themeLight;
+      }
+    }
   }
 }

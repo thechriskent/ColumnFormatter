@@ -29,11 +29,15 @@ export const initialState: IApplicationState = {
 		columns: [{
 			name: 'currentField',
 			type: columnTypes.text
+		},
+		{
+			name: 'someBool',
+			type: columnTypes.boolean
 		}],
 		rows: [
-			["Dog"],
-			["Cat"],
-			["Mouse"]
+			["Dog", false],
+			["Cat", true],
+			["Mouse", true]
 		]
 	}
 };
