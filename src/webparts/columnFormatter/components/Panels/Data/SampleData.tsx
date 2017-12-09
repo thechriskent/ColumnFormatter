@@ -16,7 +16,8 @@ import { SampleNumber } from './SampleValues/SampleNumber';
 import { SamplePerson } from './SampleValues/SamplePerson';
 
 export interface ISampleDataProps {
-	data?: IData;
+	columns?: Array<IColumn>;
+	rows?: Array<Array<any>>;
 	updateRow?: (rowIndex:number, colIndex:number, value:any) => void;
 	updateColumnName?: (colIndex:number, name:string) => void;
 	updateColumnType?: (colIndex:number, colType:columnTypes) => void;
@@ -29,7 +30,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 				<table className={styles.dataTable} cellPadding={0} cellSpacing={0}>
 					<thead>
 						<tr>
-							{this.props.data.columns.map((column:IColumn, index:number) => {
+							{this.props.columns.map((column:IColumn, index:number) => {
 								return (
 									<td key={index}>
 										{index == 0 && (<span>{column.name}</span>)}
@@ -46,7 +47,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 						</tr>
 					</thead>
 					<tbody>
-					{this.props.data.rows.map((row:Array<any>, rIndex:number) => {
+					{this.props.rows.map((row:Array<any>, rIndex:number) => {
 						return (
 							<tr key={rIndex}>
 								{row.map((value:any, cIndex:number) =>{
@@ -66,7 +67,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 	}
 
 	private sampleElement(value:any, rIndex:number, cIndex:number): JSX.Element {
-		switch (this.props.data.columns[cIndex].type) {
+		switch (this.props.columns[cIndex].type) {
 			case columnTypes.boolean:
 				return (<SampleBoolean value={value} onChanged={(newValue:any) => {this.props.updateRow(rIndex, cIndex, newValue);}}/> );
 			case columnTypes.lookup:
@@ -85,7 +86,8 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 
 function mapStateToProps(state: IApplicationState): ISampleDataProps{
 	return {
-		data: state.data
+		columns: state.data.columns,
+		rows: state.data.rows
 	};
 }
 
