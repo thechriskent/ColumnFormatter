@@ -6,7 +6,8 @@ import {
 	IData, IApplicationState, IColumn, columnTypes,
 	ILookupFieldValue, ILinkFieldValue, IPersonFieldValue
 } from '../../../state/State';
-import { updateDataRow } from '../../../state/Actions';
+import { updateDataRow, updateDataColumnName } from '../../../state/Actions';
+import { DataColumnHeader } from './DataColumnHeader';
 import { SampleText } from './SampleValues/SampleText';
 import { SampleBoolean } from './SampleValues/SampleBoolean';
 import { SampleLookup } from './SampleValues/SampleLookup';
@@ -16,7 +17,8 @@ import { SamplePerson } from './SampleValues/SamplePerson';
 
 export interface ISampleDataProps {
 	data?: IData;
-	update?: (rowIndex:number, colIndex:number, value:any) => void;
+	updateRow?: (rowIndex:number, colIndex:number, value:any) => void;
+	updateColumnName?: (colIndex:number, name:string) => void;
 }
 
 class SampleData_ extends React.Component<ISampleDataProps, {}> {
@@ -29,7 +31,12 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 							{this.props.data.columns.map((column:IColumn, index:number) => {
 								return (
 									<td key={index}>
-										{column.name}
+										{index == 0 && (<span>{column.name}</span>)}
+										{index > 0 && (
+											<DataColumnHeader
+											 name={column.name}
+											 onNameChanged={(newValue:string): void => {this.props.updateColumnName(index,newValue);}}/>
+										)}
 									</td>
 								);
 							})}
@@ -58,17 +65,17 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 	private sampleElement(value:any, rIndex:number, cIndex:number): JSX.Element {
 		switch (this.props.data.columns[cIndex].type) {
 			case columnTypes.boolean:
-				return (<SampleBoolean value={value} onChanged={(newValue:any) => {this.props.update(rIndex, cIndex, newValue);}}/> );
+				return (<SampleBoolean value={value} onChanged={(newValue:any) => {this.props.updateRow(rIndex, cIndex, newValue);}}/> );
 			case columnTypes.lookup:
-				return (<SampleLookup value={value} onChanged={(newValue:ILookupFieldValue) => {this.props.update(rIndex, cIndex, newValue);}}/>);
+				return (<SampleLookup value={value} onChanged={(newValue:ILookupFieldValue) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
 			case columnTypes.link:
-				return (<SampleLink value={value} onChanged={(newValue:ILinkFieldValue) => {this.props.update(rIndex, cIndex, newValue);}}/>);
+				return (<SampleLink value={value} onChanged={(newValue:ILinkFieldValue) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
 			case columnTypes.number:
-				return (<SampleNumber value={value} onChanged={(newValue:number) => {this.props.update(rIndex, cIndex, newValue);}}/>);
+				return (<SampleNumber value={value} onChanged={(newValue:number) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
 			case columnTypes.person:
-				return (<SamplePerson value={value} onChanged={(newValue:IPersonFieldValue) => {this.props.update(rIndex, cIndex, newValue);}}/>);
+				return (<SamplePerson value={value} onChanged={(newValue:IPersonFieldValue) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
 			default:
-				return (<SampleText value={value} onChanged={(newValue:any) => {this.props.update(rIndex, cIndex, newValue);}}/>);
+				return (<SampleText value={value} onChanged={(newValue:string) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
 		}
 	}
 }
@@ -81,8 +88,11 @@ function mapStateToProps(state: IApplicationState): ISampleDataProps{
 
 function mapDispatchToProps(dispatch: Dispatch<ISampleDataProps>): ISampleDataProps{
 	return {
-		update: (rowIndex:number, colIndex:number, value: any) => {
+		updateRow: (rowIndex:number, colIndex:number, value: any) => {
 			dispatch(updateDataRow(rowIndex, colIndex, value));
+		},
+		updateColumnName: (colIndex:number, name:string) => {
+			dispatch(updateDataColumnName(colIndex, name));
 		}
 	};
 }
