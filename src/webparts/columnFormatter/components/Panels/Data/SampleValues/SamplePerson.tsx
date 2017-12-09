@@ -8,18 +8,7 @@ import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
 import { IButtonStyles } from 'office-ui-fabric-react/lib/Button';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { IPersonFieldValue } from '../../../../state/State';
-
-const propButtonStyles: Partial<IButtonStyles> = {
-	root: {
-		width: "14px",
-		height: "24px",
-		padding: "0"
-	},
-	icon: {
-		fontSize: "20px",
-		lineHeight: "20px"
-	}
-};
+import { SubPropsButton } from './SubPropsButton';
 
 const spinStyles: Partial<ISpinButtonStyles> = {
 	label: {
@@ -65,11 +54,8 @@ export class SamplePerson extends React.Component<ISamplePersonProps, ISamplePer
 					 onChanged={this.titleChanged}/>
 				</div>
 				<div className={styles.buttonBox}>
-					<IconButton
-					 iconProps={{iconName:'CaretHollow'}}
-					 title="Sub Properties"
-					 onClick={this.subPropertiesButtonClick}
-					 styles={propButtonStyles}/>
+					<SubPropsButton
+					 onClick={this.subPropertiesButtonClick}/>
 				</div>
 				{this.state.subPropertiesVisible && (
 					<TeachingBubble

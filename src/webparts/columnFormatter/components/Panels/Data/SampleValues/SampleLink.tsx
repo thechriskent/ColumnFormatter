@@ -3,21 +3,9 @@ import styles from '../../../ColumnFormatter.module.scss';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
-import { IButtonStyles } from 'office-ui-fabric-react/lib/Button';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { ILinkFieldValue } from '../../../../state/State';
-
-const propButtonStyles: Partial<IButtonStyles> = {
-	root: {
-		width: "14px",
-		height: "24px",
-		padding: "0"
-	},
-	icon: {
-		fontSize: "20px",
-		lineHeight: "20px"
-	}
-};
+import { SubPropsButton } from './SubPropsButton';
 
 export interface ISampleLinkProps {
 	value: ILinkFieldValue;
@@ -48,11 +36,8 @@ export class SampleLink extends React.Component<ISampleLinkProps, ISampleLinkSta
 					 onChanged={this.linkURLChanged}/>
 				</div>
 				<div className={styles.buttonBox}>
-					<IconButton
-					 iconProps={{iconName:'CaretHollow'}}
-					 title="Sub Properties"
-					 onClick={this.subPropertiesButtonClick}
-					 styles={propButtonStyles}/>
+					<SubPropsButton
+					 onClick={this.subPropertiesButtonClick}/>
 				</div>
 				{this.state.subPropertiesVisible && (
 					<TeachingBubble

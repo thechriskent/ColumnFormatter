@@ -5,13 +5,17 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 
 const spinStyles: Partial<ISpinButtonStyles> = {
 	root: {
-		minWidth: "46px"
+		minWidth: "46px",
+		padding: "1px"
 	},
 	spinButtonWrapper: {
-		minWidth: "46px"
+		minWidth: "46px",
+		padding: "1px",
+		height: "22px"
 	},
 	input:{
-		minWidth: "32px"
+		minWidth: "32px",
+		padding: "0 6px 0 6px"
 	}
 };
 

@@ -1,0 +1,32 @@
+import * as React from 'react';
+import styles from '../../../ColumnFormatter.module.scss';
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { IButtonStyles } from 'office-ui-fabric-react/lib/Button';
+
+const propButtonStyles: Partial<IButtonStyles> = {
+	root: {
+		width: "14px",
+		height: "24px",
+		padding: "0"
+	},
+	icon: {
+		fontSize: "12px",
+		lineHeight: "21px"
+	}
+};
+
+export interface ISubPropsButtonProps {
+	onClick: () => void;
+}
+
+export class SubPropsButton extends React.Component<ISubPropsButtonProps, {}> {
+	public render(): React.ReactElement<ISubPropsButtonProps> {
+		return (
+			<IconButton
+			 iconProps={{iconName:'CustomList'}}
+			 title="Sub Properties"
+			 onClick={this.props.onClick}
+			 styles={propButtonStyles}/>
+		);
+	}
+}
