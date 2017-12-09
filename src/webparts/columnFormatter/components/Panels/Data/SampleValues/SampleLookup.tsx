@@ -24,9 +24,6 @@ const propButtonStyles: Partial<IButtonStyles> = {
 const spinStyles: Partial<ISpinButtonStyles> = {
 	label: {
 		color: "white !important"
-	},
-	labelWrapper: {
-		marginBottom: "0"
 	}
 };
 

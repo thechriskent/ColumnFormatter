@@ -1,7 +1,19 @@
 import * as React from 'react';
 import styles from '../../../ColumnFormatter.module.scss';
-import { SpinButton } from 'office-ui-fabric-react/lib/SpinButton';
+import { SpinButton, ISpinButtonStyles } from 'office-ui-fabric-react/lib/SpinButton';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+
+const spinStyles: Partial<ISpinButtonStyles> = {
+	root: {
+		minWidth: "46px"
+	},
+	spinButtonWrapper: {
+		minWidth: "46px"
+	},
+	input:{
+		minWidth: "32px"
+	}
+};
 
 export interface ISampleNumberProps {
 	value: number;
@@ -12,12 +24,13 @@ export class SampleNumber extends React.Component<ISampleNumberProps, {}> {
 	public render(): React.ReactElement<ISampleNumberProps> {
 		return (
 		  <div>
-				<SpinButton
-				 label=""
-				 value={this.props.value.toString()}
-				 onValidate={this.onValidate}
-				 onIncrement={this.onIncrement}
-				 onDecrement={this.onDecrement} />
+			<SpinButton
+			  label=""
+			  styles={spinStyles}
+			  value={this.props.value.toString()}
+			  onValidate={this.onValidate}
+			  onIncrement={this.onIncrement}
+			  onDecrement={this.onDecrement} />
 		  </div>
 		);
 	}

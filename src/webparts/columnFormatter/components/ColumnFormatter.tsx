@@ -52,8 +52,8 @@ export default class ColumnFormatter extends React.Component<IColumnFormatterPro
           split="vertical"
           className={styles.SplitPane}
           size={185}
-          minSize={100}
-          maxSize={-200}>
+          minSize={185}
+          maxSize={-204}>
             <ColumnFormatterPropertyPane/>
             <ColumnFormatterViewPane/>
           </SplitPane>
