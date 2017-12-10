@@ -1,9 +1,19 @@
-import { IApplicationState, initialState } from "./State";
+import { IApplicationState, initialState, columnTypes } from "./State";
 import { ActionTypes, typeKeys } from "./Actions";
 import { clone } from '@microsoft/sp-lodash-subset';
+import { generateRowValue } from './ValueGeneration';
 
 export const dataReducer = (state:IApplicationState = initialState, action:ActionTypes): IApplicationState => {
 	let newState:IApplicationState = clone(state);
+
+	/*console.log(generateRowValue(columnTypes.text));
+	console.log(generateRowValue(columnTypes.person));
+	console.log(generateRowValue(columnTypes.number));
+	console.log(generateRowValue(columnTypes.datetime));
+	console.log(generateRowValue(columnTypes.lookup));
+	console.log(generateRowValue(columnTypes.link));
+	console.log(generateRowValue(columnTypes.picture));
+	console.log(generateRowValue(columnTypes.boolean));*/
 
 	switch (action.type) {
 		case typeKeys.UPDATE_DATA_ROW:
