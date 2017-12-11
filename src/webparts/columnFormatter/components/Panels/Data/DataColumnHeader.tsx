@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
+import * as strings from 'ColumnFormatterWebPartStrings';
 import { columnTypes } from '../../../state/State';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { IconButton, IButtonStyles } from 'office-ui-fabric-react/lib/Button';
@@ -61,7 +62,7 @@ export class DataColumnHeader extends React.Component<IDataColumnHeaderProps, ID
 					 targetElement={this._container}
 					 hasCloseIcon={true}
 					 hasCondensedHeadline={true}
-					 headline="Column Type"
+					 headline={strings.ColumnTypeHeadline}
 					 onDismiss={this.onTypeIconClick}>
 					 	<div className={styles.tbChoiceGroupOverride}>
 							<ChoiceGroup
@@ -113,25 +114,25 @@ export class DataColumnHeader extends React.Component<IDataColumnHeaderProps, ID
 	private textForType(type:columnTypes): string {
 		switch(type){
 			case columnTypes.boolean:
-				return 'Yes/No';
+				return strings.ColumnTypeBoolean;
 			case columnTypes.choice:
-				return 'Choice';
+				return strings.ColumnTypeChoice;
 			case columnTypes.datetime:
-				return 'Date/Time';
+				return strings.ColumnTypeDateTime;
 			case columnTypes.link:
-				return 'Hyperlink';
+				return strings.ColumnTypeLink;
 			case columnTypes.picture:
-				return 'Picture';
+				return strings.ColumnTypePicture;
 			case columnTypes.lookup:
-				return 'Lookup';
+				return strings.ColumnTypeLookup;
 			case columnTypes.number:
-				return 'Number';
+				return strings.ColumnTypeNumber;
 			case columnTypes.person:
-				return 'Person';
+				return strings.ColumnTypePerson;
 			case columnTypes.text:
-				return 'Text';
+				return strings.ColumnTypeText;
 			default:
-				return 'Unknown';
+				return strings.ColumnTypeUnknown;
 		}
 	}
 
