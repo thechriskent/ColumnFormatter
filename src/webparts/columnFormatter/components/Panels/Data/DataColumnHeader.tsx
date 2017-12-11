@@ -2,11 +2,23 @@ import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
 import { columnTypes } from '../../../state/State';
+import { Icon, IIconStyles } from 'office-ui-fabric-react/lib/Icon';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { IconButton, IButtonStyles } from 'office-ui-fabric-react/lib/Button';
 import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+
+const iconStyles: Partial<IIconStyles> = {
+	root: {
+		width: "14px",
+		height: "100%",
+		padding: "0",
+		fontSize: "12px",
+		lineHeight: "21px",
+		cursor: "default"
+	}
+};
 
 const buttonStyles: Partial<IButtonStyles> = {
 	root: {
@@ -23,6 +35,7 @@ const buttonStyles: Partial<IButtonStyles> = {
 export interface IDataColumnHeaderProps {
 	name: string;
 	type: columnTypes;
+	editable: boolean;
 	onNameChanged: (newValue:string) => void;
 	onTypeChanged: (newValue:columnTypes) => void;
 }
@@ -46,16 +59,29 @@ export class DataColumnHeader extends React.Component<IDataColumnHeaderProps, ID
 		return (
 			<div className={styles.propAndButtonBox} ref={(container) => this._container = container!}>
 				<div className={styles.mainBox}>
-					<TextField
-					value={this.props.name}
-					onChanged={this.props.onNameChanged}/>
+					{!this.props.editable && (
+						<span>{this.props.name}</span>
+					)}
+					{this.props.editable && (
+						<TextField
+						 value={this.props.name}
+						 onChanged={this.props.onNameChanged}/>
+					)}
 				</div>
 				<div className={styles.buttonBox}>
-				<IconButton
-				 iconProps={{iconName:this.iconForType(this.props.type)}}
-				 title={this.textForType(this.props.type)}
-				 onClick={this.onTypeIconClick}
-				 styles={buttonStyles}/>
+					{!this.props.editable && (
+						<Icon
+						 iconName={this.iconForType(this.props.type)}
+						 title={this.textForType(this.props.type)}
+						 styles={iconStyles}/>
+					)}
+					{this.props.editable && (
+						<IconButton
+						 iconProps={{iconName:this.iconForType(this.props.type)}}
+						 title={this.textForType(this.props.type)}
+						 onClick={this.onTypeIconClick}
+						 styles={buttonStyles}/>
+					)}
 				</div>
 				{this.state.typeChooserVisible && (
 					<TeachingBubble

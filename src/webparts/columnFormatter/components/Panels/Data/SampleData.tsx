@@ -48,18 +48,16 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 				<table className={styles.dataTable} cellPadding={0} cellSpacing={0}>
 					<thead>
 						<tr>
-							{this.props.rows.length > 1 && (<td>&nbsp;</td>)}
+							{this.props.rows.length > 1 && (<td className={styles.removeButton}>&nbsp;</td>)}
 							{this.props.columns.map((column:IColumn, index:number) => {
 								return (
 									<td key={index}>
-										{index == 0 && (<span>{column.name}</span>)}
-										{index > 0 && (
-											<DataColumnHeader
-											 name={column.name}
-											 type={column.type}
-											 onNameChanged={(newValue:string): void => {this.props.updateColumnName(index,newValue);}}
-											 onTypeChanged={(newValue:columnTypes): void => {this.props.updateColumnType(index,newValue);}}/>
-										)}
+										<DataColumnHeader
+										 name={column.name}
+										 type={column.type}
+										 editable={index > 0}
+										 onNameChanged={(newValue:string): void => {this.props.updateColumnName(index,newValue);}}
+										 onTypeChanged={(newValue:columnTypes): void => {this.props.updateColumnType(index,newValue);}}/>
 									</td>
 								);
 							})}

@@ -140,7 +140,8 @@
   .panel {
     padding:5px;
     overflow: auto;
-    height: calc(100% - 10px); //account for padding
+    height: 100%;
+    box-sizing: border-box;
 
     .panelHeader {
       font-weight: bold;
@@ -180,6 +181,11 @@
         background-color: $ms-color-themeLighter;
         border-bottom: 1px solid;
         border-color: $ms-color-themeLight;
+        min-width: 100px;
+
+        span {
+          font-style: italic;
+        }
       }
       tbody td {
         border: 1px solid;
@@ -192,12 +198,13 @@
           flex-grow: 1;
         }
         .buttonBox {
-          width: 24px;
+          width: 14px;
         }
       }
 
       .removeButton {
         text-align: center;
+        min-width: 24px;
 
         i {
           color: $ms-color-redDark;
@@ -209,7 +216,8 @@
 
       .addButton {
         text-align: center;
-        
+        min-width: 24px;
+
         i {
           color: $ms-color-themeDarkAlt;
           &:hover{
