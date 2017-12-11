@@ -195,6 +195,28 @@
           width: 24px;
         }
       }
+
+      .removeButton {
+        text-align: center;
+
+        i {
+          color: $ms-color-redDark;
+          &:hover{
+            color: $ms-color-red;
+          }
+        }
+      }
+
+      .addButton {
+        text-align: center;
+        
+        i {
+          color: $ms-color-themeDarkAlt;
+          &:hover{
+            color: $ms-color-themePrimary;
+          }
+        }
+      }
     }
   }
 }

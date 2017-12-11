@@ -18,7 +18,7 @@ const nouns: Array<string> = [
 	'Dog','Cat','Mouse','Moose','Squirrel','Chair','Table','Computer','Apple','Pizza','Kitchen','Rabbit','Tractor','Statue',
 	'Old Lady','Skeleton','Flag','Pile of Rocks','Pork','Potato','Candle','Rope','Wrench','Tub','Lard','Toe','Burrito','King',
 	'Butter','Cheese','Tooth','Foot','Tuxedo','Car','Plane','Hamster','Lizard','Brother','Sister','Pumpkin','Sweater','Newt',
-	'Wizard','Building','Mall','Canyon','Treasure','Telescope','Island','Zombies','Grandma','Grandpa','Email','Puppies',
+	'Wizard','Building','Mall','Canyon','Treasure','Telescope','Island','Zombies','Grandma','Grandpa','Email','Puppies','Bug',
 	'Phone','Construction Set','Bag of Billy Goats','Turtle','Diaper','Tree','Candy','Pillow','Alien','Baby','Cookie','Cup',
 	'Book','Blouse','Pants','Socks','Troll','Fan','Dice','Cards','Box','Package','Sheep','Clown','Snot','Nose','Ear','Belly',
 	'Widget','Gadget','Thing','Ice','Snow','Water','Leg','Hammer','Whale','Kangaroo','Dolphin','Elephant','Ornament','Reindeer',
@@ -27,17 +27,19 @@ const nouns: Array<string> = [
 	'Badger','Gremlin','Mummy','Vampire','Finger Tip','Bed','Sofa','Couch','Tent','Sleeping Bag','Iron','Bowl of Soup','Flute',
 	'Trumpet','Piano','Hair','Plug','Notebook','Pencil','Pen','Sewing Machine','Tape','Toolbox','Cone','Watermelon','Sea Creature',
 	'Vase','Donkey','Scarf','Monster','Printer','Dog Food','Food','Scar','Bandage','Truck','Motorcycle','Coffee Cup','Fog','Frog',
-	'Pirate','Snake','Battleship','Scab','Buddy','Peanut','Jelly','Bean','Human','Robot','Planet','Spaceship','Boat','Goat'
+	'Pirate','Snake','Battleship','Scab','Buddy','Peanut','Jelly','Bean','Human','Robot','Planet','Spaceship','Boat','Goat',
+	'Survivor','Samurai','Plant','President','Lima Beans','Seahorse','Egg','Adventure','Cactus','Pizza','Blanket','Lamp','Chicken'
 ];
 
 const adjectives: Array<string> = [
-	'Old','Blue','Red','Orange','Smelly','Squishy','Pretty','Tiny','Small','Huge','Ugly','Brown','Soft','Memorable','Dead','Sad',
-	'Proud','Angry','Foamy','Weird','Nasty','Shiny','Sparkly','Glittery','Pink','Purple','Massive','Unreliable','Ancient','Hot',
-	'Crunchy','Salty','Delicious','Smart','Funny','Hillarious','Generous','Kind','Evil','Yellow','Stinky','Fragrant','Golden',
+	'Old','Blue','Red','Orange','Smelly','Squishy','Pretty','Tiny','Small','Huge','Ugly','Brown','Soft','Memorable','Dead','Sad','Cool',
+	'Proud','Angry','Foamy','Weird','Nasty','Shiny','Sparkly','Glittery','Pink','Purple','Massive','Unreliable','Ancient','Hot','Bumpy',
+	'Crunchy','Salty','Delicious','Smart','Funny','Hillarious','Generous','Kind','Evil','Yellow','Stinky','Fragrant','Golden','Sour',
 	'Illegal','Flammable','Wet','Dirty','Crazy','Slimy','New','Ridiculous','Silly','Dumb','Great','Spooky','Scary','Calm','Hidden',
-	'Misunderstood','Serious','Tall','Short','Spicy','Clammy','Furry','Wide','Melted','Slick','Cold','Damp','Musky','Saucy',
-	'Jelly Filled','Cheesy','Scrumptious','Undead','Moldy','Sweet','Sweaty','Chocolate Covered','Wise','Unwise','Troublesome',
-	'Unhinged','Maroon','Turquoise','Lovely','Friendly','Nice','Pirate','Green','Jealous','Hungry','Good Looking','Tasty','Questionable'
+	'Misunderstood','Serious','Tall','Short','Spicy','Clammy','Furry','Wide','Melted','Slick','Cold','Damp','Musky','Saucy','Fuzzy',
+	'Jelly Filled','Cheesy','Scrumptious','Undead','Moldy','Sweet','Sweaty','Chocolate Covered','Wise','Unwise','Troublesome','Freaky',
+	'Unhinged','Maroon','Turquoise','Lovely','Friendly','Nice','Pirate','Green','Jealous','Hungry','Good Looking','Tasty','Questionable',
+	'Hard Boiled','Apathetic','Sassy','Clever','Frustrated','Terrific','Awesome','Holy','Lumpy','Horrific','Scrawny','Vengeful','Round'
 ];
 
 const firstNames: Array<string> = [

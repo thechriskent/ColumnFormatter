@@ -1,13 +1,17 @@
 import { IApplicationState, initialState, columnTypes, IColumn, IData } from "./State";
 import { 
 	ActionTypes, typeKeys, IUpdateDataRowAction, 
-	IUpdateDataColumnNameAction, IUpdateDataColumnTypeAction
+	IUpdateDataColumnNameAction, IUpdateDataColumnTypeAction,
+	IAddDataRowAction, IRemoveDataRowAction,
+	IAddDataColumnAction, IRemoveDataColumnAction
 } from "./Actions";
-import { clone } from '@microsoft/sp-lodash-subset';
+import { clone, forIn } from '@microsoft/sp-lodash-subset';
 import { generateRowValue } from './ValueGeneration';
 
 export const dataReducer = (state:IApplicationState = initialState, action:ActionTypes): IApplicationState => {
 	let newState:IApplicationState = clone(state);
+
+	console.log(generateRowValue(columnTypes.text));
 
 	switch (action.type) {
 		case typeKeys.UPDATE_DATA_ROW:
@@ -18,7 +22,19 @@ export const dataReducer = (state:IApplicationState = initialState, action:Actio
 			break;
 		case typeKeys.UPDATE_DATA_COLUMN_TYPE:
 			newState.data = UpdateDataColumnTypeReducer(newState.data, action);
-			return newState;
+			break;
+		case typeKeys.ADD_DATA_ROW:
+			newState.data.rows = AddDataRowReducer(newState.data, action);
+			break;
+		case typeKeys.REMOVE_DATA_ROW:
+			newState.data.rows = RemoveDataRowReducer(newState.data.rows, action);
+			break;
+		case typeKeys.ADD_DATA_COLUMN:
+			newState.data = AddDataColumnReducer(newState.data, action);
+			break;
+		case typeKeys.REMOVE_DATA_COLUMN:
+			newState.data = RemoveDataColumnReducer(newState.data, action);
+			break;
 		default:
 			return state;
 	}
@@ -65,6 +81,80 @@ function UpdateDataColumnTypeReducer(data:IData, action:IUpdateDataColumnTypeAct
 				...row.slice(0, action.colIndex),
 				generateRowValue(action.colType),
 				...row.slice(action.colIndex + 1)];
+		})
+	};
+}
+
+//** Adds a new data row (and generates the row values) */
+function AddDataRowReducer(data:IData, action:IAddDataRowAction): Array<Array<any>> {
+	let newRow:Array<any> = new Array<any>();
+	for (var column of data.columns){
+		newRow.push(generateRowValue(column.type));
+	}
+	return [
+		...data.rows,
+		newRow
+	];
+}
+
+//** Deletes a data row */
+function RemoveDataRowReducer(rows:Array<Array<any>>, action:IRemoveDataRowAction): Array<Array<any>> {
+	if (rows.length == 1) {
+		//Never remove the last row
+		return rows;
+	}
+	return [
+		...rows.slice(0,action.rowIndex),
+		...rows.slice(action.rowIndex + 1)
+	];
+}
+
+//** Adds a new data column (always of type text with generated values) */
+function AddDataColumnReducer(data:IData, action:IAddDataColumnAction): IData {
+	//Ensure new column has a unique name
+	let isUnique:boolean = false;
+	let fieldCounter:number = 1;
+	let fieldName:string = 'NewField';
+	do {
+		for(var column of data.columns){
+			if(column.name == fieldName){
+				fieldCounter++;
+				fieldName = 'NewField' + fieldCounter.toString();
+				continue;
+			}
+		}
+		isUnique = true;
+	} while(!isUnique);
+
+	return {
+		columns: [
+			...data.columns,
+			{
+				name: fieldName,
+				type: columnTypes.text
+			}
+		],
+		rows: data.rows.map((row:Array<any>, rIndex:number) => {
+			return [
+				...row,
+				generateRowValue(columnTypes.text)
+			];
+		})
+	};
+}
+
+//** Removes a data column (add associated row values) */
+function RemoveDataColumnReducer(data:IData, action:IRemoveDataColumnAction): IData {
+	return {
+		columns: [
+			...data.columns.slice(0, action.colIndex),
+			...data.columns.slice(action.colIndex + 1)
+		],
+		rows: data.rows.map((row:Array<any>, rIndex:number) => {
+			return [
+				...row.slice(0, action.colIndex),
+				...row.slice(action.colIndex + 1)
+			];
 		})
 	};
 }

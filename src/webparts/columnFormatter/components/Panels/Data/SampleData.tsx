@@ -1,12 +1,16 @@
 import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
+import * as strings from 'ColumnFormatterWebPartStrings';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import {
 	IData, IApplicationState, IColumn, columnTypes,
 	ILookupFieldValue, ILinkFieldValue, IPersonFieldValue
 } from '../../../state/State';
-import { updateDataRow, updateDataColumnName, updateDataColumnType } from '../../../state/Actions';
+import {
+	updateDataRow, updateDataColumnName, updateDataColumnType,
+	addDataRow, removeDataRow, addDataColumn, removeDataColumn
+} from '../../../state/Actions';
 import { DataColumnHeader } from './DataColumnHeader';
 import { SampleText } from './SampleValues/SampleText';
 import { SampleBoolean } from './SampleValues/SampleBoolean';
@@ -14,6 +18,16 @@ import { SampleLookup } from './SampleValues/SampleLookup';
 import { SampleLink } from './SampleValues/SampleLink';
 import { SampleNumber } from './SampleValues/SampleNumber';
 import { SamplePerson } from './SampleValues/SamplePerson';
+import { IconButton, IButtonStyles } from 'office-ui-fabric-react/lib/Button';
+
+const buttonStyles: Partial<IButtonStyles> = {
+	root: {
+		width: "22px",
+		height: "26px",
+		padding: "0",
+		paddingLeft: '3px'
+	}
+};
 
 export interface ISampleDataProps {
 	columns?: Array<IColumn>;
@@ -21,6 +35,10 @@ export interface ISampleDataProps {
 	updateRow?: (rowIndex:number, colIndex:number, value:any) => void;
 	updateColumnName?: (colIndex:number, name:string) => void;
 	updateColumnType?: (colIndex:number, colType:columnTypes) => void;
+	addRow?: () => void;
+	removeRow?: (rowIndex:number) => void;
+	addColumn?: () => void;
+	removeColumn?: (colIndex:number) => void;
 }
 
 class SampleData_ extends React.Component<ISampleDataProps, {}> {
@@ -30,6 +48,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 				<table className={styles.dataTable} cellPadding={0} cellSpacing={0}>
 					<thead>
 						<tr>
+							{this.props.rows.length > 1 && (<td>&nbsp;</td>)}
 							{this.props.columns.map((column:IColumn, index:number) => {
 								return (
 									<td key={index}>
@@ -44,22 +63,65 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 									</td>
 								);
 							})}
+							<td className={styles.addButton}>
+								<IconButton
+								 iconProps={{iconName:'AddTo'}}
+								 title={strings.AddColumn}
+								 styles={buttonStyles}
+								 onClick={() => {this.props.addColumn();}}/>
+							</td>
 						</tr>
 					</thead>
 					<tbody>
-					{this.props.rows.map((row:Array<any>, rIndex:number) => {
-						return (
-							<tr key={rIndex}>
-								{row.map((value:any, cIndex:number) =>{
+						{this.props.rows.map((row:Array<any>, rIndex:number) => {
+							return (
+								<tr key={rIndex}>
+									{this.props.rows.length > 1 && (
+										<td className={styles.removeButton}>
+											<IconButton
+											 iconProps={{iconName:'Blocked2'}}
+											 title={strings.DeleteRow}
+											 styles={buttonStyles}
+											 onClick={() => {this.props.removeRow(rIndex);}}/>
+										</td>
+									)}
+									{row.map((value:any, cIndex:number) =>{
+										return (
+											<td key={cIndex}>
+												{this.sampleElement(value, rIndex, cIndex)}
+											</td>
+										);
+									})}
+									<td>&nbsp;</td>
+								</tr>
+							);
+						})}
+						<tr>
+							{this.props.rows.length > 1 && (<td>&nbsp;</td>)}
+							{this.props.columns.map((column:IColumn, index:number) => {
+								if(index == 0){
 									return (
-										<td key={cIndex}>
-											{this.sampleElement(value, rIndex, cIndex)}
+										<td className={styles.addButton}>
+											<IconButton
+											 iconProps={{iconName:'AddTo'}}
+											 title={strings.AddRow}
+											 styles={buttonStyles}
+											 onClick={() => {this.props.addRow();}}/>
 										</td>
 									);
-								})}
-							</tr>
-						);
-					})}
+								}
+								return (
+									<td className={styles.removeButton}>
+										<IconButton
+										iconProps={{iconName:'Blocked2'}}
+										title={strings.DeleteColumn}
+										styles={buttonStyles}
+										onClick={() => {this.props.removeColumn(index);}}/>
+									</td>
+								);
+							})}
+							<td>&nbsp;</td>
+						</tr>
 					</tbody>
 				</table>
 		  </div>
@@ -101,6 +163,18 @@ function mapDispatchToProps(dispatch: Dispatch<ISampleDataProps>): ISampleDataPr
 		},
 		updateColumnType: (colIndex:number, colType:columnTypes) => {
 			dispatch(updateDataColumnType(colIndex, colType));
+		},
+		addRow: () => {
+			dispatch(addDataRow());
+		},
+		removeRow: (rowIndex:number) => {
+			dispatch(removeDataRow(rowIndex));
+		},
+		addColumn: () => {
+			dispatch(addDataColumn());
+		},
+		removeColumn: (colIndex:number) => {
+			dispatch(removeDataColumn(colIndex));
 		}
 	};
 }
