@@ -15,7 +15,11 @@ define([], function() {
     AddRow: "Add Row",
     DeleteColumn: "Delete Field",
     AddColumn: "Add Field",
+
     ColumnTypeHeadline: "Column Type",
+    ColumnTypeMessage: "Changing the type will also reset the values",
+    ColumnTypeChangeTooltip: "Click to Change",
+
     ColumnTypeBoolean: "Yes/No",
     ColumnTypeChoice: "Choice",
     ColumnTypeDateTime: "Date/Time",

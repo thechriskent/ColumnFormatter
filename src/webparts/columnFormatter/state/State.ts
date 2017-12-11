@@ -47,6 +47,20 @@ export const initialState: IApplicationState = {
 		columns: [{
 			name: 'currentField',
 			type: columnTypes.text
+		}],
+		rows: [
+			["Damp Grandpa"],
+			["Evil Waffle"],
+			["Shiny Chicken"]
+		]
+	}
+};
+
+/*export const initialState: IApplicationState = {
+	data: {
+		columns: [{
+			name: 'currentField',
+			type: columnTypes.text
 		},
 		{
 			name: 'somePerson',
@@ -74,4 +88,4 @@ export const initialState: IApplicationState = {
 			["Mouse", {title:'Luigi Bro', id:1,email:'luigi@nintendo.com',sip:'luigi@nintendo.com',picture:''}, 9.3478, {URL:"https://thechriskent.com",desc:"Chris' Blog"}, {lookupValue:"East",lookupId:7}, true]
 		]
 	}
-};
+};*/

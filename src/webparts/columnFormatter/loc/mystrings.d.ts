@@ -14,7 +14,11 @@ declare interface IColumnFormatterWebPartStrings {
   AddRow: string;
   DeleteColumn: string;
   AddColumn: string;
+  
   ColumnTypeHeadline: string;
+  ColumnTypeMessage: string;
+  ColumnTypeChangeTooltip: string;
+
   ColumnTypeBoolean: string;
   ColumnTypeChoice: string;
   ColumnTypeDateTime: string;

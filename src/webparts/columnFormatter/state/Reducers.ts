@@ -11,8 +11,6 @@ import { generateRowValue } from './ValueGeneration';
 export const dataReducer = (state:IApplicationState = initialState, action:ActionTypes): IApplicationState => {
 	let newState:IApplicationState = clone(state);
 
-	console.log(generateRowValue(columnTypes.text));
-
 	switch (action.type) {
 		case typeKeys.UPDATE_DATA_ROW:
 			newState.data.rows = UpdateDataRowReducer(newState.data.rows, action);

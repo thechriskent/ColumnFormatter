@@ -48,7 +48,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 				<table className={styles.dataTable} cellPadding={0} cellSpacing={0}>
 					<thead>
 						<tr>
-							{this.props.rows.length > 1 && (<td className={styles.removeButton}>&nbsp;</td>)}
+							<td className={styles.removeButton}>&nbsp;</td>
 							{this.props.columns.map((column:IColumn, index:number) => {
 								return (
 									<td key={index}>
@@ -83,6 +83,9 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 											 onClick={() => {this.props.removeRow(rIndex);}}/>
 										</td>
 									)}
+									{this.props.rows.length == 1 && (
+										<td className={styles.removeButton}>&nbsp;</td>
+									)}
 									{row.map((value:any, cIndex:number) =>{
 										return (
 											<td key={cIndex}>
@@ -95,7 +98,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 							);
 						})}
 						<tr>
-							{this.props.rows.length > 1 && (<td className={styles.removeButton}>&nbsp;</td>)}
+							<td className={styles.removeButton}>&nbsp;</td>
 							{this.props.columns.map((column:IColumn, index:number) => {
 								if(index == 0){
 									return (
@@ -132,7 +135,8 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 				return (<SampleBoolean value={value} onChanged={(newValue:any) => {this.props.updateRow(rIndex, cIndex, newValue);}}/> );
 			case columnTypes.lookup:
 				return (<SampleLookup value={value} onChanged={(newValue:ILookupFieldValue) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
-			case columnTypes.link || columnTypes.picture:
+			case columnTypes.link:
+			case columnTypes.picture:
 				return (<SampleLink value={value} onChanged={(newValue:ILinkFieldValue) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
 			case columnTypes.number:
 				return (<SampleNumber value={value} onChanged={(newValue:number) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);

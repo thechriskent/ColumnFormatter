@@ -78,7 +78,7 @@ export class DataColumnHeader extends React.Component<IDataColumnHeaderProps, ID
 					{this.props.editable && (
 						<IconButton
 						 iconProps={{iconName:this.iconForType(this.props.type)}}
-						 title={this.textForType(this.props.type)}
+						 title={this.textForType(this.props.type) + '\n(' + strings.ColumnTypeChangeTooltip + ')'}
 						 onClick={this.onTypeIconClick}
 						 styles={buttonStyles}/>
 					)}
@@ -105,6 +105,7 @@ export class DataColumnHeader extends React.Component<IDataColumnHeaderProps, ID
 								this.optionForType(columnTypes.text),
 								this.optionForType(columnTypes.boolean)
 							]}/>
+							<span>{strings.ColumnTypeMessage}</span>
 						 </div>
 					</TeachingBubble>
 				)}
