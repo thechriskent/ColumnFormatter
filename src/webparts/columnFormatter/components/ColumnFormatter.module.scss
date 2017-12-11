@@ -145,13 +145,15 @@
 
     .panelHeader {
       font-weight: bold;
+      padding-bottom: 4px;
+      display: inline-block;
     }
 
     .dataTable {
       margin:4px;
       border-collapse: collapse;
-      border: 1px solid;
-      border-color: $ms-color-themeLight;
+      /*border: 1px solid;
+      border-color: $ms-color-themeLight;*/
 
       :global{
         .ms-TextField {
@@ -179,12 +181,19 @@
 
       thead td {
         background-color: $ms-color-themeLighter;
-        border-bottom: 1px solid;
+        border: 1px solid;
         border-color: $ms-color-themeLight;
         min-width: 100px;
 
         span {
           font-style: italic;
+          padding-left: 5px;
+          padding-top: 2px;
+          display: inline-block;
+        }
+
+        &.removeButton, &.addButton {
+          background-color: white;
         }
       }
       tbody td {
@@ -205,24 +214,20 @@
       .removeButton {
         text-align: center;
         min-width: 24px;
+        border: none;
 
-        i {
-          color: $ms-color-redDark;
-          &:hover{
-            color: $ms-color-red;
-          }
+        button:hover{
+          color: $ms-color-red;
         }
       }
 
       .addButton {
         text-align: center;
         min-width: 24px;
+        border: none;
 
-        i {
-          color: $ms-color-themeDarkAlt;
-          &:hover{
-            color: $ms-color-themePrimary;
-          }
+        button:hover{
+          color: $ms-color-greenDark;
         }
       }
     }

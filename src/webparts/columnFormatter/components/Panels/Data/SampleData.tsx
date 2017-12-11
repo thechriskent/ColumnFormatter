@@ -90,12 +90,12 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 											</td>
 										);
 									})}
-									<td>&nbsp;</td>
+									<td className={styles.addButton}>&nbsp;</td>
 								</tr>
 							);
 						})}
 						<tr>
-							{this.props.rows.length > 1 && (<td>&nbsp;</td>)}
+							{this.props.rows.length > 1 && (<td className={styles.removeButton}>&nbsp;</td>)}
 							{this.props.columns.map((column:IColumn, index:number) => {
 								if(index == 0){
 									return (
@@ -118,7 +118,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 									</td>
 								);
 							})}
-							<td>&nbsp;</td>
+							<td className={styles.addButton}>&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
