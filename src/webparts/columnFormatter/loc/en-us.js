@@ -16,9 +16,10 @@ define([], function() {
     DeleteColumn: "Delete Field",
     AddColumn: "Add Field",
 
+    ColumnNameChangeTooltip: "Internal field name",
     ColumnTypeHeadline: "Column Type",
     ColumnTypeMessage: "Changing the type will also reset the values",
-    ColumnTypeChangeTooltip: "Click to Change",
+    ColumnTypeChangeTooltip: "Click to change",
 
     ColumnTypeBoolean: "Yes/No",
     ColumnTypeChoice: "Choice",

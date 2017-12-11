@@ -15,6 +15,7 @@ declare interface IColumnFormatterWebPartStrings {
   DeleteColumn: string;
   AddColumn: string;
   
+  ColumnNameChangeTooltip: string;
   ColumnTypeHeadline: string;
   ColumnTypeMessage: string;
   ColumnTypeChangeTooltip: string;

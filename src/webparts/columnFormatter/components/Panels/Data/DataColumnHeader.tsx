@@ -65,7 +65,8 @@ export class DataColumnHeader extends React.Component<IDataColumnHeaderProps, ID
 					{this.props.editable && (
 						<TextField
 						 value={this.props.name}
-						 onChanged={this.props.onNameChanged}/>
+						 onChanged={this.props.onNameChanged}
+						 title={strings.ColumnNameChangeTooltip}/>
 					)}
 				</div>
 				<div className={styles.buttonBox}>
