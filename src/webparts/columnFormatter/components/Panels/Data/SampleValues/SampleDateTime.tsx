@@ -72,7 +72,9 @@ export class SampleDateTime extends React.Component<ISampleDateTimeProps, ISampl
 				</div>
 				<div className={styles.buttonBox}>
 					<SubPropsButton
-					 onClick={this.subPropertiesButtonClick}/>
+					 onClick={this.subPropertiesButtonClick}
+					 tooltip={strings.TimeHeadline}
+					 iconName='Clock'/>
 				</div>
 				{this.state.subPropertiesVisible && (
 					<TeachingBubble

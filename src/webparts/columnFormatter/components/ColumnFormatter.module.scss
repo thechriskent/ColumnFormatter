@@ -177,6 +177,14 @@
             vertical-align: middle;
           }
         }
+
+        .ms-DatePicker {
+          margin-bottom: 0;
+
+          i {
+            display: none;
+          }
+        }
       }
 
       thead td {

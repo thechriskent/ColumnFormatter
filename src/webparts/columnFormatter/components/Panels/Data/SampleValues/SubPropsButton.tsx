@@ -17,6 +17,8 @@ const propButtonStyles: Partial<IButtonStyles> = {
 };
 
 export interface ISubPropsButtonProps {
+	iconName?:string;
+	tooltip?:string;
 	onClick: () => void;
 }
 
@@ -24,8 +26,8 @@ export class SubPropsButton extends React.Component<ISubPropsButtonProps, {}> {
 	public render(): React.ReactElement<ISubPropsButtonProps> {
 		return (
 			<IconButton
-			 iconProps={{iconName:'CustomList'}}
-			 title={strings.SubPropertiesHeadline}
+			 iconProps={{iconName: this.props.iconName || 'CustomList'}}
+			 title={this.props.tooltip || strings.SubPropertiesHeadline}
 			 onClick={this.props.onClick}
 			 styles={propButtonStyles}/>
 		);
