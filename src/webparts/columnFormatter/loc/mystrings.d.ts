@@ -12,6 +12,7 @@ declare interface IColumnFormatterWebPartStrings {
 
   PanelHeaderData: string;
   PanelHeaderPreview: string;
+  PanelHeaderCode: string;
 
   DeleteRow: string;
   AddRow: string;

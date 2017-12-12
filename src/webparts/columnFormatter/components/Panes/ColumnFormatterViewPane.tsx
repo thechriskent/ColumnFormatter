@@ -14,28 +14,28 @@ export default class ColumnFormatterViewPane extends React.Component<IColumnForm
 	public render(): React.ReactElement<IColumnFormatterViewPaneProps> {
 		return (
 		  <Tabs>
-			<TabPanel>
-				<ColumnFormatterPreviewPanel/>
-			</TabPanel>
-			<TabPanel>
-				<ColumnFormatterCodePanel/>
-			</TabPanel>
-			<TabPanel>
-				<SplitPane
-         split="vertical"
-         className={styles.SplitPaneInTab}
-         size="50%"
-         minSize={100}
-				 maxSize={-100}>
-          <ColumnFormatterPreviewPanel/>
-          <ColumnFormatterCodePanel/>
-        </SplitPane>
-			</TabPanel>
-			<TabList style={{"textAlign":"right"}}>
-				<Tab><Icon iconName='RedEye'/><span>{strings.TabPreview}</span></Tab>
-				<Tab><Icon iconName='Embed'/><span>{strings.TabCode}</span></Tab>
-				<Tab><Icon iconName='DoubleColumn'/><span>{strings.TabSplit}</span></Tab>
-			</TabList>
+				<TabPanel>
+					<ColumnFormatterCodePanel/>
+				</TabPanel>
+				<TabPanel>
+					<ColumnFormatterPreviewPanel/>
+				</TabPanel>
+				<TabPanel>
+					<SplitPane
+					split="vertical"
+					className={styles.SplitPaneInTab}
+					size="50%"
+					minSize={100}
+					maxSize={-100}>
+						<ColumnFormatterPreviewPanel/>
+						<ColumnFormatterCodePanel/>
+					</SplitPane>
+				</TabPanel>
+				<TabList style={{"textAlign":"right"}}>
+					<Tab><Icon iconName='Embed'/><span>{strings.TabCode}</span></Tab>
+					<Tab><Icon iconName='RedEye'/><span>{strings.TabPreview}</span></Tab>
+					<Tab><Icon iconName='DoubleColumn'/><span>{strings.TabSplit}</span></Tab>
+				</TabList>
 		  </Tabs>
 		);
 	  }

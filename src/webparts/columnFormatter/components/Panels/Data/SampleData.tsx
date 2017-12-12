@@ -103,7 +103,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 							{this.props.columns.map((column:IColumn, index:number) => {
 								if(index == 0){
 									return (
-										<td className={styles.addButton}>
+										<td key={index} className={styles.addButton}>
 											<IconButton
 											 iconProps={{iconName:'AddTo'}}
 											 title={strings.AddRow}
@@ -113,7 +113,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 									);
 								}
 								return (
-									<td className={styles.removeButton}>
+									<td key={index} className={styles.removeButton}>
 										<IconButton
 										iconProps={{iconName:'Blocked2'}}
 										title={strings.DeleteColumn}

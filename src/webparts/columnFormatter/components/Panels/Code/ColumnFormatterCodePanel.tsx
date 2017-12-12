@@ -1,5 +1,7 @@
 import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
+import * as strings from 'ColumnFormatterWebPartStrings';
+import { CodeEditor } from './CodeEditor';
 
 export interface IColumnFormatterCodePanelProps {
 }
@@ -8,7 +10,8 @@ export class ColumnFormatterCodePanel extends React.Component<IColumnFormatterCo
 	public render(): React.ReactElement<IColumnFormatterCodePanelProps> {
 		return (
 		  <div className={styles.panel}>
-			CodePanel
+				<span className={styles.panelHeader}>{strings.PanelHeaderCode}</span>
+				<CodeEditor/>
 		  </div>
 		);
 	}

@@ -13,6 +13,7 @@ define([], function() {
 
     PanelHeaderData: "Test Values",
     PanelHeaderPreview: "Preview",
+    PanelHeaderCode: "Code Editor",
 
     DeleteRow: "Delete Row",
     AddRow: "Add Row",
