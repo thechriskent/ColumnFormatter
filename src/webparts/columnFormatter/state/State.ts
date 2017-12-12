@@ -47,11 +47,11 @@ export const initialState: IApplicationState = {
 		columns: [{
 			name: 'currentField',
 			type: columnTypes.text
-		}],
+		},{name:'someDate',type:columnTypes.datetime}],
 		rows: [
-			["Damp Grandpa"],
-			["Evil Waffle"],
-			["Shiny Chicken"]
+			["Damp Grandpa",new Date()],
+			["Evil Waffle", new Date()],
+			["Shiny Chicken", new Date()]
 		]
 	}
 };

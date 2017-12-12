@@ -18,6 +18,7 @@ import { SampleLookup } from './SampleValues/SampleLookup';
 import { SampleLink } from './SampleValues/SampleLink';
 import { SampleNumber } from './SampleValues/SampleNumber';
 import { SamplePerson } from './SampleValues/SamplePerson';
+import { SampleDateTime } from './SampleValues/SampleDateTime';
 import { IconButton, IButtonStyles } from 'office-ui-fabric-react/lib/Button';
 
 const buttonStyles: Partial<IButtonStyles> = {
@@ -142,6 +143,8 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 				return (<SampleNumber value={value} onChanged={(newValue:number) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
 			case columnTypes.person:
 				return (<SamplePerson value={value} onChanged={(newValue:IPersonFieldValue) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
+			case columnTypes.datetime:
+				return (<SampleDateTime value={value} onChanged={(newValue:Date) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
 			default:
 				return (<SampleText value={value} onChanged={(newValue:string) => {this.props.updateRow(rIndex, cIndex, newValue);}}/>);
 		}

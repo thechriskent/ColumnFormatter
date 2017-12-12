@@ -61,7 +61,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 				translatedValue = value.title;
 				break;
 			case columnTypes.datetime:
-				translatedValue = value.toLocaleDateString();
+				translatedValue = value.toLocaleString();
 				break;
 			default:
 				translatedValue = value;
