@@ -1,6 +1,8 @@
 import * as React from 'react';
 import styles from '../../../ColumnFormatter.module.scss';
-import { DatePicker, DayOfWeek, IDatePickerStrings } from 'office-ui-fabric-react/lib/DatePicker';
+import * as strings from 'ColumnFormatterWebPartStrings';
+import { DatePicker} from 'office-ui-fabric-react/lib/DatePicker';
+import { DatePickerStrings } from '../../../../helpers/DatePickerStrings';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
 import { SpinButton, ISpinButtonStyles } from 'office-ui-fabric-react/lib/SpinButton';
@@ -65,7 +67,8 @@ export class SampleDateTime extends React.Component<ISampleDateTimeProps, ISampl
 					 value={this.props.value}
 					 onSelectDate={this.onSelectDate}
 					 allowTextInput={false}
-					 formatDate={this.onFormatDate}/>
+					 formatDate={this.onFormatDate}
+					 strings={DatePickerStrings}/>
 				</div>
 				<div className={styles.buttonBox}>
 					<SubPropsButton
@@ -76,12 +79,12 @@ export class SampleDateTime extends React.Component<ISampleDateTimeProps, ISampl
 					 targetElement={this._container}
 					 hasCloseIcon={true}
 					 hasCondensedHeadline={true}
-					 headline="Sub Properties"
+					 headline={strings.TimeHeadline}
 					 onDismiss={this.subPropertiesButtonClick}>
 					 	<div className={styles.tbSpinButtonOverride}>
 							<SpinButton
 							 value={this.hour.toString()}
-							 label="Hour:"
+							 label={strings.HourLabel + ':'}
 							 labelPosition={Position.top}
 							 onValidate={this.onHourValidate}
 							 onIncrement={this.onHourIncrement}
@@ -91,7 +94,7 @@ export class SampleDateTime extends React.Component<ISampleDateTimeProps, ISampl
 							 downArrowButtonStyles={sbuttonStyles}/>
 							<SpinButton
 							 value={this.minute.toString()}
-							 label="Minute:"
+							 label={strings.MinuteLabel + ':'}
 							 labelPosition={Position.top}
 							 onValidate={this.onMinuteValidate}
 							 onIncrement={this.onMinuteIncrement}
@@ -101,7 +104,7 @@ export class SampleDateTime extends React.Component<ISampleDateTimeProps, ISampl
 							 downArrowButtonStyles={sbuttonStyles}/>
 							<SpinButton
 							 value={this.second.toString()}
-							 label="Second:"
+							 label={strings.SecondsLabel + ':'}
 							 labelPosition={Position.top}
 							 onValidate={this.onSecondValidate}
 							 onIncrement={this.onSecondIncrement}

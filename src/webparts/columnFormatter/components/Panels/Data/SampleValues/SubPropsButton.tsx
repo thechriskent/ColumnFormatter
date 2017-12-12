@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from '../../../ColumnFormatter.module.scss';
+import * as strings from 'ColumnFormatterWebPartStrings';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { IButtonStyles } from 'office-ui-fabric-react/lib/Button';
 
@@ -24,7 +25,7 @@ export class SubPropsButton extends React.Component<ISubPropsButtonProps, {}> {
 		return (
 			<IconButton
 			 iconProps={{iconName:'CustomList'}}
-			 title="Sub Properties"
+			 title={strings.SubPropertiesHeadline}
 			 onClick={this.props.onClick}
 			 styles={propButtonStyles}/>
 		);

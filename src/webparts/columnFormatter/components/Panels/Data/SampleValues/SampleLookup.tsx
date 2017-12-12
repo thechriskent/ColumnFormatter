@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from '../../../ColumnFormatter.module.scss';
+import * as strings from 'ColumnFormatterWebPartStrings';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
@@ -59,7 +60,7 @@ export class SampleLookup extends React.Component<ISampleLookupProps, ISampleLoo
 					 targetElement={this._container}
 					 hasCloseIcon={true}
 					 hasCondensedHeadline={true}
-					 headline="Sub Properties"
+					 headline={strings.SubPropertiesHeadline}
 					 onDismiss={this.subPropertiesButtonClick}>
 					 	<div className={styles.tbSpinButtonOverride}>
 							<SpinButton

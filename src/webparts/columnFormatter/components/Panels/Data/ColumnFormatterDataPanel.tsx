@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
+import * as strings from 'ColumnFormatterWebPartStrings';
 import { SampleData } from './SampleData';
 
 export interface IColumnFormatterDataPanelProps {
@@ -9,7 +10,7 @@ export class ColumnFormatterDataPanel extends React.Component<IColumnFormatterDa
 	public render(): React.ReactElement<IColumnFormatterDataPanelProps> {
 		return (
 		  <div className={styles.panel}>
-				<span className={styles.panelHeader}>Sample Data</span>
+				<span className={styles.panelHeader}>{strings.PanelHeaderData}</span>
 				<SampleData/>
 		  </div>
 		);
