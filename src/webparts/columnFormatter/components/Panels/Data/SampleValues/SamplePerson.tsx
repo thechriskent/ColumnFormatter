@@ -125,34 +125,27 @@ export class SamplePerson extends React.Component<ISamplePersonProps, ISamplePer
 			});
 			return "1";
 		}
+		let numValue: number = +value;
+		if(numValue < 1) {
+			numValue = 1;
+		}
 		this.props.onChanged({
 			...this.props.value,
-			id: +value
+			id: numValue
 		});
-		return value;
+		return numValue.toString();
 	}
 
 	@autobind
 	private onIdIncrement(value:string): string {
 		let newValue: number = +value + 1;
-		this.props.onChanged({
-			...this.props.value,
-			id: newValue
-		});
-		return newValue.toString();
+		return this.onIdValidate(newValue.toString());
 	}
 
 	@autobind
 	private onIdDecrement(value:string): string {
 		let newValue: number = +value - 1;
-		if(newValue < 1) {
-			newValue = 1;
-		}
-		this.props.onChanged({
-			...this.props.value,
-			id: newValue
-		});
-		return newValue.toString();
+		return this.onIdValidate(newValue.toString());
 	}
 
 	@autobind

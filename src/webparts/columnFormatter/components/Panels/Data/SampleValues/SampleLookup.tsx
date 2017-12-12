@@ -104,33 +104,26 @@ export class SampleLookup extends React.Component<ISampleLookupProps, ISampleLoo
 			});
 			return "1";
 		}
+		let numValue: number = +value;
+		if(numValue < 1) {
+			numValue = 1;
+		}
 		this.props.onChanged({
 			...this.props.value,
-			lookupId: +value
+			lookupId: numValue
 		});
-		return value;
+		return numValue.toString();
 	}
 
 	@autobind
 	private onLookupIdIncrement(value:string): string {
 		let newValue: number = +value + 1;
-		this.props.onChanged({
-			...this.props.value,
-			lookupId: newValue
-		});
-		return newValue.toString();
+		return this.onLookupIdValidate(newValue.toString());
 	}
 
 	@autobind
 	private onLookupIdDecrement(value:string): string {
 		let newValue: number = +value - 1;
-		if(newValue < 1) {
-			newValue = 1;
-		}
-		this.props.onChanged({
-			...this.props.value,
-			lookupId: newValue
-		});
-		return newValue.toString();
+		return this.onLookupIdValidate(newValue.toString());
 	}
 }
