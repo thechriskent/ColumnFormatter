@@ -19,8 +19,8 @@ export class MonacoEditor extends React.Component<IMonacoEditorProps, IMonacoEdi
 		this._editor = monaco.editor.create(this._container, {
 			value: this.props.value,
 			scrollBeyondLastLine: false,
-			theme: 'vs-dark'
-			//language: 'json',
+			theme: 'vs-dark',
+			language: 'json'
 			//height: '300px',
 			//width: '100%'
 		});
