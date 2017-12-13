@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
+import { ColumnFormattingSchemaURI, ColumnFormattingSchema} from '../../../helpers/ColumnFormattingSchema';
 const monaco = require('../../../../../MonacoCustomBuild');
 
 export interface IMonacoEditorProps {
@@ -16,6 +17,13 @@ export class MonacoEditor extends React.Component<IMonacoEditorProps, IMonacoEdi
 	private _editor: any;
 
 	public componentDidMount(): void {
+		monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+			schemas: [{
+				uri: ColumnFormattingSchemaURI,
+				schema: ColumnFormattingSchema
+			}]
+		});
+
 		this._editor = monaco.editor.create(this._container, {
 			value: this.props.value,
 			scrollBeyondLastLine: false,
