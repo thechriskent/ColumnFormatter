@@ -8,12 +8,12 @@ import {
 } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'ColumnFormatterWebPartStrings';
-import ColumnFormatter, {IColumnFormatterProps} from './components/ColumnFormatter';
+import { ColumnFormatter, IColumnFormatterProps} from './components/ColumnFormatter';
 
 import { Store, createStore } from 'redux';
 import { Provider, ProviderProps } from 'react-redux';
 import { IApplicationState } from './state/State';
-import { dataReducer } from './state/Reducers';
+import { cfReducer } from './state/Reducers';
 
 export interface IColumnFormatterWebPartProps {
   description: string;
@@ -25,27 +25,18 @@ export default class ColumnFormatterWebPart extends BaseClientSideWebPart<IColum
 
   public onInit(): Promise<void> {
 
-    this.store = createStore(dataReducer);
+    this.store = createStore(cfReducer);
 
     return super.onInit();
   }
 
   public render(): void {
-    /*const element: React.ReactElement<IColumnFormatterProps > = React.createElement(
-      ColumnFormatter,
-      {
-        description: this.properties.description
-      }
-    );*/
     const element: React.ReactElement<ProviderProps > = React.createElement(
       Provider,
       {
         store: this.store,
         children: React.createElement(
-          ColumnFormatter,
-          {
-            description: this.properties.description
-          }
+          ColumnFormatter, {}
         )
       }
     );

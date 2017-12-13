@@ -45,7 +45,7 @@
         }
       }
       .Pane {
-        overflow: auto;
+        overflow: hidden;
       }
     }
   }
@@ -142,6 +142,11 @@
     overflow: auto;
     height: 100%;
     box-sizing: border-box;
+  
+    &.fullPanel {
+      overflow: hidden;
+      padding: 0;
+    }
 
     .panelHeader {
       font-weight: bold;
@@ -238,6 +243,13 @@
           color: $ms-color-greenDark;
         }
       }
+    }
+
+    .codeEditor {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      margin-bottom: 20px;
     }
   }
 }

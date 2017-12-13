@@ -38,8 +38,14 @@ export interface IData {
 	rows: Array<Array<any>>;
 }
 
+export interface IPaneSize {
+	main: number;
+	split: number;
+}
+
 export interface IApplicationState {
 	data: IData;
+	panes: IPaneSize;
 }
 
 export const initialState: IApplicationState = {
@@ -53,6 +59,10 @@ export const initialState: IApplicationState = {
 			["Evil Waffle"],
 			["Shiny Chicken"]
 		]
+	},
+	panes: {
+		main: 0,
+		split: 0
 	}
 };
 

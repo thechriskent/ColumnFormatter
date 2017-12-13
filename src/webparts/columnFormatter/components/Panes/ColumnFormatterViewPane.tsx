@@ -1,6 +1,9 @@
 import * as React from 'react';
 import styles from '../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { resizePane } from '../../state/Actions';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { ColumnFormatterPreviewPanel } from '../Panels/Preview/ColumnFormatterPreviewPanel';
@@ -8,9 +11,10 @@ import { ColumnFormatterCodePanel } from '../Panels/Code/ColumnFormatterCodePane
 var SplitPane = require('react-split-pane');
 
 export interface IColumnFormatterViewPaneProps {
+	paneResized?: (size:number) => void;
 }
 
-export default class ColumnFormatterViewPane extends React.Component<IColumnFormatterViewPaneProps, {}> {
+class ColumnFormatterViewPane_ extends React.Component<IColumnFormatterViewPaneProps, {}> {
 	public render(): React.ReactElement<IColumnFormatterViewPaneProps> {
 		return (
 		  <Tabs>
@@ -26,7 +30,8 @@ export default class ColumnFormatterViewPane extends React.Component<IColumnForm
 					className={styles.SplitPaneInTab}
 					size="50%"
 					minSize={100}
-					maxSize={-100}>
+					maxSize={-100}
+					onDragFinished={(size:number) => {this.props.paneResized(size);}}>
 						<ColumnFormatterPreviewPanel/>
 						<ColumnFormatterCodePanel/>
 					</SplitPane>
@@ -40,3 +45,13 @@ export default class ColumnFormatterViewPane extends React.Component<IColumnForm
 		);
 	  }
 }
+
+function mapDispatchToProps(dispatch: Dispatch<IColumnFormatterViewPaneProps>): IColumnFormatterViewPaneProps{
+	return {
+		paneResized: (size:number) => {
+			dispatch(resizePane('split', size));
+		}
+	};
+}
+
+export const ColumnFormatterViewPane = connect(null, mapDispatchToProps)(ColumnFormatterViewPane_);

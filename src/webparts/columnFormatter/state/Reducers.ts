@@ -1,14 +1,14 @@
-import { IApplicationState, initialState, columnTypes, IColumn, IData } from "./State";
+import { IApplicationState, initialState, columnTypes, IColumn, IData, IPaneSize } from "./State";
 import { 
 	ActionTypes, typeKeys, IUpdateDataRowAction, 
 	IUpdateDataColumnNameAction, IUpdateDataColumnTypeAction,
 	IAddDataRowAction, IRemoveDataRowAction,
-	IAddDataColumnAction, IRemoveDataColumnAction
+	IAddDataColumnAction, IRemoveDataColumnAction, IPaneResizeAction
 } from "./Actions";
 import { clone, forIn } from '@microsoft/sp-lodash-subset';
 import { generateRowValue } from './ValueGeneration';
 
-export const dataReducer = (state:IApplicationState = initialState, action:ActionTypes): IApplicationState => {
+export const cfReducer = (state:IApplicationState = initialState, action:ActionTypes): IApplicationState => {
 	let newState:IApplicationState = clone(state);
 
 	switch (action.type) {
@@ -33,6 +33,11 @@ export const dataReducer = (state:IApplicationState = initialState, action:Actio
 		case typeKeys.REMOVE_DATA_COLUMN:
 			newState.data = RemoveDataColumnReducer(newState.data, action);
 			break;
+		
+		case typeKeys.PANE_RESIZE:
+			newState.panes = PaneResizeReducer(newState.panes, action);
+			break;
+
 		default:
 			return state;
 	}
@@ -154,5 +159,19 @@ function RemoveDataColumnReducer(data:IData, action:IRemoveDataColumnAction): ID
 				...row.slice(action.colIndex + 1)
 			];
 		})
+	};
+}
+
+
+function PaneResizeReducer(panes:IPaneSize, action:IPaneResizeAction): IPaneSize {
+	if(action.paneName == 'main'){
+		return {
+			...panes,
+			main: action.size
+		};
+	}
+	return {
+		...panes,
+		split: action.size
 	};
 }

@@ -8,6 +8,7 @@ export type ActionTypes =
 	| IRemoveDataRowAction
 	| IAddDataColumnAction
 	| IRemoveDataColumnAction
+	| IPaneResizeAction
 	| IOtherAction;
 
 export enum typeKeys {
@@ -18,6 +19,9 @@ export enum typeKeys {
 	REMOVE_DATA_ROW = "REMOVE_DATA_ROW",
 	ADD_DATA_COLUMN = "ADD_DATA_COLUMN",
 	REMOVE_DATA_COLUMN = "REMOVE_DATA_COLUMN",
+
+	PANE_RESIZE = "PANE_RESIZE",
+
 	OTHER_ACTION = "ANY_OTHER_ACTION"
 }
 
@@ -87,6 +91,19 @@ export const removeDataColumn = (colIndex:number): IRemoveDataColumnAction => ({
 	type: typeKeys.REMOVE_DATA_COLUMN,
 	colIndex
 });
+
+
+export interface IPaneResizeAction {
+	type: typeKeys.PANE_RESIZE;
+	paneName: string;
+	size: number;
+}
+export const resizePane = (paneName:string, size:number): IPaneResizeAction => ({
+	type: typeKeys.PANE_RESIZE,
+	paneName,
+	size
+});
+
 
 export interface IOtherAction {
 	type: typeKeys.OTHER_ACTION;

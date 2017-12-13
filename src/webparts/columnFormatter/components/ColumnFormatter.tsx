@@ -1,18 +1,20 @@
 import * as React from 'react';
 import styles from './ColumnFormatter.module.scss';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { resizePane } from '../state/Actions';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
-//import { ContextualMenuItemType } from 'office-ui-fabric-react/lib/components/ContextualMenu/ContextualMenu.Props';
 var SplitPane = require('react-split-pane');
 
 import ColumnFormatterPropertyPane from './Panes/ColumnFormatterPropertyPane';
-import ColumnFormatterViewPane from './Panes/ColumnFormatterViewPane';
+import { ColumnFormatterViewPane } from './Panes/ColumnFormatterViewPane';
 
 export interface IColumnFormatterProps {
-  description: string;
+  paneResized?: (size:number) => void;
 }
 
-export default class ColumnFormatter extends React.Component<IColumnFormatterProps, {}> {
+class ColumnFormatter_ extends React.Component<IColumnFormatterProps, {}> {
   public render(): React.ReactElement<IColumnFormatterProps> {
     return (
       <div className={styles.columnFormatter}>
@@ -53,7 +55,8 @@ export default class ColumnFormatter extends React.Component<IColumnFormatterPro
           className={styles.SplitPane}
           size={185}
           minSize={185}
-          maxSize={-204}>
+          maxSize={-204}
+          onDragFinished={(size:number) => {this.props.paneResized(size);}}>
             <ColumnFormatterPropertyPane/>
             <ColumnFormatterViewPane/>
           </SplitPane>
@@ -62,3 +65,13 @@ export default class ColumnFormatter extends React.Component<IColumnFormatterPro
     );
   }
 }
+
+function mapDispatchToProps(dispatch: Dispatch<IColumnFormatterProps>): IColumnFormatterProps{
+	return {
+		paneResized: (size:number) => {
+			dispatch(resizePane('main', size));
+		}
+	};
+}
+
+export const ColumnFormatter = connect(null, mapDispatchToProps)(ColumnFormatter_);
