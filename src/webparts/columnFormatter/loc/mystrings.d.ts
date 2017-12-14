@@ -84,6 +84,20 @@ declare interface IColumnFormatterWebPartStrings {
   HourLabel: string;
   MinuteLabel: string;
   SecondsLabel: string;
+
+  CFSariaError: string;
+  CFSelmTypeInvalid: string;
+  CFSelmTypeMissing: string;
+  CFSinvalidProtocol: string;
+  CFSinvalidStyleAttribute: string;
+  CFSinvalidStyleValue: string;
+  CFSnan: string;
+  CFSoperandMissing: string;
+  CFSoperandNOnly: string;
+  CFSoperatorInvalid: string;
+  CFSoperatorMissing: string;
+  CFSunsupportedType: string;
+  CFSuserFieldError: string;
 }
 
 declare module 'ColumnFormatterWebPartStrings' {

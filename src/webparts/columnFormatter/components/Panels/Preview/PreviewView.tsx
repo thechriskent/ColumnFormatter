@@ -2,14 +2,36 @@ import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
 import { connect } from 'react-redux';
 import { IData, IApplicationState, IColumn, columnTypes } from '../../../state/State';
+//var CustomFormatter = require('../../../../../CustomFormatter/customformatter-MSFT');
+import { LocalCustomFormatter, LocalHtmlEncoding } from '../../../../../CustomFormatter/LocalCustomFormatter';
+import { LocalCustomFormatterStrings, IFormatterFieldInfo } from '../../../../../CustomFormatter/LocalFieldRendererFormat';
+import * as tslib from 'tslib';
 
 export interface IPreviewViewProps {
 	columns: Array<IColumn>;
 	rows: Array<Array<any>>;
 }
 
+interface IHTMLmarkupObject {
+	__html: string;
+}
+
 class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
+
+	private _cfContainer: any = {};
+	private _heContainer: any = {};
+
+	constructor(props:IPreviewViewProps){
+		super(props);
+
+		//Build the HTMLEncoding Object
+		LocalHtmlEncoding(null,this._heContainer);
+		//Build the CustomFormatter Object
+		LocalCustomFormatter(null,this._cfContainer,tslib,LocalCustomFormatterStrings,null,this._heContainer,null);
+	}
+
 	public render(): React.ReactElement<IPreviewViewProps> {
+
 		return (
 		  <div>
 				<table>
@@ -31,7 +53,10 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 								{row.map((value:any, cIndex:number) =>{
 									return (
 										<td key={cIndex}>
-											{this.previewElement(value,rIndex,cIndex)}
+											{cIndex == 0 && (
+												<div dangerouslySetInnerHTML={this.formattedMarkup(rIndex)}/>
+											)}
+											{cIndex > 0 && this.previewElement(value,rIndex,cIndex)}
 										</td>
 									);
 								})}
@@ -44,7 +69,16 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		);
 	}
 
-	private previewElement(value:any, rIndex:number, cIndex:number): JSX.Element {
+	private formattedMarkup(rIndex:number): IHTMLmarkupObject {
+		let formatterFieldInfo: IFormatterFieldInfo = this.getFormatterFieldInfo(rIndex);
+		let formatter = new this._cfContainer.CustomFormatter(formatterFieldInfo);
+		return {
+			__html: formatter.evaluate()
+		};
+	}
+
+	private previewElement(value:any, rIndex:number, cIndex:number): JSX.Element | string {
+		//Standard Display for other fields
 		let translatedValue: string;
 		switch (this.props.columns[cIndex].type) {
 			case columnTypes.boolean:
@@ -68,6 +102,71 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 				break;
 		}
 		return (<span>{translatedValue}</span>);
+	}
+
+	private getFormatterFieldInfo(rIndex:number): IFormatterFieldInfo {
+		//Apply Formatting
+		let row = {
+			ID: rIndex
+		};
+		let rowSchema = {};
+		for(var i = 0; i < this.props.columns.length; i++) {
+			let colType: string;
+			switch (this.props.columns[i].type) {
+				case columnTypes.boolean:
+					colType = "Boolean";
+					row[this.props.columns[i].name] = this.props.rows[rIndex][i] ? "Yes" : "No";
+					row[this.props.columns[i].name + '.value'] = this.props.rows[rIndex][i] ? "1" : "0";
+					break;
+				case columnTypes.choice:
+					colType = "Choice";
+					row[this.props.columns[i].name] = this.props.rows[rIndex][i];
+					break;
+				case columnTypes.datetime:
+					colType = "DateTime";
+					row[this.props.columns[i].name] = this.props.rows[rIndex][i].toLocaleDateString();
+					row[this.props.columns[i].name + '.'] = this.props.rows[rIndex][i].toISOString();
+					break;
+				case columnTypes.link:
+					colType = "Hyperlink";
+					row[this.props.columns[i].name] = this.props.rows[rIndex][i].URL;
+					row[this.props.columns[i].name+'.desc'] = this.props.rows[rIndex][i].desc;
+					break;
+				case columnTypes.lookup:
+					colType = "Lookup";
+					row[this.props.columns[i].name] = [{
+						...this.props.rows[rIndex][i],
+						isSecretFieldValue: false
+					}];
+					break;
+				case columnTypes.number:
+					colType = "Number";
+					row[this.props.columns[i].name] = this.props.rows[rIndex][i].toPrecision(14);
+					row[this.props.columns[i].name + '.'] = this.props.rows[rIndex][i];
+					break;
+				case columnTypes.person:
+					colType = "User";
+					row[this.props.columns[i].name] = [this.props.rows[rIndex][i]];
+					break;
+				case columnTypes.picture:
+					colType = "Image";
+					row[this.props.columns[i].name] = this.props.rows[rIndex][i].URL;
+					row[this.props.columns[i].name+'.desc'] = this.props.rows[rIndex][i].desc;
+					break;
+				default:
+					colType = "Text";
+					row[this.props.columns[i].name] = this.props.rows[rIndex][i];
+			}
+			rowSchema[this.props.columns[i].name] = colType;
+		}
+		
+		return {
+			currentFieldName: "currentField",
+			fieldRendererFormat: '{"$schema": "https://gist.githubusercontent.com/thechriskent/2e09be14a4b491cfae256220cfca6310/raw/eb9f675bf523208eb840c462d4f716fa92ce14c2/columnFormattingSchema.json","elmType": "div","txtContent": {"operator": "+","operands": ["@currentField","!"]}}',
+			pageContextInfo: null,
+			row: row,
+			rowSchema: rowSchema
+		};
 	}
 }
 

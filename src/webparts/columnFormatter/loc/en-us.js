@@ -84,6 +84,21 @@ define([], function() {
     DTnextYearAriaLabel: "Go to next year",
     HourLabel: "Hour",
     MinuteLabel: "Minute",
-    SecondsLabel: "Seconds"
+    SecondsLabel: "Seconds",
+
+    //Custom Formatting Error Strings
+    CFSariaError: "No aria- tags found. As such, the field will not be accessible via a screen reader.",
+    CFSelmTypeInvalid: "Invalid elmType: {0}. Must be one of {1}.",
+    CFSelmTypeMissing: "Must specify elmType.",
+    CFSinvalidProtocol: "A URL was blocked. Only http, https and mailto protocols are allowed.",
+    CFSinvalidStyleAttribute: "'{0}' is not a supported style attribute.",
+    CFSinvalidStyleValue: "The style values '{0}' contains one or more of the following disallowed characters ( : & ; ! .",
+    CFSnan: "{0} is not a number. Number expected in the expression {1}.",
+    CFSoperandMissing: "There must be at least 1 operand in the expression {0}.",
+    CFSoperandNOnly: "Expecting {0} operand(s) for the expression {1}.",
+    CFSoperatorInvalid: "'{0}' is not a valid operator. It must be one of {1} in the expression {2}.",
+    CFSoperatorMissing: "Missing operator in expression: {0}.",
+    CFSunsupportedType: "The type of field {0} is unsupported at this time.",
+    CFSuserFieldError: "The field '{0}' is of type 'User', and can't be used directly because it has sub-properties. You need to specify which sub-property you want to use. e.g. [$AssignedTo.email]"
   }
 });
