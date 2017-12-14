@@ -50,7 +50,7 @@ export enum editorThemes {
 }
 
 export interface ICode {
-	isValid: boolean;
+	validationErrors: Array<string>;
 	editorString: string;
 	formatterString: string;
 	theme: editorThemes;
@@ -87,7 +87,7 @@ export const initialState: IApplicationState = {
 		split: 0
 	},
 	code: {
-		isValid: true,
+		validationErrors: [],
 		editorString: starterCode,
 		formatterString: starterCode,
 		theme: editorThemes.vs

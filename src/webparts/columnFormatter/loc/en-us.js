@@ -99,6 +99,9 @@ define([], function() {
     CFSoperatorInvalid: "'{0}' is not a valid operator. It must be one of {1} in the expression {2}.",
     CFSoperatorMissing: "Missing operator in expression: {0}.",
     CFSunsupportedType: "The type of field {0} is unsupported at this time.",
-    CFSuserFieldError: "The field '{0}' is of type 'User', and can't be used directly because it has sub-properties. You need to specify which sub-property you want to use. e.g. [$AssignedTo.email]"
+    CFSuserFieldError: "The field '{0}' is of type 'User', and can't be used directly because it has sub-properties. You need to specify which sub-property you want to use. e.g. [$AssignedTo.email]",
+
+    PreviewValidationGood: 'Validation Passed!',
+    PreviewValidationBad: 'Invalid JSON (Code):'
   }
 });

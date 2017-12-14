@@ -189,5 +189,6 @@ function UpdateEditorStringReducer(code:ICode, action:IUpdateEditorStringAction)
 	//purposely not making a fully new code object
 	code.editorString = action.editorString;
 	code.formatterString = action.editorString; //replace with validation check
+	code.validationErrors = ["Bad things have happened!"];
 	return code;
 }

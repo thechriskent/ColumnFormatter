@@ -98,6 +98,9 @@ declare interface IColumnFormatterWebPartStrings {
   CFSoperatorMissing: string;
   CFSunsupportedType: string;
   CFSuserFieldError: string;
+
+  PreviewValidationGood: string;
+  PreviewValidationBad: string;
 }
 
 declare module 'ColumnFormatterWebPartStrings' {
