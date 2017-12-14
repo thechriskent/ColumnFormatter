@@ -10,6 +10,7 @@ import * as tslib from 'tslib';
 export interface IPreviewViewProps {
 	columns: Array<IColumn>;
 	rows: Array<Array<any>>;
+	formatterString: string;
 }
 
 interface IHTMLmarkupObject {
@@ -162,7 +163,8 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		
 		return {
 			currentFieldName: "currentField",
-			fieldRendererFormat: '{"$schema": "https://gist.githubusercontent.com/thechriskent/2e09be14a4b491cfae256220cfca6310/raw/eb9f675bf523208eb840c462d4f716fa92ce14c2/columnFormattingSchema.json","elmType": "div","txtContent": {"operator": "+","operands": ["@currentField","!"]}}',
+			//fieldRendererFormat: '{"$schema": "https://gist.githubusercontent.com/thechriskent/2e09be14a4b491cfae256220cfca6310/raw/eb9f675bf523208eb840c462d4f716fa92ce14c2/columnFormattingSchema.json","elmType": "div","txtContent": {"operator": "+","operands": ["@currentField","!"]}}',
+			fieldRendererFormat: this.props.formatterString,
 			pageContextInfo: null,
 			row: row,
 			rowSchema: rowSchema
@@ -173,7 +175,8 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 function mapStateToProps(state: IApplicationState): IPreviewViewProps{
 	return {
 		columns: state.data.columns,
-		rows: state.data.rows
+		rows: state.data.rows,
+		formatterString: state.code.formatterString
 	};
 }
 

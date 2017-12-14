@@ -1,9 +1,10 @@
-import { IApplicationState, initialState, columnTypes, IColumn, IData, IPaneSize } from "./State";
+import { IApplicationState, initialState, columnTypes, IColumn, IData, IPaneSize, ICode } from "./State";
 import { 
 	ActionTypes, typeKeys, IUpdateDataRowAction, 
 	IUpdateDataColumnNameAction, IUpdateDataColumnTypeAction,
 	IAddDataRowAction, IRemoveDataRowAction,
-	IAddDataColumnAction, IRemoveDataColumnAction, IPaneResizeAction
+	IAddDataColumnAction, IRemoveDataColumnAction, IPaneResizeAction,
+	IUpdateEditorStringAction
 } from "./Actions";
 import { clone, forIn } from '@microsoft/sp-lodash-subset';
 import { generateRowValue } from './ValueGeneration';
@@ -36,6 +37,13 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 		
 		case typeKeys.PANE_RESIZE:
 			newState.panes = PaneResizeReducer(newState.panes, action);
+			break;
+		case typeKeys.CHOOSE_THEME:
+			newState.code.theme = action.theme;
+			break;
+
+		case typeKeys.UPDATE_EDITOR_STRING:
+			newState.code = UpdateEditorStringReducer(newState.code, action);
 			break;
 
 		default:
@@ -174,4 +182,12 @@ function PaneResizeReducer(panes:IPaneSize, action:IPaneResizeAction): IPaneSize
 		...panes,
 		split: action.size
 	};
+}
+
+
+function UpdateEditorStringReducer(code:ICode, action:IUpdateEditorStringAction): ICode {
+	//purposely not making a fully new code object
+	code.editorString = action.editorString;
+	code.formatterString = action.editorString; //replace with validation check
+	return code;
 }

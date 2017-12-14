@@ -1,4 +1,4 @@
-import { columnTypes } from './State';
+import { columnTypes, editorThemes } from './State';
 
 export type ActionTypes = 
 	| IUpdateDataRowAction
@@ -9,6 +9,8 @@ export type ActionTypes =
 	| IAddDataColumnAction
 	| IRemoveDataColumnAction
 	| IPaneResizeAction
+	| IChooseThemeAction
+	| IUpdateEditorStringAction
 	| IOtherAction;
 
 export enum typeKeys {
@@ -21,6 +23,9 @@ export enum typeKeys {
 	REMOVE_DATA_COLUMN = "REMOVE_DATA_COLUMN",
 
 	PANE_RESIZE = "PANE_RESIZE",
+	CHOOSE_THEME = "CHOOSE_THEME",
+
+	UPDATE_EDITOR_STRING = "UPDATE_EDITOR_STRING",
 
 	OTHER_ACTION = "ANY_OTHER_ACTION"
 }
@@ -102,6 +107,25 @@ export const resizePane = (paneName:string, size:number): IPaneResizeAction => (
 	type: typeKeys.PANE_RESIZE,
 	paneName,
 	size
+});
+
+export interface IChooseThemeAction {
+	type: typeKeys.CHOOSE_THEME;
+	theme: editorThemes;
+}
+export const chooseTheme = (theme:editorThemes): IChooseThemeAction => ({
+	type: typeKeys.CHOOSE_THEME,
+	theme
+});
+
+
+export interface IUpdateEditorStringAction {
+	type: typeKeys.UPDATE_EDITOR_STRING;
+	editorString: string;
+}
+export const updateEditorString = (editorString:string): IUpdateEditorStringAction => ({
+	type: typeKeys.UPDATE_EDITOR_STRING,
+	editorString
 });
 
 

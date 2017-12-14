@@ -20,6 +20,7 @@ The result is a hard to follow, but working set of code. The goal is to eventual
 |583|Removed ) to match def of const function above|
 |598-1066| Removed|
 |1067-1093|Reworked as LocalHtmlEncoding const function|
+|1085-1088|Reworked function property to work in TypeScript|
 |1094-3069| Removed|
 |3070|Took styles and moved them to local SCSS file|
 

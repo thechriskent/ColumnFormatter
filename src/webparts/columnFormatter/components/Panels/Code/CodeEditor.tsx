@@ -1,31 +1,39 @@
 import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
 import { connect } from 'react-redux';
-import { IApplicationState, IPaneSize } from '../../../state/State';
+import { Dispatch } from 'redux';
+import { updateEditorString } from './../../../state/Actions';
+import { IApplicationState, IPaneSize, ICode, editorThemes } from '../../../state/State';
 import { MonacoEditor } from './MonacoEditor';
 
 export interface ICodeEditorProps {
-	mainPane:number;
-	splitPane:number;
+	theme?:editorThemes;
+	editorString?:string;
+
+	updateEditorString?: (editorString:string) => void;
+
+	//only subscribed so that the editor will be updated and know to
+	// recalculate layout
+	mainPane?:number;
+	splitPane?:number;
 }
 
 export interface ICodeEditorState {
-	code: string;
+	//code: string;
 }
 
 class CodeEditor_ extends React.Component<ICodeEditorProps, ICodeEditorState> {
 
 	constructor(props: ICodeEditorProps) {
 		super(props);
-		this.state = {
-			code: 'hey there!'
-		};
 	}
 
 	public render(): React.ReactElement<ICodeEditorProps> {
 		return (
 			<MonacoEditor
-				value={this.props.mainPane.toString()}
+				value={this.props.editorString}
+				theme={this.props.theme}
+				onValueChange={this.props.updateEditorString}
 			/>
 		);
 	}
@@ -33,9 +41,19 @@ class CodeEditor_ extends React.Component<ICodeEditorProps, ICodeEditorState> {
 
 function mapStateToProps(state: IApplicationState): ICodeEditorProps{
 	return {
+		theme: state.code.theme,
+		editorString: state.code.editorString,
 		mainPane: state.panes.main,
 		splitPane: state.panes.split
 	};
 }
 
-export const CodeEditor = connect(mapStateToProps, null)(CodeEditor_);
+function mapDispatchToProps(dispatch: Dispatch<ICodeEditorProps>): ICodeEditorProps{
+	return {
+		updateEditorString: (editorString:string) => {
+			dispatch(updateEditorString(editorString));
+		}
+    };
+}
+
+export const CodeEditor = connect(mapStateToProps, mapDispatchToProps)(CodeEditor_);

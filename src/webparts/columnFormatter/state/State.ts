@@ -43,10 +43,32 @@ export interface IPaneSize {
 	split: number;
 }
 
+export enum editorThemes {
+	vs = "vs",
+	vsDark = "vs-dark",
+	hcBlack = "hc-black"
+}
+
+export interface ICode {
+	isValid: boolean;
+	editorString: string;
+	formatterString: string;
+	theme: editorThemes;
+}
+
 export interface IApplicationState {
 	data: IData;
 	panes: IPaneSize;
+	code: ICode;
 }
+
+const starterCode:string = [
+	'{',
+    '  "$schema": "http://columnformatting.sharepointpnp.com/columnFormattingSchema.json",',
+    '  "elmType": "div",',
+	'  "txtContent": "@currentField"',
+	'}'
+].join('\n');
 
 export const initialState: IApplicationState = {
 	data: {
@@ -63,6 +85,12 @@ export const initialState: IApplicationState = {
 	panes: {
 		main: 0,
 		split: 0
+	},
+	code: {
+		isValid: true,
+		editorString: starterCode,
+		formatterString: starterCode,
+		theme: editorThemes.vs
 	}
 };
 
