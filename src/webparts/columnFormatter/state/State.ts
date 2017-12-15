@@ -1,3 +1,4 @@
+//#region Enums
 export enum columnTypes {
 	text,
 	number,
@@ -9,6 +10,18 @@ export enum columnTypes {
 	datetime,
 	lookup
 }
+
+export enum editorThemes {
+	vs = "vs",
+	vsDark = "vs-dark",
+	hcBlack = "hc-black"
+}
+
+export enum uiState {
+	welcome,
+	editing
+}
+//#endregion
 
 export interface ILookupFieldValue {
 	lookupValue: string;
@@ -38,15 +51,20 @@ export interface IData {
 	rows: Array<Array<any>>;
 }
 
-export interface IPaneSize {
+export interface IPaneState {
 	main: number;
 	split: number;
 }
 
-export enum editorThemes {
-	vs = "vs",
-	vsDark = "vs-dark",
-	hcBlack = "hc-black"
+export interface ITabState {
+	propertyTab: number;
+	viewTab: number;
+}
+
+export interface IUI {
+	state: uiState;
+	panes: IPaneState;
+	tabs: ITabState;
 }
 
 export interface ICode {
@@ -59,7 +77,7 @@ export interface ICode {
 
 export interface IApplicationState {
 	data: IData;
-	panes: IPaneSize;
+	ui: IUI;
 	code: ICode;
 }
 
@@ -83,9 +101,16 @@ export const initialState: IApplicationState = {
 			["Shiny Chicken"]
 		]
 	},
-	panes: {
-		main: 0,
-		split: 0
+	ui: {
+		state: uiState.welcome,
+		panes: {
+			main: 0,
+			split: 0
+		},
+		tabs: {
+			propertyTab: 0,
+			viewTab: 0
+		}
 	},
 	code: {
 		validationErrors: [],

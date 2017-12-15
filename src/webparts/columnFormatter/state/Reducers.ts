@@ -1,4 +1,4 @@
-import { IApplicationState, initialState, columnTypes, IDataColumn, IData, IPaneSize, ICode } from "./State";
+import { IApplicationState, initialState, columnTypes, IDataColumn, IData, IPaneState, ICode } from "./State";
 import { 
 	ActionTypes, typeKeys, IUpdateDataRowAction, 
 	IUpdateDataColumnNameAction, IUpdateDataColumnTypeAction,
@@ -36,7 +36,7 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 			break;
 		
 		case typeKeys.PANE_RESIZE:
-			newState.panes = PaneResizeReducer(newState.panes, action);
+			newState.ui.panes = PaneResizeReducer(newState.ui.panes, action);
 			break;
 		case typeKeys.CHOOSE_THEME:
 			newState.code.theme = action.theme;
@@ -174,7 +174,7 @@ function RemoveDataColumnReducer(data:IData, action:IRemoveDataColumnAction): ID
 }
 
 
-function PaneResizeReducer(panes:IPaneSize, action:IPaneResizeAction): IPaneSize {
+function PaneResizeReducer(panes:IPaneState, action:IPaneResizeAction): IPaneState {
 	if(action.paneName == 'main'){
 		return {
 			...panes,

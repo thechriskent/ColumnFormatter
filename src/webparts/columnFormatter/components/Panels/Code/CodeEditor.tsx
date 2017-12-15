@@ -3,7 +3,7 @@ import styles from '../../ColumnFormatter.module.scss';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { updateEditorString } from './../../../state/Actions';
-import { IApplicationState, IPaneSize, ICode, editorThemes } from '../../../state/State';
+import { IApplicationState, ICode, editorThemes } from '../../../state/State';
 import { MonacoEditor } from './MonacoEditor';
 
 export interface ICodeEditorProps {
@@ -43,8 +43,8 @@ function mapStateToProps(state: IApplicationState): ICodeEditorProps{
 	return {
 		theme: state.code.theme,
 		editorString: state.code.editorString,
-		mainPane: state.panes.main,
-		splitPane: state.panes.split
+		mainPane: state.ui.panes.main,
+		splitPane: state.ui.panes.split
 	};
 }
 
