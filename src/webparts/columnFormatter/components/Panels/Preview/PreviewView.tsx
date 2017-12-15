@@ -38,7 +38,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 
 	public render(): React.ReactElement<IPreviewViewProps> {
 		this._formatterErrors = new Array<string>();
-		
+
 		return (
 		  <div>
 				<table>
@@ -61,7 +61,9 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 									return (
 										<td key={cIndex}>
 											{cIndex == 0 && (
-												<div dangerouslySetInnerHTML={this.formattedMarkup(rIndex)}/>
+												<div
+												 className='od-FieldRenderer-customFormatter'
+												 dangerouslySetInnerHTML={this.formattedMarkup(rIndex)}/>
 											)}
 											{cIndex > 0 && this.previewElement(value,rIndex,cIndex)}
 										</td>
