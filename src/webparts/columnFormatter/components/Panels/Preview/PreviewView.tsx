@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { IData, IApplicationState, IColumn, columnTypes } from '../../../state/State';
+import { IData, IApplicationState, IDataColumn, columnTypes } from '../../../state/State';
 //var CustomFormatter = require('../../../../../CustomFormatter/customformatter-MSFT');
 import { LocalCustomFormatter, LocalHtmlEncoding } from '../../../../../CustomFormatter/LocalCustomFormatter';
 import { LocalCustomFormatterStrings, IFormatterFieldInfo } from '../../../../../CustomFormatter/LocalFieldRendererFormat';
@@ -10,7 +10,7 @@ import * as tslib from 'tslib';
 import { updateFormatterErrors } from '../../../state/Actions';
 
 export interface IPreviewViewProps {
-	columns?: Array<IColumn>;
+	columns?: Array<IDataColumn>;
 	rows?: Array<Array<any>>;
 	formatterString?: string;
 	updateFormatterErrors?: (formatterErrors:Array<string>) => void;
@@ -44,7 +44,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 				<table>
 					<thead>
 						<tr>
-							{this.props.columns.map((column:IColumn, index:number) => {
+							{this.props.columns.map((column:IDataColumn, index:number) => {
 								return (
 									<td key={index}>
 										{column.name}

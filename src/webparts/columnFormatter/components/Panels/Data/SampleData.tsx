@@ -4,7 +4,7 @@ import * as strings from 'ColumnFormatterWebPartStrings';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import {
-	IData, IApplicationState, IColumn, columnTypes,
+	IData, IApplicationState, IDataColumn, columnTypes,
 	ILookupFieldValue, ILinkFieldValue, IPersonFieldValue
 } from '../../../state/State';
 import {
@@ -31,7 +31,7 @@ const buttonStyles: Partial<IButtonStyles> = {
 };
 
 export interface ISampleDataProps {
-	columns?: Array<IColumn>;
+	columns?: Array<IDataColumn>;
 	rows?: Array<Array<any>>;
 	updateRow?: (rowIndex:number, colIndex:number, value:any) => void;
 	updateColumnName?: (colIndex:number, name:string) => void;
@@ -50,7 +50,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 					<thead>
 						<tr>
 							<td className={styles.removeButton}>&nbsp;</td>
-							{this.props.columns.map((column:IColumn, index:number) => {
+							{this.props.columns.map((column:IDataColumn, index:number) => {
 								return (
 									<td key={index}>
 										<DataColumnHeader
@@ -100,7 +100,7 @@ class SampleData_ extends React.Component<ISampleDataProps, {}> {
 						})}
 						<tr>
 							<td className={styles.removeButton}>&nbsp;</td>
-							{this.props.columns.map((column:IColumn, index:number) => {
+							{this.props.columns.map((column:IDataColumn, index:number) => {
 								if(index == 0){
 									return (
 										<td key={index} className={styles.addButton}>

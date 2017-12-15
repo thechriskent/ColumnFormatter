@@ -1,4 +1,4 @@
-import { IApplicationState, initialState, columnTypes, IColumn, IData, IPaneSize, ICode } from "./State";
+import { IApplicationState, initialState, columnTypes, IDataColumn, IData, IPaneSize, ICode } from "./State";
 import { 
 	ActionTypes, typeKeys, IUpdateDataRowAction, 
 	IUpdateDataColumnNameAction, IUpdateDataColumnTypeAction,
@@ -68,7 +68,7 @@ function UpdateDataRowReducer(rows:Array<Array<any>>, action:IUpdateDataRowActio
 }
 
 //** Changes the name of the specified column */
-function UpdateDataColumnNameReducer(columns:Array<IColumn>, action:IUpdateDataColumnNameAction): Array<IColumn> {
+function UpdateDataColumnNameReducer(columns:Array<IDataColumn>, action:IUpdateDataColumnNameAction): Array<IDataColumn> {
 	return [
 		...columns.slice(0, action.colIndex),
 		{

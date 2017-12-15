@@ -28,13 +28,13 @@ export interface IPersonFieldValue {
 	picture: string;
 }
 
-export interface IColumn {
+export interface IDataColumn {
 	name: string;
 	type: columnTypes;
 }
 
 export interface IData {
-	columns: Array<IColumn>;
+	columns: Array<IDataColumn>;
 	rows: Array<Array<any>>;
 }
 
