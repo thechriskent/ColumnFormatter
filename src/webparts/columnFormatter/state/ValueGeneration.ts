@@ -111,6 +111,19 @@ const domainSuffixes: Array<string> = [
 	'com','org','net','gov','edu'
 ];
 
+interface IPictureColor {
+	color:string;
+	lightText:boolean;
+}
+const pictureColors: Array<IPictureColor> = [
+	{color:'5c005c',lightText:true},{color:'b4009e',lightText:true},{color:'e3008c',lightText:true},{color:'32145a',lightText:true},
+	{color:'5c2d91',lightText:true},{color:'b4a0ff',lightText:false},{color:'002050',lightText:true},{color:'00188f',lightText:true},
+	{color:'0078d7',lightText:true},{color:'00bcf2',lightText:false},{color:'004b50',lightText:true},{color:'008272',lightText:true},
+	{color:'00b294',lightText:false},{color:'004b1c',lightText:true},{color:'107c10',lightText:true},{color:'bad80a',lightText:false},
+	{color:'ffb900',lightText:false},{color:'fff100',lightText:false},{color:'d83b01',lightText:true},{color:'ea4300',lightText:true},
+	{color:'ff8c00',lightText:false},{color:'a80000',lightText:true},{color:'e81123',lightText:true}
+];
+
 const generateTextValue = (): string => {
 	return adjectives[getRandomInteger(0,adjectives.length-1)] + ' ' + nouns[getRandomInteger(0,nouns.length-1)];
 };
@@ -132,10 +145,20 @@ const generatePerson = (): IPersonFieldValue => {
 	};
 };
 
-const generateLink = (addPicture:boolean): ILinkFieldValue => {
+const generateLink = (): ILinkFieldValue => {
 	return {
-		URL: 'http://www.' + generateDomainName() + (addPicture ? '/img.png' : ''),
+		URL: 'http://www.' + generateDomainName(),
 		desc: generateTextValue()
+	};
+};
+
+const generatePictureLink = (): ILinkFieldValue => {
+	let text:string = nouns[getRandomInteger(0,nouns.length-1)];
+	//let color:string = getRandomInteger(0,200).toString(16) + getRandomInteger(0,200).toString(16) + getRandomInteger(0,200).toString(16);
+	let color:IPictureColor = pictureColors[getRandomInteger(0,pictureColors.length-1)];
+	return {
+		URL: `https://dummyimage.com/150x100/${color.color}/${color.lightText ? 'ffffff' : '000000'}&text=${text}`,
+		desc: text
 	};
 };
 
@@ -161,9 +184,9 @@ export const generateRowValue = (type:columnTypes): any => {
 		case columnTypes.number:
 			return getRandomInteger(-10,100);
 		case columnTypes.link:
-			return generateLink(false);
+			return generateLink();
 		case columnTypes.picture:
-			return generateLink(true);
+			return generatePictureLink();
 		case columnTypes.datetime:
 			return generateDate();
 		case columnTypes.lookup:
