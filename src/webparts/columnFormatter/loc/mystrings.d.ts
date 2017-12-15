@@ -35,6 +35,9 @@ declare interface IColumnFormatterWebPartStrings {
   ColumnTypeText: string;
   ColumnTypeUnknown: string;
 
+  BoolValueStringTrue: string;
+  BoolValueStringFalse: string;
+
   SubPropertiesHeadline: string;
   TimeHeadline: string;
 

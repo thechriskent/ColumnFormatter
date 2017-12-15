@@ -272,6 +272,586 @@
         }
       }
     }
+    .previewView {
+
+      //OOTB ListView Styles
+      :global {
+        .od-DateField--newItem{
+          color:$ms-color-green;
+          margin-right:3px;
+        }
+        .ms-DetailsList BUTTON.od-FieldRenderer-dot{
+          display:block;
+          position:relative;
+          left:0;
+          top:0;
+          width:36px;
+          height:100%;
+          text-align:center;
+          outline:0;
+          border:none;
+          background-color:transparent;
+          margin:0;
+          padding:0;
+          color:inherit;
+          font-size:14px;
+          opacity:0;
+          border-radius:0;
+          cursor:pointer;
+        }
+        .ms-DetailsList BUTTON.od-FieldRenderer-dot:hover{
+          background-color:$ms-color-neutralLight;
+          color:$ms-color-neutralPrimary;
+        }
+        .ms-DetailsList BUTTON.od-FieldRenderer-dot i{
+          position:absolute;
+          top:14px;
+          margin:auto;
+          opacity:0;
+        }
+        html[dir=ltr] .ms-DetailsList BUTTON.od-FieldRenderer-dot i{
+          right:10px;
+        }
+        html[dir=rtl] .ms-DetailsList BUTTON.od-FieldRenderer-dot i{
+          left:10px;
+        }
+        .od-DetailsRow-cell--VerticallyCenter BUTTON.od-FieldRenderer-dot i{
+          position:relative;
+          top:1px;
+        }
+        html[dir=ltr] .od-DetailsRow-cell--VerticallyCenter BUTTON.od-FieldRenderer-dot i{
+          right:0;
+        }
+        html[dir=rtl] .od-DetailsRow-cell--VerticallyCenter BUTTON.od-FieldRenderer-dot i{
+          left:0;
+        }
+        .od--isMobile .ms-DetailsList BUTTON.od-FieldRenderer-dot{
+          opacity:1;
+        }
+        .od--isNonMobile .is-selected .od-FieldRenderer-dot,
+        .od--isNonMobile .ms-DetailsRow-cell:focus .od-FieldRenderer-dot,
+        .od--isNonMobile .ms-DetailsRow:hover .od-FieldRenderer-dot,
+        .od--isNonMobile .od-FieldRenderer-dot:focus{
+          opacity:1;
+        }
+        .od--isNonMobile .is-selected .od-FieldRenderer-dot i,
+        .od--isNonMobile .ms-DetailsRow-cell:focus .od-FieldRenderer-dot i,
+        .od--isNonMobile .ms-DetailsRow:hover .od-FieldRenderer-dot i,
+        .od--isNonMobile .od-FieldRenderer-dot:focus i{
+          opacity:1;
+        }
+        .ms-DetailsRow-cell.od-DetailsRow-cell--DotDotDot{
+          padding:0;
+          overflow:visible;
+        }
+        .ms-DetailsRow-cell .ms-Link.od-FieldRenderer-name{
+          font-size:14px;
+          color:$ms-color-black;
+          display:inline;
+        }
+        .ms-DetailsRow-cell .ms-Link.od-FieldRenderer-name:hover{
+          text-decoration:underline;
+          color:$ms-color-black;
+        }
+        .ms-DetailsRow-cell .ms-Link.od-FieldRenderer-name:focus,
+        .ms-DetailsRow-cell .ms-Link.od-FieldRenderer-name:visited{
+          color:$ms-color-black;
+        }
+        .od-FieldRenderer-Path{
+          display:inline-block;
+          box-sizing:border-box;
+          max-width:100%;
+        }
+        .od-FieldRenderer-displayPathSection{
+          display:inline;
+          color:#767676;
+        }
+        .od-FieldRenderer-chevronRightSmall{
+          font-size:6px;
+          margin:0 4px;
+          color:#767676;
+        }
+        .od-FieldRenderer-text{
+          position:relative;
+          white-space:normal;
+        }
+        .od-FieldRenderer-text.is-truncated{
+          height:126px;
+          overflow:hidden;
+          position:relative;
+          height:98px;
+          display:inline-block;
+          overflow:hidden;
+        }
+        .od-FieldRenderer-text.is-truncated:after{
+          content:"";
+          position:absolute;
+          bottom:0;
+          right:0;
+          width:100%;
+          height:4em;
+        }
+        .ms-DetailsRow .od-FieldRenderer-text.is-truncated:after{
+          background:linear-gradient(to bottom, transparent, #ffffff 100%);
+        }
+        .ms-DetailsRow.is-selected .od-FieldRenderer-text.is-truncated:after{
+          background:linear-gradient(to bottom, transparent, #eaeaea 100%);
+        }
+        .ms-DetailsRow:hover .od-FieldRenderer-text.is-truncated:after{
+          background:linear-gradient(to bottom, transparent, #f4f4f4 100%);
+        }
+        .ms-DetailsRow.is-selected:focus .od-FieldRenderer-text.is-truncated:after,
+        .ms-DetailsRow.is-selected:hover .od-FieldRenderer-text.is-truncated:after{
+          background:linear-gradient(to bottom, transparent, #dadada 100%);
+        }
+        .od-FieldRender-title{
+          display:inline-block;
+        }
+        [dir=ltr] .od-SharedField--shared::before{
+          padding-right:4px;
+        }
+        [dir=rtl] .od-SharedField--shared::before{
+          padding-left:4px;
+        }
+        .ms-DetailsRow-cell .ms-Link,
+        .ms-DetailsRow-cell a.od-FieldRender-display,
+        .ms-DetailsRow-cell a.od-FieldRender-display:visited{
+          cursor:pointer;
+          text-decoration:none;
+          color:$ms-color-black;
+          font-size:12px;
+        }
+        .ms-DetailsRow-cell .ms-Link:hover,
+        .ms-DetailsRow-cell a.od-FieldRender-display:hover,
+        .ms-DetailsRow-cell a.od-FieldRender-display:visited:hover{
+          text-decoration:underline;
+          color:$ms-color-black;
+        }
+        .od-FieldRender-image{
+          max-width:64px;
+          max-height:64px;
+          overflow:hidden;
+          display:block;
+          margin:0 auto;
+        }
+        .od-FieldRender-imageDisplay{
+          cursor:pointer;
+          max-width:100%;
+          max-height:100%;
+        }
+        .ms-DetailsRow-cell .od-FieldRender-lookup{
+          display:block;
+          max-width:100%;
+        }
+        .od-FieldRenderer-shareHeroCommand{
+          display:block;
+          width:36px;
+          position:relative;
+          height:100%;
+          text-align:center;
+          outline:0;
+          border:none;
+          background-color:transparent;
+          margin:0;
+          padding:0;
+          color:inherit;
+          font-size:14px;
+          opacity:0;
+          border-radius:0;
+          cursor:pointer;
+        }
+        .od-FieldRenderer-shareHeroCommand:hover{
+          background-color:$ms-color-neutralLight;
+          color:$ms-color-neutralPrimary;
+        }
+        .od-FieldRenderer-shareHeroCommand i{
+          position:absolute;
+          top:14px;
+          margin:auto;
+          opacity:0;
+        }
+        html[dir=ltr] .od-FieldRenderer-shareHeroCommand i{
+          right:10px;
+        }
+        html[dir=rtl] .od-FieldRenderer-shareHeroCommand i{
+          left:10px;
+        }
+        .od-DetailsRow-cell--VerticallyCenter .od-FieldRenderer-shareHeroCommand i{
+          position:relative;
+          top:1px;
+        }
+        html[dir=ltr] .od-DetailsRow-cell--VerticallyCenter .od-FieldRenderer-shareHeroCommand i{
+          right:0;
+        }
+        html[dir=rtl] .od-DetailsRow-cell--VerticallyCenter .od-FieldRenderer-shareHeroCommand i{
+          left:0;
+        }
+        .od--isMobile .od-FieldRenderer-shareHeroCommand{
+          opacity:1;
+        }
+        .od--isNonMobile .ms-DetailsRow-cell:focus .od-FieldRenderer-shareHeroCommand,
+        .od--isNonMobile .ms-DetailsRow:hover .od-FieldRenderer-shareHeroCommand,
+        .od--isNonMobile .od-FieldRenderer-shareHeroCommand:focus{
+          opacity:1;
+        }
+        .od--isNonMobile .ms-DetailsRow-cell:focus .od-FieldRenderer-shareHeroCommand i,
+        .od--isNonMobile .ms-DetailsRow:hover .od-FieldRenderer-shareHeroCommand i,
+        .od--isNonMobile .od-FieldRenderer-shareHeroCommand:focus i{
+          opacity:1;
+        }
+        .ms-DetailsRow-cell.od-DetailsRow-cell--ShareCommand{
+          padding:0;
+          overflow:visible;
+        }
+        .ms-DetailsRow-cell .od-FieldRenderer-sharedWith{
+          cursor:pointer;
+        }
+        .ms-DetailsRow-cell .od-FieldRenderer-sharedWith:hover{
+          text-decoration:underline;
+        }
+        .od-FieldRenderer-pin{
+          display:block;
+          width:36px;
+          height:100%;
+          text-align:center;
+          outline:0;
+          border:none;
+          background-color:transparent;
+          margin:0;
+          padding:0;
+          color:inherit;
+          font-size:14px;
+          opacity:0;
+          cursor:pointer;
+        }
+        .od-FieldRenderer-pin:hover{
+          background-color:$ms-color-neutralLight;
+          color:$ms-color-neutralPrimary;
+        }
+        .ms-DetailsRow-cell.od-DetailsRow-cell--PinCommand{
+          padding:0;
+          overflow:visible;
+        }
+        .od--isNonMobile .ms-DetailsRow-cell:focus .od-FieldRenderer-pin,
+        .od--isNonMobile .ms-DetailsRow:hover .od-FieldRenderer-pin,
+        .od--isNonMobile .od-FieldRenderer-pin:focus{
+          opacity:1;
+        }
+        .ms-DetailsRow-cell.od-DetailsRow-cell--Pin{
+          padding:0;
+          overflow:visible;
+        }
+        .od-FieldRender-thumbnail{
+          max-width:128px;
+          height:128px;
+          overflow:hidden;
+          display:block;
+          margin:0 auto;
+          border:none;
+        }
+        .ms-Icon--xs{
+          font-size:10px;
+        }
+        .ms-Icon--s{
+          font-size:12px;
+        }
+        .ms-Icon--m{
+          font-size:16px;
+        }
+        .ms-Icon--l{
+          font-size:20px;
+        }
+        .od-focus--enabled .od-DetailsList a:focus{
+          box-shadow:none;
+        }
+        .od-DetailsList .ms-DetailsRow.is-dropping{
+          background:$ms-color-themeLighter;
+          outline:1px solid transparent;
+        }
+        .od-DetailsList .ms-DetailsRow.is-dropping .ms-DetailsRow-cell .FileTypeIcon-icon{
+          -ms-transform:scale(1.5,1.5);
+          transform:scale(1.5,1.5);
+        }
+        .od-DetailsList-groupHeader{
+          margin-top:15px;
+          margin-bottom:15px;
+          font-size:17px;
+        }
+        html[dir=ltr] .od-DetailsList-groupHeader{
+          margin-left:96px;
+        }
+        html[dir=rtl] .od-DetailsList-groupHeader{
+          margin-right:96px;
+        }
+        .od-DetailsListHeader-AddNewField{
+          font-size:13px;
+        }
+        .ms-DetailsRow-cell.od-DetailsRow-cell--FileIcon{
+          line-height:0;
+          overflow:visible;
+        }
+        .ms-DetailsRow-cell.od-DetailsRow-cell--Title{
+          cursor:pointer;
+        }
+        .ms-DetailsRow-cell [data-is-focusable=true]{
+          outline:transparent;
+          vertical-align:top;
+        }
+        .ms-DetailsRow-cell .od-FieldRender-nofill{
+          position:relative;
+          overflow:hidden;
+          white-space:nowrap;
+          text-overflow:ellipsis;
+        }
+        .od-FieldRenderer-text{
+          white-space:normal;
+          overflow:hidden;
+          max-height:7em;
+        }
+        .od-FieldRenderer--disabled{
+          opacity:.4;
+        }
+        .od-DetailsHeader-cell--FileIcon span{
+          display:-ms-inline-flexbox;
+          display:inline-flex;
+          -ms-flex-pack:center;
+          justify-content:center;
+          -ms-flex-align:center;
+          align-items:center;
+        }
+        .ms-DetailsRow-cell .od-FieldRender-lookup{
+          display:block;
+          max-width:100%;
+        }
+        .od-DetailsRow-cell--VerticallyCenter{
+          display:-ms-flexbox;
+          display:flex;
+          -ms-flex-direction:column;
+          flex-direction:column;
+          -ms-flex-pack:center;
+          justify-content:center;
+        }
+        .ms-Fabric.is-focusVisible .ms-DetailsRow-cell [data-is-focusable=true]:focus:after{
+          position:absolute;
+          content:'';
+          left:0;
+          top:0;
+          right:0;
+          bottom:0;
+          border:1px solid;
+          border-color: $ms-color-neutralSecondary;
+        }
+        html[dir] .ms-DetailsHeader-cell.od-DetailsHeader-addColumn{
+          width:40px;
+          padding:0;
+          text-align:center;
+        }
+        html[dir] .ms-DetailsHeader-cell.od-DetailsHeader-addColumn .ms-Icon{
+          line-height:36px;
+        }
+        [dir=ltr] .ms-DetailsHeader-cell .ms-DetailsHeader-filterChevron.ms-Icon{
+          padding-left:8px;
+        }
+        [dir=rtl] .ms-DetailsHeader-cell .ms-DetailsHeader-filterChevron.ms-Icon{
+          padding-right:8px;
+        }
+        .ms-DetailsHeader-cell .ms-Icon.ms-Icon--GroupedList{
+          position:relative;
+          top:1px;
+        }
+        .ms-DetailsHeader-cell .od-DetailsListHeader-FileTypeIcon.ms-Icon{
+          color:$ms-color-neutralTertiary;
+        }
+        .od-DetailsList-screenReaderOnly{
+          position:absolute;
+          text-indent:-9999px;
+          width:1px;
+          height:1px;
+          padding:0;
+          margin:-1px;
+          overflow:hidden;
+          border:0;
+        }
+        .od-DetailsListHeader-FileTypeIcon{
+          font-size:16px;
+        }
+        .od-DetailsHeader-cell--FileIcon .ms-Icon{
+          width:18px;
+          text-align:center;
+        }
+        .od-DetailsRow-needsAttention{
+          position:relative;
+        }
+        .od-DetailsRow-needsAttention:after{
+          content:'';
+          position:absolute;
+          top:0;
+          bottom:0;
+        }
+        html[dir=ltr] .od-DetailsRow-needsAttention:after{
+          left:-3px;
+        }
+        html[dir=rtl] .od-DetailsRow-needsAttention:after{
+          right:-3px;
+        }
+        html[dir=ltr] .od-DetailsRow-needsAttention:after{
+          border-left:3px solid;
+          border-left-color: $ms-color-yellow;
+        }
+        html[dir=rtl] .od-DetailsRow-needsAttention:after{
+          border-right:3px solid;
+          border-right-color: $ms-color-yellow;
+        }.ms-DetailsRow-cell .ms-Icon--People{
+          position:relative;
+          top:2px;
+        }
+        .od-DetailsList .FileTypeIcon{
+          margin:0 -2px;
+        }
+        .od-DetailsList .ms-DetailsRow-cell .od-FieldRender-truncate{
+          white-space:nowrap;
+          overflow:hidden;
+          text-overflow:ellipsis;
+        }
+        .od-DetailsList .ms-DetailsList--Compact .od-DetailsRow-cell--FileIcon .FileTypeIcon{
+          margin:0;
+          padding:2px 0 0 0;
+        }
+        .od-DetailsList .ms-DetailsList--Compact .ms-DetailsRow-check{
+          width:32px;
+          height:32px;
+        }
+        .od-DetailsList .ms-DetailsList--Compact .od-FieldRenderer-shareHeroCommand i,
+        .od-DetailsList .ms-DetailsList--Compact BUTTON.od-FieldRenderer-dot i{
+          top:10px;
+        }
+        .od-DetailsRow-cell--Name .od-FieldRenderer-NameRenderer-SignalField{
+          vertical-align:top;
+          top:-1px;
+        }
+        .od-FieldRenderer-Renderer-withCommands .od-FieldRenderer-heroCommandContainer{
+          display:-ms-inline-flexbox;
+          display:inline-flex;
+          position:absolute;
+          top:0;
+          height:100%;
+        }
+        html[dir=ltr] .od-FieldRenderer-Renderer-withCommands .od-FieldRenderer-heroCommandContainer{
+          right:0;
+        }
+        html[dir=rtl] .od-FieldRenderer-Renderer-withCommands .od-FieldRenderer-heroCommandContainer{
+          left:0;
+        }
+        .od-FieldRenderer-Renderer-withCommands .od-FieldRenderer-heroCommandContainer .od-FieldRenderer-pin{
+          position:relative;
+        }
+        .od-FieldRenderer-Renderer-withCommands button.od-FieldRender-display--link{
+          width:100%;
+        }
+        .od-DetailsList .ms-GroupHeader-expand{
+          font-size:12px;
+          margin-top:-8px;
+        }
+        button.ms-DetailsRow-check{
+          padding:0;
+        }
+        .FileTypeIcon{
+          position:relative;
+          display:inline-block;
+        }
+        .FileTypeIcon--clickable{
+          cursor:pointer;
+        }
+        .FileTypeIcon-icon{
+          display:inline-block;
+          vertical-align:middle;
+          position:relative;
+          overflow:hidden;
+        }
+        .FileTypeIcon-icon::before{
+          display:block;
+        }
+        .FileTypeIcon-overlay{
+          display:block;
+          border:0;
+          position:relative;
+          left:9px;
+          bottom:9px;
+          height:9px;
+          width:9px;
+        }
+      }
+      
+      .root{
+        color:$ms-color-themePrimary;
+        margin:0;
+        overflow:inherit;
+        padding:0;
+        text-overflow:inherit
+      }
+        
+      .isEnabled:hover, .isEnabled:focus{
+         color:$ms-color-themeDark
+       }
+      .isEnabled:active{
+        color:$ms-color-themePrimary;
+      }
+      
+      .isDisabled{
+        color:$ms-color-neutralTertiary;
+        pointer-events:none;
+        cursor:default;
+      }
+      button.root{
+        background:none;
+        border:none;
+        cursor:pointer;
+        display:inline;
+        font-size:inherit;
+        outline:transparent;
+        position:relative;
+      }
+      button.root::-moz-focus-inner{
+        border:0
+      }
+      
+      :global {
+        .ms-Fabric {
+          .is-focusVisible {
+            :local {
+              button.root:focus:after{
+                content:'';
+                position:absolute;
+                top:0;
+                right:0;
+                bottom:0;
+                left:0;
+                pointer-events:none;
+                border:1px solid;
+                border-color: $ms-color-black;
+              }
+              html[dir='ltr'] button.root{
+                text-align:left;
+              }
+              html[dir='rtl'] button.root{
+                text-align:right;
+              }
+              @media screen and (-ms-high-contrast: active){
+                button.root{
+                  color:Highlight;
+                }
+              }
+              a.root{
+                text-decoration:none;
+              }
+              a.root:focus{
+                outline:1px solid #000000;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 

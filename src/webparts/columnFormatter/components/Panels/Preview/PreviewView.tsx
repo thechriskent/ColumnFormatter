@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
+import * as strings from 'ColumnFormatterWebPartStrings';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { IData, IApplicationState, IDataColumn, columnTypes } from '../../../state/State';
@@ -46,44 +47,12 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		this._formatterErrors = new Array<string>();
 
 		return (
+			<div className={styles.previewView}>
 			<DetailsList
 			 items={this.buildItems()}
 			 columns={this.buildColumns()}/>
+			 </div>
 		);
-
-		/*return (
-		  <div>
-				<table>
-					<thead>
-						<tr>
-							{this.props.columns.map((column:IDataColumn, index:number) => {
-								return (
-									<td key={index}>
-										{column.name}
-									</td>
-								);
-							})}
-						</tr>
-					</thead>
-					<tbody>
-					{this.props.rows.map((row:Array<any>, rIndex:number) => {
-						return (
-							<tr key={rIndex}>
-								{row.map((value:any, cIndex:number) =>{
-									return (
-										<td key={cIndex}>
-											{cIndex == 0 && this.formattedMarkup(rIndex)}
-											{cIndex > 0 && this.previewElement(value,rIndex,cIndex)}
-										</td>
-									);
-								})}
-							</tr>
-						);
-					})}
-					</tbody>
-				</table>
-		  </div>
-		);*/
 	}
 
 	public componentDidMount(): void {
@@ -160,29 +129,67 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 
 	private previewElement(value:any, rIndex:number, cIndex:number): JSX.Element {
 		//Standard Display for other fields
-		let translatedValue: string;
 		switch (this.props.columns[cIndex].type) {
 			case columnTypes.boolean:
-				translatedValue = value ? "Yes" : "No";
-				break;
+				return (
+					<div className='od-FieldRenderer-text'>
+						<span>{value ? strings.BoolValueStringTrue : strings.BoolValueStringFalse}</span>
+					</div>
+				);
 			case columnTypes.lookup:
-				translatedValue = value.lookupValue;
-				break;
+				return (
+					<div>
+						<button
+						 className={'ms-Link ' + styles.root + ' odFieldRender od-FieldRender-lookup'}
+						 aria-label={this.props.columns[cIndex].name + ' column, ' + value.lookupValue}
+						 tabIndex={-1}>{value.lookupValue}</button>
+					</div>
+				);
 			case columnTypes.link:
+				return (
+					<a
+					 className={'ms-Link ' + styles.root + ' od-FieldRender-display od-FieldRender-display--link ' + styles.isEnabled} 
+					 href={value.URL}
+					 title={value.desc}
+					 target="_blank"
+					 tabIndex={-1}>{value.desc}</a>
+				);
 			case columnTypes.picture:
-				translatedValue = value.URL;
-				break;
+				return (
+					<div
+					 className='od-FieldRender-image'
+					 data-is-focusable='true'
+					 tabIndex={0}>
+						<img
+						 src={value.URL}
+						 title={value.desc}
+						 className='od-FieldRender-imageDisplay'/>
+					</div>
+				);
 			case columnTypes.person:
-				translatedValue = value.title;
-				break;
+				return(
+					<div>
+						<div>
+							<span
+							 className='od-FieldRender od-FieldRender-nofill odFieldRender-person lpc-hoverTarget'
+							 data-is-focusable="true"
+							 role="button"
+							 aria-label={"Person column, " + value.title}
+							 tabIndex={0}>{value.title}</span>
+						</div>
+					</div>
+				);
 			case columnTypes.datetime:
-				translatedValue = value.toLocaleString();
-				break;
+				return (
+					<div className="od-FieldRenderer-date">{value.toLocaleDateString()}</div>
+				);
 			default:
-				translatedValue = value;
-				break;
+				return (
+					<div className='od-FieldRenderer-text'>
+						<span>{value}</span>
+					</div>
+				);
 		}
-		return (<span>{translatedValue}</span>);
 	}
 
 	private getFormatterFieldInfo(rIndex:number): IFormatterFieldInfo {

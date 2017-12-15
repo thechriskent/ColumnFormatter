@@ -36,6 +36,9 @@ define([], function() {
     ColumnTypeText: "Text",
     ColumnTypeUnknown: "Unknown",
 
+    BoolValueStringTrue: "Yes",
+    BoolValueStringFalse: "No",
+
     SubPropertiesHeadline: "Sub Properties",
     TimeHeadline: "Time",
     
