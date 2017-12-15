@@ -16,11 +16,11 @@
   "preconfiguredEntries": [{
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Other
     "group": { "default": "Other" },
-    "title": { "default": "ColumnFormatter" },
-    "description": { "default": "ColumnFormatter description" },
-    "officeFabricIconFontName": "Page",
+    "title": { "default": "Column Formatter" },
+    "description": { "default": "Enables easy editing of Display Formatting for modern listview columns" },
+    "officeFabricIconFontName": "Design",
     "properties": {
-      "description": "ColumnFormatter"
+      "description": "Enables easy editing of Display Formatting for modern listview columns"
     }
   }]
 }

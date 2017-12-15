@@ -18,11 +18,11 @@ class ColumnFormatterViewPane_ extends React.Component<IColumnFormatterViewPaneP
 	public render(): React.ReactElement<IColumnFormatterViewPaneProps> {
 		return (
 		  <Tabs>
-				<TabPanel>
-					<ColumnFormatterCodePanel/>
+			  	<TabPanel>
+					<ColumnFormatterPreviewPanel/>
 				</TabPanel>
 				<TabPanel>
-					<ColumnFormatterPreviewPanel/>
+					<ColumnFormatterCodePanel/>
 				</TabPanel>
 				<TabPanel>
 					<SplitPane
@@ -37,8 +37,8 @@ class ColumnFormatterViewPane_ extends React.Component<IColumnFormatterViewPaneP
 					</SplitPane>
 				</TabPanel>
 				<TabList style={{"textAlign":"right"}}>
-					<Tab><Icon iconName='Embed'/><span>{strings.TabCode}</span></Tab>
 					<Tab><Icon iconName='RedEye'/><span>{strings.TabPreview}</span></Tab>
+					<Tab><Icon iconName='Embed'/><span>{strings.TabCode}</span></Tab>
 					<Tab><Icon iconName='DoubleColumn'/><span>{strings.TabSplit}</span></Tab>
 				</TabList>
 		  </Tabs>
