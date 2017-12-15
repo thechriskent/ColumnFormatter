@@ -51,6 +51,7 @@ export enum editorThemes {
 
 export interface ICode {
 	validationErrors: Array<string>;
+	formatterErrors: Array<string>;
 	editorString: string;
 	formatterString: string;
 	theme: editorThemes;
@@ -88,6 +89,7 @@ export const initialState: IApplicationState = {
 	},
 	code: {
 		validationErrors: [],
+		formatterErrors: [],
 		editorString: starterCode,
 		formatterString: starterCode,
 		theme: editorThemes.vs

@@ -11,6 +11,7 @@ export type ActionTypes =
 	| IPaneResizeAction
 	| IChooseThemeAction
 	| IUpdateEditorStringAction
+	| IUpdateFormatterErrorsAction
 	| IOtherAction;
 
 export enum typeKeys {
@@ -26,6 +27,7 @@ export enum typeKeys {
 	CHOOSE_THEME = "CHOOSE_THEME",
 
 	UPDATE_EDITOR_STRING = "UPDATE_EDITOR_STRING",
+	UPDATE_FORMATTER_ERRORS = "UPDATE_FORMATTER_ERRORS",
 
 	OTHER_ACTION = "ANY_OTHER_ACTION"
 }
@@ -128,6 +130,15 @@ export const updateEditorString = (editorString:string, validationErrors: Array<
 	type: typeKeys.UPDATE_EDITOR_STRING,
 	editorString,
 	validationErrors
+});
+
+export interface IUpdateFormatterErrorsAction {
+	type: typeKeys.UPDATE_FORMATTER_ERRORS;
+	formatterErrors: Array<string>;
+}
+export const updateFormatterErrors = (formatterErrors:Array<string>): IUpdateFormatterErrorsAction => ({
+	type: typeKeys.UPDATE_FORMATTER_ERRORS,
+	formatterErrors
 });
 
 

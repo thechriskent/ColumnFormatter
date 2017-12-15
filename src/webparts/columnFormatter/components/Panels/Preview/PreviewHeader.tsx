@@ -19,6 +19,7 @@ const iconStyles: Partial<IIconStyles> = {
 
 export interface IPreviewHeaderProps {
 	validationErrors: Array<string>;
+	formatterErrors: Array<string>;
 }
 
 export interface IPreviewHeaderState {
@@ -36,7 +37,7 @@ class PreviewHeader_ extends React.Component<IPreviewHeaderProps, IPreviewHeader
 	}
 
 	public render(): React.ReactElement<IPreviewHeaderProps> {
-		let isValid:boolean = this.props.validationErrors.length == 0;
+		let isValid:boolean = this.props.validationErrors.length == 0 && this.props.formatterErrors.length == 0;
 		return (
 		  <div className={styles.previewHeader}>
 			<div className={styles.mainBox}>
@@ -45,7 +46,7 @@ class PreviewHeader_ extends React.Component<IPreviewHeaderProps, IPreviewHeader
 			<div className={styles.buttonBox + ' ' + (isValid ? styles.valid : styles.invalid)}>
 				<Icon
 				 iconName={isValid ? 'Emoji2' : 'EmojiDisappointed'}
-				 title={isValid ? strings.PreviewValidationGood : strings.PreviewValidationBad + '\n' + this.props.validationErrors.join('\n')}
+				 title={isValid ? strings.PreviewValidationGood : strings.PreviewValidationBad + '\n' + this.props.validationErrors.join('\n') + this.props.formatterErrors.join('\n')}
 				 styles={iconStyles}/>
 			</div>
 		  </div>
@@ -62,7 +63,8 @@ class PreviewHeader_ extends React.Component<IPreviewHeaderProps, IPreviewHeader
 
 function mapStateToProps(state: IApplicationState): IPreviewHeaderProps{
 	return {
-		validationErrors: state.code.validationErrors
+		validationErrors: state.code.validationErrors,
+		formatterErrors: state.code.formatterErrors
 	};
 }
 

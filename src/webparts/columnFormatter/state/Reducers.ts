@@ -45,6 +45,9 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 		case typeKeys.UPDATE_EDITOR_STRING:
 			newState.code = UpdateEditorStringReducer(newState.code, action);
 			break;
+		case typeKeys.UPDATE_FORMATTER_ERRORS:
+			newState.code.formatterErrors = action.formatterErrors;
+			break;
 
 		default:
 			return state;

@@ -1,16 +1,19 @@
 import * as React from 'react';
 import styles from '../../ColumnFormatter.module.scss';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import { IData, IApplicationState, IColumn, columnTypes } from '../../../state/State';
 //var CustomFormatter = require('../../../../../CustomFormatter/customformatter-MSFT');
 import { LocalCustomFormatter, LocalHtmlEncoding } from '../../../../../CustomFormatter/LocalCustomFormatter';
 import { LocalCustomFormatterStrings, IFormatterFieldInfo } from '../../../../../CustomFormatter/LocalFieldRendererFormat';
 import * as tslib from 'tslib';
+import { updateFormatterErrors } from '../../../state/Actions';
 
 export interface IPreviewViewProps {
-	columns: Array<IColumn>;
-	rows: Array<Array<any>>;
-	formatterString: string;
+	columns?: Array<IColumn>;
+	rows?: Array<Array<any>>;
+	formatterString?: string;
+	updateFormatterErrors?: (formatterErrors:Array<string>) => void;
 }
 
 interface IHTMLmarkupObject {
@@ -22,6 +25,8 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 	private _cfContainer: any = {};
 	private _heContainer: any = {};
 
+	private _formatterErrors: Array<string>;
+
 	constructor(props:IPreviewViewProps){
 		super(props);
 
@@ -32,7 +37,8 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 	}
 
 	public render(): React.ReactElement<IPreviewViewProps> {
-
+		this._formatterErrors = new Array<string>();
+		
 		return (
 		  <div>
 				<table>
@@ -70,9 +76,26 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		);
 	}
 
+	public componentDidMount(): void {
+		this.evaluateFormatterErrors();
+	}
+
+	public componentDidUpdate(): void {
+		this.evaluateFormatterErrors();
+	}
+
+	private evaluateFormatterErrors(): void {
+		this.props.updateFormatterErrors(this._formatterErrors);
+	}
+
 	private formattedMarkup(rIndex:number): IHTMLmarkupObject {
 		let formatterFieldInfo: IFormatterFieldInfo = this.getFormatterFieldInfo(rIndex);
 		let formatter = new this._cfContainer.CustomFormatter(formatterFieldInfo);
+		let htmlString:string = formatter.evaluate();
+		let errorString:string = formatter.errors();
+		if(errorString.length) {
+			this._formatterErrors.push('Row ' + rIndex.toString() + ': ' + errorString);
+		}
 		return {
 			__html: formatter.evaluate()
 		};
@@ -180,4 +203,12 @@ function mapStateToProps(state: IApplicationState): IPreviewViewProps{
 	};
 }
 
-export const PreviewView = connect(mapStateToProps, null)(PreviewView_);
+function mapDispatchToProps(dispatch: Dispatch<IPreviewViewProps>): IPreviewViewProps{
+	return {
+		updateFormatterErrors: (formatterErrors:Array<string>) => {
+			dispatch(updateFormatterErrors(formatterErrors));
+		}
+    };
+}
+
+export const PreviewView = connect(mapStateToProps, mapDispatchToProps)(PreviewView_);
