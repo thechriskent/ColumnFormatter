@@ -23,18 +23,18 @@ class ColumnFormatterPropertyPane_ extends React.Component<IColumnFormatterPrope
 			 selectedIndex={this.props.tabIndex}
 			 onSelect={this.onSelectTab}>
 				<TabPanel>
-					<ColumnFormatterDataPanel/>
-				</TabPanel>
-				<TabPanel>
 					Wowee!
 				</TabPanel>
 				<TabPanel>
 					<ColumnFormatterTreePanel/>
 				</TabPanel>
+				<TabPanel>
+					<ColumnFormatterDataPanel/>
+				</TabPanel>
 				<TabList>
-					<Tab><Icon iconName='TextField'/><span>{strings.TabData}</span></Tab>
 					<Tab><Icon iconName='LightningBolt'/><span>{strings.TabWizard}</span></Tab>
 					<Tab><Icon iconName='Bookmarks'/><span>{strings.TabTree}</span></Tab>
+					<Tab><Icon iconName='TextField'/><span>{strings.TabData}</span></Tab>
 				</TabList>
 		  </Tabs>
 		);

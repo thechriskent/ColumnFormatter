@@ -108,8 +108,8 @@ export const initialState: IApplicationState = {
 			split: 0
 		},
 		tabs: {
-			propertyTab: 1,
-			viewTab: 2
+			propertyTab: 0,
+			viewTab: 0
 		}
 	},
 	code: {
