@@ -69,7 +69,12 @@ export class MonacoEditor extends React.Component<IMonacoEditorProps, IMonacoEdi
 			theme: this.props.theme,
 			language: 'json',
 			folding: true,
-			renderIndentGuides: true
+			renderIndentGuides: true,
+			lineNumbers: false,
+			//lineNumbersMinChars: 4,
+			minimap: {
+				enabled: false
+			}
 		});
 
 		//Subscribe to changes
