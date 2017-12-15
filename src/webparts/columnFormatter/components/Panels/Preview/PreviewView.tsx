@@ -116,8 +116,9 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 			key: 'currentField',
 			name: 'currentField',
 			fieldName: 'currentField',
-			minWidth: 140,
-			maxWidth: 140,
+			minWidth: 130,
+			maxWidth: 130,
+			className: 'od-DetailsRow-cell--' + this.colTypeFromEnum(this.props.columns[0].type),
 			onRender: (item?: any, index?: number) => {
 				return this.formattedMarkup(index);
 			}
@@ -128,8 +129,9 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 				key: this.props.columns[c].name,
 				name: this.props.columns[c].name,
 				fieldName: this.props.columns[c].name,
-				minWidth: 140,
-				maxWidth: 140,
+				minWidth: 130,
+				maxWidth: 130,
+				className: 'od-DetailsRow-cell--' + this.colTypeFromEnum(this.props.columns[c].type),
 				onRender: (item:any, index:number) => {
 					return this.previewElement(this.props.rows[index][cIndex], index, cIndex);
 				}
@@ -190,53 +192,43 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		};
 		let rowSchema = {};
 		for(var i = 0; i < this.props.columns.length; i++) {
-			let colType: string;
 			switch (this.props.columns[i].type) {
 				case columnTypes.boolean:
-					colType = "Boolean";
 					row[this.props.columns[i].name] = this.props.rows[rIndex][i] ? "Yes" : "No";
 					row[this.props.columns[i].name + '.value'] = this.props.rows[rIndex][i] ? "1" : "0";
 					break;
 				case columnTypes.choice:
-					colType = "Choice";
 					row[this.props.columns[i].name] = this.props.rows[rIndex][i];
 					break;
 				case columnTypes.datetime:
-					colType = "DateTime";
 					row[this.props.columns[i].name] = this.props.rows[rIndex][i].toLocaleDateString();
 					row[this.props.columns[i].name + '.'] = this.props.rows[rIndex][i].toISOString();
 					break;
 				case columnTypes.link:
-					colType = "Hyperlink";
 					row[this.props.columns[i].name] = this.props.rows[rIndex][i].URL;
 					row[this.props.columns[i].name+'.desc'] = this.props.rows[rIndex][i].desc;
 					break;
 				case columnTypes.lookup:
-					colType = "Lookup";
 					row[this.props.columns[i].name] = [{
 						...this.props.rows[rIndex][i],
 						isSecretFieldValue: false
 					}];
 					break;
 				case columnTypes.number:
-					colType = "Number";
 					row[this.props.columns[i].name] = this.props.rows[rIndex][i].toPrecision(14);
 					row[this.props.columns[i].name + '.'] = this.props.rows[rIndex][i];
 					break;
 				case columnTypes.person:
-					colType = "User";
 					row[this.props.columns[i].name] = [this.props.rows[rIndex][i]];
 					break;
 				case columnTypes.picture:
-					colType = "Image";
 					row[this.props.columns[i].name] = this.props.rows[rIndex][i].URL;
 					row[this.props.columns[i].name+'.desc'] = this.props.rows[rIndex][i].desc;
 					break;
 				default:
-					colType = "Text";
 					row[this.props.columns[i].name] = this.props.rows[rIndex][i];
 			}
-			rowSchema[this.props.columns[i].name] = colType;
+			rowSchema[this.props.columns[i].name] = this.colTypeFromEnum(this.props.columns[i].type);
 		}
 		
 		return {
@@ -247,6 +239,29 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 			row: row,
 			rowSchema: rowSchema
 		};
+	}
+
+	private colTypeFromEnum(enumValue:columnTypes): string {
+		switch (enumValue) {
+			case columnTypes.boolean:
+				return "Boolean";
+			case columnTypes.choice:
+				return "Choice";
+			case columnTypes.datetime:
+				return "DateTime";
+			case columnTypes.link:
+				return "Hyperlink";
+			case columnTypes.lookup:
+				return "Lookup";
+			case columnTypes.number:
+				return "Number";
+			case columnTypes.person:
+				return "User";
+			case columnTypes.picture:
+				return "Image";
+			default:
+				return "Text";
+		}
 	}
 }
 
