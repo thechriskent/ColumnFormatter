@@ -10,7 +10,7 @@ export interface ICodeEditorProps {
 	theme?:editorThemes;
 	editorString?:string;
 
-	updateEditorString?: (editorString:string) => void;
+	updateEditorString?: (editorString:string, validationErrors:Array<string>) => void;
 
 	//only subscribed so that the editor will be updated and know to
 	// recalculate layout
@@ -50,8 +50,8 @@ function mapStateToProps(state: IApplicationState): ICodeEditorProps{
 
 function mapDispatchToProps(dispatch: Dispatch<ICodeEditorProps>): ICodeEditorProps{
 	return {
-		updateEditorString: (editorString:string) => {
-			dispatch(updateEditorString(editorString));
+		updateEditorString: (editorString:string, validationErrors:Array<string>) => {
+			dispatch(updateEditorString(editorString, validationErrors));
 		}
     };
 }

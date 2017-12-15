@@ -188,7 +188,9 @@ function PaneResizeReducer(panes:IPaneSize, action:IPaneResizeAction): IPaneSize
 function UpdateEditorStringReducer(code:ICode, action:IUpdateEditorStringAction): ICode {
 	//purposely not making a fully new code object
 	code.editorString = action.editorString;
-	code.formatterString = action.editorString; //replace with validation check
-	code.validationErrors = ["Bad things have happened!"];
+	if(action.validationErrors.length == 0) {
+		code.formatterString = action.editorString;
+	}
+	code.validationErrors = action.validationErrors;
 	return code;
 }

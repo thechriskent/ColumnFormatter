@@ -122,10 +122,12 @@ export const chooseTheme = (theme:editorThemes): IChooseThemeAction => ({
 export interface IUpdateEditorStringAction {
 	type: typeKeys.UPDATE_EDITOR_STRING;
 	editorString: string;
+	validationErrors: Array<string>;
 }
-export const updateEditorString = (editorString:string): IUpdateEditorStringAction => ({
+export const updateEditorString = (editorString:string, validationErrors: Array<string>): IUpdateEditorStringAction => ({
 	type: typeKeys.UPDATE_EDITOR_STRING,
-	editorString
+	editorString,
+	validationErrors
 });
 
 
