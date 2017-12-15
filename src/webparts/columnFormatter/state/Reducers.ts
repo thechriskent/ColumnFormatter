@@ -1,10 +1,10 @@
-import { IApplicationState, initialState, columnTypes, IDataColumn, IData, IPaneState, ICode } from "./State";
+import { IApplicationState, initialState, columnTypes, IDataColumn, IData, IPaneState, ICode, ITabState } from "./State";
 import { 
 	ActionTypes, typeKeys, IUpdateDataRowAction, 
 	IUpdateDataColumnNameAction, IUpdateDataColumnTypeAction,
 	IAddDataRowAction, IRemoveDataRowAction,
 	IAddDataColumnAction, IRemoveDataColumnAction, IPaneResizeAction,
-	IUpdateEditorStringAction
+	IUpdateEditorStringAction, ISelectTabAction
 } from "./Actions";
 import { clone, forIn } from '@microsoft/sp-lodash-subset';
 import { generateRowValue } from './ValueGeneration';
@@ -35,6 +35,9 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 			newState.data = RemoveDataColumnReducer(newState.data, action);
 			break;
 		
+		case typeKeys.SELECT_TAB:
+			newState.ui.tabs = SelectTabReducer(newState.ui.tabs, action);
+			break;
 		case typeKeys.PANE_RESIZE:
 			newState.ui.panes = PaneResizeReducer(newState.ui.panes, action);
 			break;
@@ -173,6 +176,19 @@ function RemoveDataColumnReducer(data:IData, action:IRemoveDataColumnAction): ID
 	};
 }
 
+
+function SelectTabReducer(tabs:ITabState, action:ISelectTabAction): ITabState {
+	if(action.tabName == 'view'){
+		return {
+			...tabs,
+			viewTab: action.index
+		};
+	}
+	return {
+		...tabs,
+		propertyTab: action.index
+	};
+}
 
 function PaneResizeReducer(panes:IPaneState, action:IPaneResizeAction): IPaneState {
 	if(action.paneName == 'main'){

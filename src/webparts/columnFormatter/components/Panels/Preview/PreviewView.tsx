@@ -4,16 +4,11 @@ import * as strings from 'ColumnFormatterWebPartStrings';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { IData, IApplicationState, IDataColumn, columnTypes } from '../../../state/State';
-//var CustomFormatter = require('../../../../../CustomFormatter/customformatter-MSFT');
 import { LocalCustomFormatter, LocalHtmlEncoding } from '../../../../../CustomFormatter/LocalCustomFormatter';
 import { LocalCustomFormatterStrings, IFormatterFieldInfo } from '../../../../../CustomFormatter/LocalFieldRendererFormat';
 import * as tslib from 'tslib';
 import { updateFormatterErrors } from '../../../state/Actions';
-import {
-	DetailsList,
-	ColumnActionsMode,
-	IColumn
-  } from 'office-ui-fabric-react/lib/DetailsList';
+import { DetailsList, ColumnActionsMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
 
 export interface IPreviewViewProps {
 	columns?: Array<IDataColumn>;

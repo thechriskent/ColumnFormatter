@@ -8,6 +8,7 @@ export type ActionTypes =
 	| IRemoveDataRowAction
 	| IAddDataColumnAction
 	| IRemoveDataColumnAction
+	| ISelectTabAction
 	| IPaneResizeAction
 	| IChooseThemeAction
 	| IUpdateEditorStringAction
@@ -23,6 +24,7 @@ export enum typeKeys {
 	ADD_DATA_COLUMN = "ADD_DATA_COLUMN",
 	REMOVE_DATA_COLUMN = "REMOVE_DATA_COLUMN",
 
+	SELECT_TAB = "SELECT_TAB",
 	PANE_RESIZE = "PANE_RESIZE",
 	CHOOSE_THEME = "CHOOSE_THEME",
 
@@ -99,6 +101,17 @@ export const removeDataColumn = (colIndex:number): IRemoveDataColumnAction => ({
 	colIndex
 });
 
+
+export interface ISelectTabAction {
+	type: typeKeys.SELECT_TAB;
+	tabName: string;
+	index: number;
+}
+export const selectTab = (tabName:string, index:number): ISelectTabAction => ({
+	type: typeKeys.SELECT_TAB,
+	tabName,
+	index
+});
 
 export interface IPaneResizeAction {
 	type: typeKeys.PANE_RESIZE;

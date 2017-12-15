@@ -11,7 +11,7 @@ import { chooseTheme } from '../state/Actions';
 import { IApplicationState, editorThemes } from '../state/State';
 var SplitPane = require('react-split-pane');
 
-import ColumnFormatterPropertyPane from './Panes/ColumnFormatterPropertyPane';
+import { ColumnFormatterPropertyPane } from './Panes/ColumnFormatterPropertyPane';
 import { ColumnFormatterViewPane } from './Panes/ColumnFormatterViewPane';
 
 export interface IColumnFormatterProps {
