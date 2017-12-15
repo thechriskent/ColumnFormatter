@@ -28,7 +28,7 @@ class ColumnFormatterViewPane_ extends React.Component<IColumnFormatterViewPaneP
 					<SplitPane
 					split="vertical"
 					className={styles.SplitPaneInTab}
-					size={202}
+					size={209}
 					minSize={100}
 					maxSize={-100}
 					onDragFinished={(size:number) => {this.props.paneResized(size);}}>

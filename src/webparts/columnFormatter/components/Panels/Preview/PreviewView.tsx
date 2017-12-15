@@ -11,8 +11,7 @@ import * as tslib from 'tslib';
 import { updateFormatterErrors } from '../../../state/Actions';
 import {
 	DetailsList,
-	DetailsListLayoutMode,
-	Selection,
+	ColumnActionsMode,
 	IColumn
   } from 'office-ui-fabric-react/lib/DetailsList';
 
@@ -81,6 +80,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 
 	private buildColumns(): Array<IColumn> {
 		let columns:Array<IColumn> = new Array<IColumn>();
+		//Formatted Column
 		columns.push({
 			key: 'currentField',
 			name: 'currentField',
@@ -92,6 +92,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 				return this.formattedMarkup(index);
 			}
 		});
+		//Any extra columns
 		for(var c = 1; c<this.props.columns.length; c++) {
 			let cIndex:number = c;
 			columns.push({
@@ -106,6 +107,16 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 				}
 			});
 		}
+		//Final spacer (used normally for newcolumn commands, but also prevents huge widths for last column)
+		columns.push({
+			key: '__newColumnHeaderCommand',
+			name: '',
+			//iconName: 'Add',
+			fieldName: '__newColumnHeaderCommand',
+			minWidth: 1,
+			maxWidth: 34,
+			columnActionsMode: ColumnActionsMode.disabled
+		});
 		return columns;
 	}
 
