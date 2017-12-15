@@ -8,6 +8,12 @@ import { LocalCustomFormatter, LocalHtmlEncoding } from '../../../../../CustomFo
 import { LocalCustomFormatterStrings, IFormatterFieldInfo } from '../../../../../CustomFormatter/LocalFieldRendererFormat';
 import * as tslib from 'tslib';
 import { updateFormatterErrors } from '../../../state/Actions';
+import {
+	DetailsList,
+	DetailsListLayoutMode,
+	Selection,
+	IColumn
+  } from 'office-ui-fabric-react/lib/DetailsList';
 
 export interface IPreviewViewProps {
 	columns?: Array<IDataColumn>;
@@ -40,6 +46,12 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		this._formatterErrors = new Array<string>();
 
 		return (
+			<DetailsList
+			 items={this.buildItems()}
+			 columns={this.buildColumns()}/>
+		);
+
+		/*return (
 		  <div>
 				<table>
 					<thead>
@@ -60,11 +72,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 								{row.map((value:any, cIndex:number) =>{
 									return (
 										<td key={cIndex}>
-											{cIndex == 0 && (
-												<div
-												 className='od-FieldRenderer-customFormatter'
-												 dangerouslySetInnerHTML={this.formattedMarkup(rIndex)}/>
-											)}
+											{cIndex == 0 && this.formattedMarkup(rIndex)}
 											{cIndex > 0 && this.previewElement(value,rIndex,cIndex)}
 										</td>
 									);
@@ -75,7 +83,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 					</tbody>
 				</table>
 		  </div>
-		);
+		);*/
 	}
 
 	public componentDidMount(): void {
@@ -90,7 +98,47 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		this.props.updateFormatterErrors(this._formatterErrors);
 	}
 
-	private formattedMarkup(rIndex:number): IHTMLmarkupObject {
+	private buildItems(): Array<any> {
+		let items:Array<any> = new Array<any>();
+		for(var r = 0; r<this.props.rows.length; r++) {
+			let item:any = {};
+			for(var c = 0; c<this.props.columns.length; c++) {
+				item[this.props.columns[c].name] = this.props.rows[r][c];
+			}
+			items.push(item);
+		}
+		return items;
+	}
+
+	private buildColumns(): Array<IColumn> {
+		let columns:Array<IColumn> = new Array<IColumn>();
+		columns.push({
+			key: 'currentField',
+			name: 'currentField',
+			fieldName: 'currentField',
+			minWidth: 140,
+			maxWidth: 140,
+			onRender: (item?: any, index?: number) => {
+				return this.formattedMarkup(index);
+			}
+		});
+		for(var c = 1; c<this.props.columns.length; c++) {
+			let cIndex:number = c;
+			columns.push({
+				key: this.props.columns[c].name,
+				name: this.props.columns[c].name,
+				fieldName: this.props.columns[c].name,
+				minWidth: 140,
+				maxWidth: 140,
+				onRender: (item:any, index:number) => {
+					return this.previewElement(this.props.rows[index][cIndex], index, cIndex);
+				}
+			});
+		}
+		return columns;
+	}
+
+	private formattedMarkup(rIndex:number): JSX.Element {
 		let formatterFieldInfo: IFormatterFieldInfo = this.getFormatterFieldInfo(rIndex);
 		let formatter = new this._cfContainer.CustomFormatter(formatterFieldInfo);
 		let htmlString:string = formatter.evaluate();
@@ -98,12 +146,17 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		if(errorString.length) {
 			this._formatterErrors.push('Row ' + rIndex.toString() + ': ' + errorString);
 		}
-		return {
-			__html: formatter.evaluate()
+		let innerHtml:IHTMLmarkupObject = {
+			__html: htmlString
 		};
+		return (
+			<div
+			 className='od-FieldRenderer-customFormatter'
+			 dangerouslySetInnerHTML={innerHtml}/>
+		);
 	}
 
-	private previewElement(value:any, rIndex:number, cIndex:number): JSX.Element | string {
+	private previewElement(value:any, rIndex:number, cIndex:number): JSX.Element {
 		//Standard Display for other fields
 		let translatedValue: string;
 		switch (this.props.columns[cIndex].type) {
