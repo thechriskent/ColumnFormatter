@@ -10,7 +10,8 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { Label } from 'office-ui-fabric-react/lib/Label';
-import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import { IWizard } from './Wizards/WizardCommon';
 
 export enum welcomeStage {
   start,
@@ -23,7 +24,9 @@ export interface IColumnFormatterWelcomeProps {
 
 export interface IColumnFormatterWelcomeState {
   stage: welcomeStage;
-  columnType: columnTypes;
+  columnType?: columnTypes;
+  useWizardForNew: boolean;
+  ChoosenWizardName?: string;
 }
 
 class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomeProps, IColumnFormatterWelcomeState> {
@@ -33,7 +36,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
 
     this.state = {
       stage: welcomeStage.new,
-      columnType: columnTypes.text
+      useWizardForNew: true
     };
   }
 
@@ -89,16 +92,15 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
                  ]}/>
               </div>
               <ChoiceGroup
+               disabled={this.state.columnType == undefined}
+               selectedKey={this.state.useWizardForNew ? 'wizard' : 'blank'}
+               onChange={this.onNewStartWithChanged}
                options={[
                  {key:'wizard', text:'Start with a template', onRenderField: (props, render) => {
                   return(
                     <div>
                       { render!(props) }
-                      <ChoiceGroup
-                       options={[
-                        {key:'someWizard', text:'Some Wizard', iconProps:{iconName:'Color'}},
-                        {key:'otherWizard', text:'Other Wizard', iconProps:{iconName:'ColorSolid'}}
-                       ]}/>
+                      {this.wizardOptions()}
                     </div>
                   );
                  }},
@@ -109,7 +111,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
                   <DefaultButton text="Back" onClick={() => {this.gotoStage(welcomeStage.start);}}/>
                 </div>
                 <div style={{textAlign: 'right'}}>
-                  <PrimaryButton text="OK"/>
+                  <PrimaryButton text="OK" disabled={!this.okButtonEnabled()}/>
                 </div>
               </div>
             </div>
@@ -129,12 +131,90 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     });
   }
 
+  private okButtonEnabled(): boolean {
+    switch(this.state.stage) {
+      case welcomeStage.new:
+        return (
+          this.state.columnType !== undefined &&
+          (!this.state.useWizardForNew || (this.state.useWizardForNew && this.state.ChoosenWizardName !== undefined))
+        );
+      default:
+        return false;
+    }
+  }
+
   @autobind
   private onChangeColumnType(item: IDropdownOption): void {
     this.setState({
-      columnType: +item.key
+      columnType: +item.key,
+      ChoosenWizardName: undefined //should be replaced with filter check (if still allowed, then don't unset)
+      //Also set the useWizardOnNew to false if no wizards for type
     });
   }
+
+  @autobind
+	private onNewStartWithChanged(ev: React.FormEvent<HTMLInputElement>, option: any) {
+    this.setState({
+      useWizardForNew: option.key == 'wizard'
+    });
+	}
+
+  private wizardOptions(): JSX.Element {
+    //Temp - replaced by main const
+    let Wizards: Array<IWizard> = [
+      {name: 'Wizard 1', description: 'Wizard!', iconName:'Color', fieldTypes:[columnTypes.text, columnTypes.datetime]},
+      {name: 'Data Bars', description: 'Adds horizontal bars to the field to visually express the value by length', iconName:'Mail', fieldTypes:[columnTypes.number]},
+      {name: 'Wizard 3', description: 'Wizard!', iconName:'TextField', fieldTypes:[columnTypes.text]},
+      {name: 'Wizard 4', description: 'Wizard!', iconName:'FangBody', fieldTypes:[columnTypes.text]},
+      {name: 'Wizard 5', description: 'Wizard!', iconName:'Fingerprint', fieldTypes:[columnTypes.text]},
+      {name: 'Wizard 6', description: 'Wizard!', iconName:'Pill', fieldTypes:[columnTypes.text,columnTypes.choice]},
+      {name: 'Wizard 7', description: 'Wizard!', iconName:'Running', fieldTypes:[columnTypes.number, columnTypes.text]}
+    ];
+
+    let filteredWizards = Wizards.filter((value: IWizard, index:number) => {
+      if(this.state.columnType !== undefined) {
+        if(value.fieldTypes.length == 0 || value.fieldTypes.indexOf(this.state.columnType) >= 0) {
+          return true;
+        }
+        return false;
+      }
+      return true;
+    });
+
+    let topRowItemCount:number = filteredWizards.length > 0 ? Math.ceil(filteredWizards.length/2) : 0;
+    let choicesWidth:number = Math.max(topRowItemCount * 64 + topRowItemCount * 4, 204);
+
+    return (
+    <div className={styles.wizardChoiceSelection + (this.state.useWizardForNew && this.state.columnType !== undefined ? '' : ' ' + styles.disabled)}>
+      <div className={styles.wizardChoices} style={{width: choicesWidth.toString() + 'px'}}>
+        {filteredWizards.map((value:IWizard, index: number) => {
+          return (
+            <div
+             className={styles.wizardChoiceBox + (this.state.useWizardForNew && this.state.ChoosenWizardName == value.name ? ' ' + styles.choosenWizard : '')}
+             title={this.state.useWizardForNew ? value.description : ''}
+             onClick={()=>{this.onWizardClick(value.name);}}>
+              <Icon iconName={value.iconName}/>
+              <span>{value.name}</span>
+            </div>
+          );
+        })}
+        {filteredWizards.length == 0 && (
+          <span className={styles.noWizards}>No templates available for the choosen column type</span>
+        )}
+      </div>
+    </div>
+    );
+  }
+
+  @autobind
+  private onWizardClick(wizardName:string){
+    if(this.state.useWizardForNew){
+      this.setState({
+        ChoosenWizardName: wizardName
+      });
+    }
+  }
+
 }
 
 function mapStateToProps(state: IApplicationState): IColumnFormatterWelcomeProps{
