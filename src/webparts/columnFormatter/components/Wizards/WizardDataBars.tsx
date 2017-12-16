@@ -8,9 +8,9 @@ import { columnTypes } from '../../state/State';
 export const WizardInfoDataBars: IWizard = {
 	name: 'Data Bars',
 	description: 'Adds horizontal bars to the field to visually express the value by length',
-	iconName: 'Mail',
+	iconName: 'BarChartHorizontal',
 	fieldTypes: [
-		columnTypes.number
+		columnTypes.number, columnTypes.choice
 	]
 };
 

@@ -11,7 +11,8 @@ import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button'
 import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
-import { IWizard } from './Wizards/WizardCommon';
+import { IWizard, Wizards, getWizardByName, getWizardsForColumnType } from './Wizards/WizardCommon';
+import { select } from 'glamor';
 
 export enum welcomeStage {
   start,
@@ -145,9 +146,15 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
 
   @autobind
   private onChangeColumnType(item: IDropdownOption): void {
+    let selectedWizard: IWizard = getWizardByName(this.state.ChoosenWizardName);
+    let wizardName:string = undefined;
+    if(selectedWizard !== undefined && (selectedWizard.fieldTypes.length == 0 || selectedWizard.fieldTypes.indexOf(+item.key) >= 0)) {
+      wizardName = selectedWizard.name;
+    }
     this.setState({
       columnType: +item.key,
-      ChoosenWizardName: undefined //should be replaced with filter check (if still allowed, then don't unset)
+      ChoosenWizardName: wizardName,
+      useWizardForNew: (getWizardsForColumnType(+item.key).length > 0 && this.state.useWizardForNew)
       //Also set the useWizardOnNew to false if no wizards for type
     });
   }
@@ -160,26 +167,8 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
 	}
 
   private wizardOptions(): JSX.Element {
-    //Temp - replaced by main const
-    let Wizards: Array<IWizard> = [
-      {name: 'Wizard 1', description: 'Wizard!', iconName:'Color', fieldTypes:[columnTypes.text, columnTypes.datetime]},
-      {name: 'Data Bars', description: 'Adds horizontal bars to the field to visually express the value by length', iconName:'Mail', fieldTypes:[columnTypes.number]},
-      {name: 'Wizard 3', description: 'Wizard!', iconName:'TextField', fieldTypes:[columnTypes.text]},
-      {name: 'Wizard 4', description: 'Wizard!', iconName:'FangBody', fieldTypes:[columnTypes.text]},
-      {name: 'Wizard 5', description: 'Wizard!', iconName:'Fingerprint', fieldTypes:[columnTypes.text]},
-      {name: 'Wizard 6', description: 'Wizard!', iconName:'Pill', fieldTypes:[columnTypes.text,columnTypes.choice]},
-      {name: 'Wizard 7', description: 'Wizard!', iconName:'Running', fieldTypes:[columnTypes.number, columnTypes.text]}
-    ];
 
-    let filteredWizards = Wizards.filter((value: IWizard, index:number) => {
-      if(this.state.columnType !== undefined) {
-        if(value.fieldTypes.length == 0 || value.fieldTypes.indexOf(this.state.columnType) >= 0) {
-          return true;
-        }
-        return false;
-      }
-      return true;
-    });
+    let filteredWizards = getWizardsForColumnType(this.state.columnType);
 
     let topRowItemCount:number = filteredWizards.length > 0 ? Math.ceil(filteredWizards.length/2) : 0;
     let choicesWidth:number = Math.max(topRowItemCount * 64 + topRowItemCount * 4, 204);
