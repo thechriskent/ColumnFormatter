@@ -12,6 +12,95 @@
   .welcome {
     position: relative;
     height: 340px;
+    background-color: $ms-color-themeDark;
+
+    .welcomeBox {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      left: 50%;
+      margin-left: -150px;
+      top: 20px;
+      border-radius: 15px;
+      background-color: $ms-color-white;
+      border: 3px solid;
+      border-color: $ms-color-neutralDark;
+      box-sizing: border-box;
+      padding: 12px;
+
+      .header {
+        text-align: center;
+
+        h1 {
+          margin:0;
+        }
+        span {
+          font-size: 12px;
+          color: $ms-color-neutralPrimary;
+        }
+      }
+
+      .startButtons {
+        margin-top: 18px;
+        
+        .startButton {
+          display: flex;
+          border: 2px solid;
+          border-color: $ms-color-neutralDark;
+          border-radius: 15px;
+          padding: 10px;
+          cursor: pointer;
+          margin-bottom: 12px;
+
+          &:hover {
+            background-color: $ms-color-themeLighter;
+
+            .icon {
+              color: $ms-color-themePrimary;
+            }
+          }
+
+          .icon {
+            color: $ms-color-themeDark;
+            font-size: 48px;
+            margin-right: 14px;
+            margin-left: 4px;
+            margin-top: 4px;
+            height: 56px;
+          }
+
+          .words {
+            flex-grow: 1;
+
+            h2 {
+              margin: 0;
+            }
+          }
+
+        }
+
+      }
+
+      .newForm {
+
+        .columnType {
+          color:inherit;
+        }
+
+      }
+
+      .navigationButtons {
+        display:flex;
+        position: absolute;
+        bottom: 12px;
+        box-sizing: border-box;
+        width: calc(100% - 24px);
+
+        div {
+          flex-grow: 1;
+        }
+      }
+    }
   }
 
 //***************
