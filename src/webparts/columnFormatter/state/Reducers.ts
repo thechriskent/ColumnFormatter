@@ -1,4 +1,4 @@
-import { IApplicationState, initialState, columnTypes, IDataColumn, IData, IPaneState, ICode, ITabState } from "./State";
+import { IApplicationState, initialState, columnTypes, IDataColumn, IData, IPaneState, ICode, ITabState, uiState } from "./State";
 import { 
 	ActionTypes, typeKeys, IUpdateDataRowAction, 
 	IUpdateDataColumnNameAction, IUpdateDataColumnTypeAction,
@@ -8,11 +8,21 @@ import {
 } from "./Actions";
 import { clone, forIn } from '@microsoft/sp-lodash-subset';
 import { generateRowValue } from './ValueGeneration';
+import { ILaunchEditorAction } from "../../../../lib/webparts/columnFormatter/state/Actions";
+import {
+	IWizard, getWizardByName, standardWizardStartingRows, 
+	standardWizardStartingColumns, standardWizardStartingCode
+} from "../components/Wizards/WizardCommon";
 
 export const cfReducer = (state:IApplicationState = initialState, action:ActionTypes): IApplicationState => {
 	let newState:IApplicationState = clone(state);
 
 	switch (action.type) {
+
+		case typeKeys.LAUNCH_EDITOR:
+			newState = LaunchEditorReducer(newState, action);
+			break;
+
 		case typeKeys.UPDATE_DATA_ROW:
 			newState.data.rows = UpdateDataRowReducer(newState.data.rows, action);
 			break;
@@ -57,6 +67,31 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 	}
 	return newState;
 };
+
+function LaunchEditorReducer(state:IApplicationState, action:ILaunchEditorAction): IApplicationState {
+	let wizard:IWizard = getWizardByName(action.wizardName);
+	return {
+		data: {
+			columns: action.wizardName !== undefined ? wizard.startingColumns(action.colType) : standardWizardStartingColumns(action.colType),
+			rows: action.wizardName !== undefined ? wizard.startingRows(action.colType) : standardWizardStartingRows(action.colType)
+		},
+		ui: {
+			...state.ui,
+			state: uiState.editing,
+			tabs: {
+				...state.ui.tabs,
+				viewTab: action.wizardName !== undefined ? 0 : 2
+			}
+		},
+		code: {
+			...state.code,
+			validationErrors: [],
+			formatterErrors: [],
+			formatterString: action.wizardName !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType),
+			editorString: action.wizardName !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType)
+		}
+	};
+}
 
 //** Changes the value of the specified row and column */
 function UpdateDataRowReducer(rows:Array<Array<any>>, action:IUpdateDataRowAction): Array<Array<any>> {

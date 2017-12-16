@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { IApplicationState, columnTypes } from '../state/State';
+import { launchEditor } from '../state/Actions';
 import { iconForType, textForType } from '../helpers/ColumnTypeHelpers';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
@@ -21,6 +22,7 @@ export enum welcomeStage {
 }
 
 export interface IColumnFormatterWelcomeProps {
+  launchEditor?: (wizardName:string, colType:columnTypes) => void;
 }
 
 export interface IColumnFormatterWelcomeState {
@@ -112,7 +114,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
                   <DefaultButton text="Back" onClick={() => {this.gotoStage(welcomeStage.start);}}/>
                 </div>
                 <div style={{textAlign: 'right'}}>
-                  <PrimaryButton text="OK" disabled={!this.okButtonEnabled()}/>
+                  <PrimaryButton text="OK" disabled={!this.okButtonEnabled()} onClick={this.onOkForNewClick}/>
                 </div>
               </div>
             </div>
@@ -155,7 +157,6 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
       columnType: +item.key,
       ChoosenWizardName: wizardName,
       useWizardForNew: (getWizardsForColumnType(+item.key).length > 0 && this.state.useWizardForNew)
-      //Also set the useWizardOnNew to false if no wizards for type
     });
   }
 
@@ -204,6 +205,11 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     }
   }
 
+  @autobind
+  private onOkForNewClick(): void {
+    this.props.launchEditor(this.state.useWizardForNew ? this.state.ChoosenWizardName : undefined, this.state.columnType);
+  }
+
 }
 
 function mapStateToProps(state: IApplicationState): IColumnFormatterWelcomeProps{
@@ -214,7 +220,9 @@ function mapStateToProps(state: IApplicationState): IColumnFormatterWelcomeProps
 
 function mapDispatchToProps(dispatch: Dispatch<IColumnFormatterWelcomeProps>): IColumnFormatterWelcomeProps{
 	return {
-
+    launchEditor: (wizardName:string, colType:columnTypes) => {
+      dispatch(launchEditor(wizardName, colType));
+    }
 	};
 }
 

@@ -1,6 +1,7 @@
 import { columnTypes, editorThemes } from './State';
 
 export type ActionTypes = 
+	| ILaunchEditorAction
 	| IUpdateDataRowAction
 	| IUpdateDataColumnNameAction
 	| IUpdateDataColumnTypeAction
@@ -16,6 +17,8 @@ export type ActionTypes =
 	| IOtherAction;
 
 export enum typeKeys {
+	LAUNCH_EDITOR = "LAUNCH_EDITOR",
+
 	UPDATE_DATA_ROW = "UPDATE_DATA_ROW",
 	UPDATE_DATA_COLUMN_NAME = "UPDATE_DATA_COLUMN_NAME",
 	UPDATE_DATA_COLUMN_TYPE = "UPDATE_DATA_COLUMN_TYPE",
@@ -33,6 +36,17 @@ export enum typeKeys {
 
 	OTHER_ACTION = "ANY_OTHER_ACTION"
 }
+
+export interface ILaunchEditorAction {
+	type: typeKeys.LAUNCH_EDITOR;
+	wizardName: string;
+	colType: columnTypes;
+}
+export const launchEditor = (wizardName:string, colType:columnTypes): ILaunchEditorAction => ({
+	type: typeKeys.LAUNCH_EDITOR,
+	wizardName,
+	colType
+});
 
 export interface IUpdateDataRowAction {
 	type: typeKeys.UPDATE_DATA_ROW;

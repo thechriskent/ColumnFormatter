@@ -1,12 +1,42 @@
-import { columnTypes } from '../../state/State';
+import { columnTypes, IDataColumn } from '../../state/State';
 import { WizardInfoDataBars } from './WizardDataBars';
+import { generateRowValue } from '../../../../../lib/webparts/columnFormatter/state/ValueGeneration';
 
 export interface IWizard {
 	name: string;
 	description: string;
 	iconName: string;
 	fieldTypes: Array<columnTypes>;
+	startingCode: (colType:columnTypes) => string;
+	startingRows: (colType:columnTypes) => Array<Array<any>>;
+	startingColumns: (colType:columnTypes) => Array<IDataColumn>;
 }
+
+export const standardWizardStartingRows = (colType:columnTypes): Array<Array<any>> => {
+	return [
+		[generateRowValue(colType)],
+		[generateRowValue(colType)],
+		[generateRowValue(colType)]
+	];
+};
+
+export const standardWizardStartingColumns = (colType:columnTypes): Array<IDataColumn> => {
+	return [{
+		name: 'MyField',
+		type: colType
+	}];
+};
+
+export const standardWizardStartingCode = (colType:columnTypes): string => {
+	return [
+		'{',
+		'  "$schema": "http://columnformatting.sharepointpnp.com/columnFormattingSchema.json",',
+		'  "elmType": "div",',
+		'  "txtContent": "@currentField"',
+		'}'
+	].join('\n');
+};
+
 
 export const Wizards: Array<IWizard> = [
 	WizardInfoDataBars,
@@ -14,9 +44,24 @@ export const Wizards: Array<IWizard> = [
 		name: 'Fake',
 		description: 'Testing Purposes, not a real wizard',
 		iconName: 'Mail',
-		fieldTypes: [
-			columnTypes.choice, columnTypes.datetime
-		]
+		fieldTypes: [],
+		startingCode: (colType:columnTypes): string => {
+			return [
+				'{',
+				'  "$schema": "http://columnformatting.sharepointpnp.com/columnFormattingSchema.json",',
+				'  "elmType": "div",',
+				'  "txtContent": {',
+				'    "operator": "+",',
+				'    "operands": [',
+				'      "FAKE:",',
+				'      "@currentField"',
+				'    ]',
+				'  }',
+				'}'
+			].join('\n');
+		},
+		startingRows: standardWizardStartingRows,
+		startingColumns: standardWizardStartingColumns
 	}
 ];
 

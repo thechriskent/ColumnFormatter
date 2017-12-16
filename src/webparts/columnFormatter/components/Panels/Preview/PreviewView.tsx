@@ -77,9 +77,9 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		let columns:Array<IColumn> = new Array<IColumn>();
 		//Formatted Column
 		columns.push({
-			key: 'currentField',
-			name: 'currentField',
-			fieldName: 'currentField',
+			key: this.props.columns[0].name,
+			name: this.props.columns[0].name,
+			fieldName: this.props.columns[0].name,
 			minWidth: 130,
 			maxWidth: 130,
 			className: 'od-DetailsRow-cell--' + this.colTypeFromEnum(this.props.columns[0].type),
@@ -245,8 +245,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		}
 		
 		return {
-			currentFieldName: "currentField",
-			//fieldRendererFormat: '{"$schema": "https://gist.githubusercontent.com/thechriskent/2e09be14a4b491cfae256220cfca6310/raw/eb9f675bf523208eb840c462d4f716fa92ce14c2/columnFormattingSchema.json","elmType": "div","txtContent": {"operator": "+","operands": ["@currentField","!"]}}',
+			currentFieldName: this.props.columns[0].name,
 			fieldRendererFormat: this.props.formatterString,
 			pageContextInfo: null,
 			row: row,

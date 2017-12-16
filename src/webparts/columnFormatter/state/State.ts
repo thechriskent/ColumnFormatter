@@ -1,3 +1,5 @@
+import { standardWizardStartingCode, standardWizardStartingColumns, standardWizardStartingRows } from '../components/Wizards/WizardCommon';
+
 //#region Enums
 export enum columnTypes {
 	text,
@@ -81,25 +83,10 @@ export interface IApplicationState {
 	code: ICode;
 }
 
-const starterCode:string = [
-	'{',
-    '  "$schema": "http://columnformatting.sharepointpnp.com/columnFormattingSchema.json",',
-    '  "elmType": "div",',
-	'  "txtContent": "@currentField"',
-	'}'
-].join('\n');
-
 export const initialState: IApplicationState = {
 	data: {
-		columns: [{
-			name: 'currentField',
-			type: columnTypes.text
-		}],
-		rows: [
-			["Damp Grandpa"],
-			["Evil Waffle"],
-			["Shiny Chicken"]
-		]
+		columns: [],
+		rows: [],
 	},
 	ui: {
 		state: uiState.welcome,
@@ -115,8 +102,8 @@ export const initialState: IApplicationState = {
 	code: {
 		validationErrors: [],
 		formatterErrors: [],
-		editorString: starterCode,
-		formatterString: starterCode,
+		editorString: '',
+		formatterString:'',
 		theme: editorThemes.vs
 	}
 };
