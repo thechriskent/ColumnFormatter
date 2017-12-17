@@ -182,7 +182,8 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
             <div
              className={styles.wizardChoiceBox + (this.state.useWizardForNew && this.state.ChoosenWizardName == value.name ? ' ' + styles.choosenWizard : '')}
              title={this.state.useWizardForNew ? value.description : ''}
-             onClick={()=>{this.onWizardClick(value.name);}}>
+             onClick={()=>{this.onWizardClick(value.name);}}
+             key={value.name}>
               <Icon iconName={value.iconName}/>
               <span>{value.name}</span>
             </div>

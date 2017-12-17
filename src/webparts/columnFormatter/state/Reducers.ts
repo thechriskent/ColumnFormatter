@@ -22,6 +22,9 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 		case typeKeys.LAUNCH_EDITOR:
 			newState = LaunchEditorReducer(newState, action);
 			break;
+		case typeKeys.CHANGE_UISTATE:
+			newState.ui.state = action.state;
+			break;
 
 		case typeKeys.UPDATE_DATA_ROW:
 			newState.data.rows = UpdateDataRowReducer(newState.data.rows, action);

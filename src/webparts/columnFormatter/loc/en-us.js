@@ -4,6 +4,20 @@ define([], function() {
     "BasicGroupName": "Group Name",
     "DescriptionFieldLabel": "Description Field",
 
+    //Welcome
+    WelcomeTitle: 'Column Formatter',
+    WelcomeSubTitle: 'Easy editor for modern listview Column Formatting',
+    WelcomeNewHeader: 'New',
+    WelcomeNewDescription: 'Start with a blank canvas or choose from a template',
+    WelcomeOpenHeader: 'Open',
+    WelcomeOpenDescription: 'Load from a library or pull from a local list',
+    WelcomeNewColumnTypeLabel: 'Column Type',
+    WelcomeNewWizardOption: 'Start with a template',
+    WelcomeNewBlankOption: 'Start from scratch',
+    WelcomeBackButton: 'Back',
+    WelcomeOKButton: 'OK',
+
+    //Tab Names
     TabWizard: "Wizard",
     TabTree: "Tree",
     TabData: "Data",
@@ -11,20 +25,37 @@ define([], function() {
     TabCode: "Code",
     TabSplit: "Side by Side",
 
+    //Panel Headers
     PanelHeaderData: "Test Values",
     PanelHeaderPreview: "Preview",
     PanelHeaderCode: "Code Editor",
 
+    //Editor CommandBar
+    CommandNew: 'New',
+    CommandCustomize: 'Customize',
+    CommandEditor: 'Editor Theme',
+
+    //New Confirmation Dialog
+    NewConfirmationDialogTitle: 'Start Fresh?',
+    NewConfirmationDialogText: 'Any unsaved changes will be lost. Do you want to continue?',
+    NewConfirmationDialogConfirmButton: 'Yes',
+    NewConfirmationDialogCancelButton: 'Cancel',
+
+    //Data Column/Row buttons
     DeleteRow: "Delete Row",
     AddRow: "Add Row",
     DeleteColumn: "Delete Field",
     AddColumn: "Add Field",
 
+    //Data Column Editing
     ColumnNameChangeTooltip: "Internal field name",
     ColumnTypeHeadline: "Column Type",
     ColumnTypeMessage: "Changing the type will also reset the values",
     ColumnTypeChangeTooltip: "Click to change",
+    SubPropertiesHeadline: "Sub Properties",
+    TimeHeadline: "Time",
 
+    //Column Type Names
     ColumnTypeBoolean: "Yes/No",
     ColumnTypeChoice: "Choice",
     ColumnTypeDateTime: "Date/Time",
@@ -36,12 +67,11 @@ define([], function() {
     ColumnTypeText: "Text",
     ColumnTypeUnknown: "Unknown",
 
+    //Boolean Values
     BoolValueStringTrue: "Yes",
     BoolValueStringFalse: "No",
 
-    SubPropertiesHeadline: "Sub Properties",
-    TimeHeadline: "Time",
-    
+    //DateTime Editor Strings
     Month1: "January",
     Month2: "February",
     Month3: "March",
@@ -104,6 +134,7 @@ define([], function() {
     CFSunsupportedType: "The type of field {0} is unsupported at this time.",
     CFSuserFieldError: "The field '{0}' is of type 'User', and can't be used directly because it has sub-properties. You need to specify which sub-property you want to use. e.g. [$AssignedTo.email]",
 
+    //Format Validation Messages
     PreviewValidationGood: 'Validation Passed!',
     PreviewValidationBad: 'Invalid JSON (Code):'
   }

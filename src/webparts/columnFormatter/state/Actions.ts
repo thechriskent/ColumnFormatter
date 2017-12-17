@@ -1,7 +1,8 @@
-import { columnTypes, editorThemes } from './State';
+import { columnTypes, editorThemes, uiState } from './State';
 
 export type ActionTypes = 
 	| ILaunchEditorAction
+	| IChangeUIStateAction
 	| IUpdateDataRowAction
 	| IUpdateDataColumnNameAction
 	| IUpdateDataColumnTypeAction
@@ -18,6 +19,7 @@ export type ActionTypes =
 
 export enum typeKeys {
 	LAUNCH_EDITOR = "LAUNCH_EDITOR",
+	CHANGE_UISTATE = "CHANGE_UISTATE",
 
 	UPDATE_DATA_ROW = "UPDATE_DATA_ROW",
 	UPDATE_DATA_COLUMN_NAME = "UPDATE_DATA_COLUMN_NAME",
@@ -47,6 +49,16 @@ export const launchEditor = (wizardName:string, colType:columnTypes): ILaunchEdi
 	wizardName,
 	colType
 });
+
+export interface IChangeUIStateAction {
+	type: typeKeys.CHANGE_UISTATE;
+	state: uiState;
+}
+export const changeUIState = (state:uiState): IChangeUIStateAction => ({
+	type: typeKeys.CHANGE_UISTATE,
+	state
+});
+
 
 export interface IUpdateDataRowAction {
 	type: typeKeys.UPDATE_DATA_ROW;

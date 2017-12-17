@@ -3,6 +3,18 @@ declare interface IColumnFormatterWebPartStrings {
   BasicGroupName: string;
   DescriptionFieldLabel: string;
 
+  WelcomeTitle: string;
+  WelcomeSubTitle: string;
+  WelcomeNewHeader: string;
+  WelcomeNewDescription: string;
+  WelcomeOpenHeader: string;
+  WelcomeOpenDescription: string;
+  WelcomeNewColumnTypeLabel: string;
+  WelcomeNewWizardOption: string;
+  WelcomeNewBlankOption: string;
+  WelcomeBackButton: string;
+  WelcomeOKButton: string;
+
   TabWizard: string;
   TabTree: string;
   TabData: string;
@@ -13,6 +25,14 @@ declare interface IColumnFormatterWebPartStrings {
   PanelHeaderData: string;
   PanelHeaderPreview: string;
   PanelHeaderCode: string;
+
+  CommandNew: string;
+  CommandCustomize: string;
+  CommandEditor: string;
+  NewConfirmationDialogTitle: string;
+  NewConfirmationDialogText: string;
+  NewConfirmationDialogConfirmButton: string;
+  NewConfirmationDialogCancelButton: string;
 
   DeleteRow: string;
   AddRow: string;
