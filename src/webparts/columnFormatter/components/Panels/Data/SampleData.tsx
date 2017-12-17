@@ -27,6 +27,9 @@ const buttonStyles: Partial<IButtonStyles> = {
 		height: "26px",
 		padding: "0",
 		paddingLeft: '3px'
+	},
+	icon: {
+		margin: 0
 	}
 };
 
