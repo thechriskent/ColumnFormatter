@@ -359,6 +359,19 @@
 
     .wizardControls {
       padding: 0 4px;
+
+      .wizardGroupLabel {
+        font-weight: 600;
+        font-size: 16px;
+        display: inline-block;
+        margin-top: 8px;
+      }
+
+      :global {
+        .ms-ChoiceField {
+          margin-top: 2px;
+        }
+      }
     }
 
     .dataTable {

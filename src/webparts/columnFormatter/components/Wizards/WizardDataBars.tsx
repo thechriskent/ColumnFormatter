@@ -4,9 +4,19 @@ import * as strings from 'ColumnFormatterWebPartStrings';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { IWizard, Wizards, standardWizardStartingColumns } from './WizardCommon';
 import { IDataColumn, columnTypes } from '../../state/State';
-import { SpinButton } from 'office-ui-fabric-react/lib/SpinButton';
+import { SpinButton, ISpinButtonStyles } from 'office-ui-fabric-react/lib/SpinButton';
 import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
+
+
+const emptyBarStyle: Partial<ISpinButtonStyles> = {
+	labelWrapper: {
+		paddingRight: '5px'
+	},
+	spinButtonWrapper: {
+		paddingLeft: '1px'
+	}
+};
 
 export interface IWizardDataBarsProps {
 	emptyBarValue:number;
@@ -37,30 +47,32 @@ export class WizardDataBars extends React.Component<IWizardDataBarsProps, IWizar
 	public render(): React.ReactElement<IWizardDataBarsProps> {
 		return (
 			<div>
-				<span>Lowest Value</span>
+				<span className={styles.wizardGroupLabel}>{strings.WizardDataBarsRangeGroupLabel}</span>
 				<SpinButton
 				 value={this.state.emptyBarValue.toString()}
-				 label='  '
+				 label={strings.WizardDataBarsEmptyBarLabel}
 				 labelPosition={Position.start}
+				 title={strings.WizardDataBarsEmptyBarTooltip}
+				 styles={emptyBarStyle}
 				 onValidate={this.onValidateEmptyBarValue}
 				 onIncrement={this.onIncrementEmptyBarValue}
 				 onDecrement={this.onDecrementEmptyBarValue}/>
-				 <span>Highest Value</span>
 				<SpinButton
 				 value={this.state.fullBarValue.toString()}
-				 label='  '
+				 label={strings.WizardDataBarsFullBarLabel}
+				 title={strings.WizardDataBarsFullBarTooltip}
 				 labelPosition={Position.start}
 				 onValidate={this.onValidateFullBarValue}
 				 onIncrement={this.onIncrementFullBarValue}
 				 onDecrement={this.onDecrementFullBarValue}/>
+				<span className={styles.wizardGroupLabel}>{strings.WizardDataBarsValueDisplayGroupLabel}</span>
 				<ChoiceGroup
-				 label='Value Display'
 				 selectedKey={this.state.valueDisplay}
 				 onChange={this.onValueDisplayChange}
 				 options={[
-					{ key: 'value', text: 'Show Actual Value'},
-					{ key: 'percentage', text: 'Show Percentage'},
-					{ key: 'none', text: 'None'}
+					{ key: 'value', text: strings.WizardDataBarsValueDisplayActual},
+					{ key: 'percentage', text: strings.WizardDataBarsValueDisplayPercentage},
+					{ key: 'none', text: strings.WizardDataBarsValueDisplayNone}
 				 ]}/>
 			</div>
 		);

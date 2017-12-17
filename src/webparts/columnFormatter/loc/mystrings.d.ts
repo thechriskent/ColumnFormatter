@@ -133,6 +133,16 @@ declare interface IColumnFormatterWebPartStrings {
 
   PreviewValidationGood: string;
   PreviewValidationBad: string;
+
+  WizardDataBarsEmptyBarLabel: string;
+  WizardDataBarsEmptyBarTooltip: string;
+  WizardDataBarsFullBarLabel: string;
+  WizardDataBarsFullBarTooltip: string;
+  WizardDataBarsRangeGroupLabel: string;
+  WizardDataBarsValueDisplayGroupLabel: string;
+  WizardDataBarsValueDisplayActual: string;
+  WizardDataBarsValueDisplayPercentage: string;
+  WizardDataBarsValueDisplayNone: string;
 }
 
 declare module 'ColumnFormatterWebPartStrings' {

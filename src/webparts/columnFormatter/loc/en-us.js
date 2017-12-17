@@ -145,6 +145,17 @@ define([], function() {
 
     //Format Validation Messages
     PreviewValidationGood: 'Validation Passed!',
-    PreviewValidationBad: 'Invalid JSON (Code):'
+    PreviewValidationBad: 'Invalid JSON (Code):',
+
+    //Wizard Data Bars
+    WizardDataBarsEmptyBarLabel: 'Low:',
+    WizardDataBarsEmptyBarTooltip: 'The lowest value on the scale\nValues equal or lower than this will be shown as 0% full',
+    WizardDataBarsFullBarLabel: 'High:',
+    WizardDataBarsFullBarTooltip: 'The highest value on the scale\nValues equal or higher than this will be shown as 100% full',
+    WizardDataBarsRangeGroupLabel: 'Range',
+    WizardDataBarsValueDisplayGroupLabel: 'Value Display',
+    WizardDataBarsValueDisplayActual: 'Show Actual Value',
+    WizardDataBarsValueDisplayPercentage: 'Show Percentage',
+    WizardDataBarsValueDisplayNone: 'None'
   }
 });
