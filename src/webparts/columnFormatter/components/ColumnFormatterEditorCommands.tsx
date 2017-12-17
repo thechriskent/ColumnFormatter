@@ -20,6 +20,8 @@ export interface IColumnFormatterEditorCommandsProps {
   wizardTabVisible?: boolean;
   theme?: editorThemes;
   chooseTheme?: (theme:editorThemes) => void;
+  editorString?: string;
+  fieldName?: string;
 }
 
 export interface IColumnFormatterEditorCommandsState {
@@ -136,8 +138,14 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
               {
                 key: 'saveas-download',
                 name: strings.CommandDownload,
-                iconProps: { iconName: 'CloudDownload'},
+                iconProps: { iconName: 'CloudDownload' },
                 onClick: this.onDownloadClick
+              },
+              {
+                key: 'saveas-copy',
+                name: strings.CommandCopy,
+                iconProps: { iconName: 'Copy' },
+                onClick: this.onCopyClick
               }
             ]
           }
@@ -188,14 +196,40 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
 
   @autobind
   private onDownloadClick(ev?:React.MouseEvent<HTMLElement>, item?:IContextualMenuItem): void {
-    fileDownload('some text','MyField.json');
+    fileDownload(this.props.editorString, this.props.fieldName + '.json');
+  }
+
+  @autobind
+  private onCopyClick(ev?:React.MouseEvent<HTMLElement>, item?:IContextualMenuItem): void {
+    var textArea = document.createElement("textarea");
+      textArea.style.position = 'fixed';
+      textArea.style.top = '0';
+      textArea.style.left = '0';
+      textArea.style.width = '2em';
+      textArea.style.height = '2em';
+      textArea.style.padding = '0';
+      textArea.style.border = 'none';
+      textArea.style.outline = 'none';
+      textArea.style.boxShadow = 'none';
+      textArea.style.background = 'transparent';
+      textArea.value = this.props.editorString;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        var successful = document.execCommand('copy');
+      } catch (err) {
+        console.log('Unable to copy!');
+      }
+      document.body.removeChild(textArea);
   }
 }
 
 function mapStateToProps(state: IApplicationState): IColumnFormatterEditorCommandsProps{
 	return {
     wizardTabVisible: state.ui.tabs.wizardTabVisible,
-		theme: state.code.theme
+    theme: state.code.theme,
+    editorString: state.code.editorString,
+    fieldName: state.data.columns[0].name
 	};
 }
 
