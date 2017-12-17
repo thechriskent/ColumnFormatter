@@ -29,6 +29,8 @@ declare interface IColumnFormatterWebPartStrings {
   CommandNew: string;
   CommandCustomize: string;
   CommandEditor: string;
+  CommandSaveAs: string;
+  CommandDownload: string;
   
   NewConfirmationDialogTitle: string;
   NewConfirmationDialogText: string;

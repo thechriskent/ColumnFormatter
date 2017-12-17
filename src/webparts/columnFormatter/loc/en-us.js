@@ -34,6 +34,8 @@ define([], function() {
     CommandNew: 'New',
     CommandCustomize: 'Customize',
     CommandEditor: 'Editor Theme',
+    CommandSaveAs: 'Save As',
+    CommandDownload: 'Download',
 
     //New Confirmation Dialog
     NewConfirmationDialogTitle: 'Start Fresh?',

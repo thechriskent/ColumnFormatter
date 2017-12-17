@@ -53,7 +53,7 @@ export class MonacoEditor extends React.Component<IMonacoEditorProps, IMonacoEdi
 				schema: ColumnFormattingSchema
 			}],
 			validate: true,
-			allowComments: true
+			allowComments: false
 		});
 
 		//Adjust tab size once things are ready

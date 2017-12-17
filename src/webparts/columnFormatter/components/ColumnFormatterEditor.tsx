@@ -46,43 +46,7 @@ class ColumnFormatterEditor_ extends React.Component<IColumnFormatterEditorProps
       <div>
         <CommandBar
           items={this.getCommandBarItems()}
-          farItems={[
-            {
-              key: 'theme',
-              name: strings.CommandEditor,
-              iconProps: {iconName: 'Color'},
-              subMenuProps: {
-                items: [
-                  {
-                    key: 'vs',
-                    name: 'vs',
-                    canCheck: true,
-                    checked: this.props.theme == editorThemes.vs,
-                    onClick: this.onChooseTheme
-                  },
-                  {
-                    key: 'vsDark',
-                    name: 'vs-dark',
-                    canCheck: true,
-                    checked: this.props.theme == editorThemes.vsDark,
-                    onClick: this.onChooseTheme
-                  },
-                  {
-                    key: 'hcBlack',
-                    name: 'hc-black',
-                    canCheck: true,
-                    checked: this.props.theme == editorThemes.hcBlack,
-                    onClick: this.onChooseTheme
-                  }
-                ]
-              }
-            },
-            {
-              key: 'copy',
-              name: 'Copy',
-              iconProps: {iconName: 'Copy'}
-            }
-          ]}
+          farItems={this.getCommandBarFarItems()}
         />
         <div className={styles.app}>
           <SplitPane
@@ -143,6 +107,56 @@ class ColumnFormatterEditor_ extends React.Component<IColumnFormatterEditorProps
         onClick: this.onCustomizeClick
       });
     }
+    return items;
+  }
+
+  private getCommandBarFarItems(): Array<IContextualMenuItem> {
+    let items:Array<IContextualMenuItem> = [
+        {
+          key: 'theme',
+          name: strings.CommandEditor,
+          iconProps: {iconName: 'Color'},
+          subMenuProps: {
+            items: [
+              {
+                key: 'vs',
+                name: 'vs',
+                canCheck: true,
+                checked: this.props.theme == editorThemes.vs,
+                onClick: this.onChooseTheme
+              },
+              {
+                key: 'vsDark',
+                name: 'vs-dark',
+                canCheck: true,
+                checked: this.props.theme == editorThemes.vsDark,
+                onClick: this.onChooseTheme
+              },
+              {
+                key: 'hcBlack',
+                name: 'hc-black',
+                canCheck: true,
+                checked: this.props.theme == editorThemes.hcBlack,
+                onClick: this.onChooseTheme
+              }
+            ]
+          }
+        },
+        {
+          key: 'saveas',
+          name: strings.CommandSaveAs,
+          iconProps: {iconName: 'SaveAs'},
+          subMenuProps: {
+            items: [
+              {
+                key: 'saveas-download',
+                name: strings.CommandDownload,
+                iconProps: { iconName: 'CloudDownload'}
+              }
+            ]
+          }
+        }
+    ];
     return items;
   }
 
