@@ -43,6 +43,8 @@ define([], function() {
     CommandSaveAs: 'Save As',
     CommandDownload: 'Download',
     CommandCopy: 'Copy to clipboard',
+    CommandSaveToLibrary: 'Save to local library',
+    CommandApplyToList: 'Apply to local list field',
 
     //New Confirmation Dialog
     NewConfirmationDialogTitle: 'Start Fresh?',

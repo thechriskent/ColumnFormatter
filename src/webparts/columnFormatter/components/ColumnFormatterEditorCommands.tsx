@@ -146,6 +146,18 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
                 name: strings.CommandCopy,
                 iconProps: { iconName: 'Copy' },
                 onClick: this.onCopyClick
+              },
+              {
+                key: 'saveas-library',
+                name: strings.CommandSaveToLibrary,
+                iconProps: { iconName: 'DocLibrary' },
+                onClick: this.onSaveToLibraryClick
+              },
+              {
+                key: 'saveas-listfield',
+                name: strings.CommandApplyToList,
+                iconProps: { iconName: 'Deploy' },
+                onClick: this.onApplyToListClick
               }
             ]
           }
@@ -221,6 +233,14 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
         console.log('Unable to copy!');
       }
       document.body.removeChild(textArea);
+  }
+
+  @autobind
+  private onSaveToLibraryClick(ev?:React.MouseEvent<HTMLElement>, item?:IContextualMenuItem): void {
+  }
+
+  @autobind
+  private onApplyToListClick(ev?:React.MouseEvent<HTMLElement>, item?:IContextualMenuItem): void {
   }
 }
 

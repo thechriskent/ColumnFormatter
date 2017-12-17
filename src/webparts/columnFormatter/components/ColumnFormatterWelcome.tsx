@@ -44,7 +44,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     super(props);
 
     this.state = {
-      stage: welcomeStage.upload,
+      stage: welcomeStage.start,
       useWizardForNew: true
     };
   }
@@ -53,7 +53,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
 
     //TEMP
     //this.props.launchEditor(undefined,columnTypes.text);
-    //this.props.launchEditor('Data Bars', columnTypes.number);
+    this.props.launchEditor('Data Bars', columnTypes.number);
 
     return (
       <div className={styles.welcome}>
