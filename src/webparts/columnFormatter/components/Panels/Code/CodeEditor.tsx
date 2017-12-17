@@ -9,6 +9,7 @@ import { MonacoEditor } from './MonacoEditor';
 export interface ICodeEditorProps {
 	theme?:editorThemes;
 	editorString?:string;
+	readOnly?: boolean;
 
 	updateEditorString?: (editorString:string, validationErrors:Array<string>) => void;
 
@@ -33,6 +34,7 @@ class CodeEditor_ extends React.Component<ICodeEditorProps, ICodeEditorState> {
 			<MonacoEditor
 				value={this.props.editorString}
 				theme={this.props.theme}
+				readOnly={this.props.readOnly}
 				onValueChange={this.props.updateEditorString}
 			/>
 		);
@@ -43,6 +45,7 @@ function mapStateToProps(state: IApplicationState): ICodeEditorProps{
 	return {
 		theme: state.code.theme,
 		editorString: state.code.editorString,
+		readOnly: state.ui.tabs.wizardTabVisible,
 		mainPane: state.ui.panes.main,
 		splitPane: state.ui.panes.split
 	};

@@ -27,6 +27,7 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 			break;
 		case typeKeys.DISCONNECT_WIZARD:
 			newState.ui.tabs.wizardTabVisible = false;
+			newState.ui.tabs.viewTab = 0;
 			break;
 
 		case typeKeys.UPDATE_DATA_ROW:

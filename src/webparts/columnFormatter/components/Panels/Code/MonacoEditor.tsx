@@ -10,6 +10,7 @@ const monaco = require('../../../../../MonacoCustomBuild');
 export interface IMonacoEditorProps {
 	value: string;
 	theme: editorThemes;
+	readOnly: boolean;
 	onValueChange: (newValue:string, validationErrors:Array<string>) => void;
 }
 
@@ -70,6 +71,7 @@ export class MonacoEditor extends React.Component<IMonacoEditorProps, IMonacoEdi
 			language: 'json',
 			folding: true,
 			renderIndentGuides: true,
+			readOnly: this.props.readOnly,
 			lineNumbers: false,
 			//lineNumbersMinChars: 4,
 			minimap: {
