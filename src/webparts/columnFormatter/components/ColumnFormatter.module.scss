@@ -342,6 +342,25 @@
       display: inline-block;
     }
 
+    .wizardHeader {
+      font-weight: bold;
+      padding-bottom: 4px;
+      font-size: 22px;
+
+      i {
+        color: $ms-color-themePrimary;
+        font-size: 28px;
+        margin-left: 4px;
+        margin-right: 4px;
+        line-height: 28px;
+        vertical-align: bottom;
+      }
+    }
+
+    .wizardControls {
+      padding: 0 4px;
+    }
+
     .dataTable {
       margin:4px;
       border-collapse: collapse;

@@ -76,6 +76,7 @@ export interface ICode {
 	editorString: string;
 	formatterString: string;
 	theme: editorThemes;
+	wizardName: string;
 }
 
 export interface IApplicationState {
@@ -106,7 +107,8 @@ export const initialState: IApplicationState = {
 		formatterErrors: [],
 		editorString: '',
 		formatterString:'',
-		theme: editorThemes.vs
+		theme: editorThemes.vs,
+		wizardName: undefined
 	}
 };
 

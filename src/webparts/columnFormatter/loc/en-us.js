@@ -36,6 +36,7 @@ define([], function() {
     CommandEditor: 'Editor Theme',
     CommandSaveAs: 'Save As',
     CommandDownload: 'Download',
+    CommandCopy: 'Copy to clipboard',
 
     //New Confirmation Dialog
     NewConfirmationDialogTitle: 'Start Fresh?',

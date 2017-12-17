@@ -96,7 +96,8 @@ function LaunchEditorReducer(state:IApplicationState, action:ILaunchEditorAction
 			validationErrors: [],
 			formatterErrors: [],
 			formatterString: wizard !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType),
-			editorString: wizard !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType)
+			editorString: wizard !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType),
+			wizardName: wizard !== undefined ? wizard.name : undefined
 		}
 	};
 }

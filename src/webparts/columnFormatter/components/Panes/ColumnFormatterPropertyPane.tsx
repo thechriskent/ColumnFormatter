@@ -10,6 +10,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { ColumnFormatterTreePanel } from '../Panels/Tree/ColumnFormatterTreePanel';
 import { ColumnFormatterDataPanel } from '../Panels/Data/ColumnFormatterDataPanel';
+import { ColumnFormatterWizardPanel } from '../Panels/Wizard/ColumnFormatterWizardPanel';
 
 export interface IColumnFormatterPropertyPaneProps {
 	wizardTabVisible?: boolean;
@@ -25,7 +26,7 @@ class ColumnFormatterPropertyPane_ extends React.Component<IColumnFormatterPrope
 			 onSelect={this.onSelectTab}>
 			 	{this.props.wizardTabVisible && (
 					 <TabPanel>
-						Wowee!
+						<ColumnFormatterWizardPanel/>
 					</TabPanel>
 				)}
 				<TabPanel>

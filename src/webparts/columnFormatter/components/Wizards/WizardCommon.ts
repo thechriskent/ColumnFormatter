@@ -11,6 +11,7 @@ export interface IWizard {
 	startingCode: (colType:columnTypes) => string;
 	startingRows: (colType:columnTypes) => Array<Array<any>>;
 	startingColumns: (colType:columnTypes) => Array<IDataColumn>;
+	onWizardRender?: (updateEditorString:(editorString:string) => void) => JSX.Element;
 }
 
 export const standardWizardStartingRows = (colType:columnTypes): Array<Array<any>> => {
