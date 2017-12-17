@@ -24,6 +24,7 @@
     "js-file-download": "^0.4.1",
     "react": "15.4.2",
     "react-dom": "15.4.2",
+    "react-dropzone": "^4.2.3",
     "react-redux": "^5.0.6",
     "react-split-pane": "0.1.65",
     "react-tabs": "^2.1.1",

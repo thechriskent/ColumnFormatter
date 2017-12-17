@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { IApplicationState, columnTypes } from '../state/State';
-import { launchEditor } from '../state/Actions';
+import { launchEditor, launchEditorWithCode } from '../state/Actions';
 import { iconForType, textForType } from '../helpers/ColumnTypeHelpers';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
@@ -14,15 +14,18 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { IWizard, Wizards, getWizardByName, getWizardsForColumnType } from './Wizards/WizardCommon';
 import { select } from 'glamor';
+import { FileUploader } from './FileUploader';
 
 export enum welcomeStage {
   start,
   new,
-  open
+  open,
+  upload
 }
 
 export interface IColumnFormatterWelcomeProps {
   launchEditor?: (wizardName:string, colType:columnTypes) => void;
+  launchEditorWithCode?: (wizardName:string, colType:columnTypes, editorString:string, validationErrors:Array<string>) => void;
 }
 
 export interface IColumnFormatterWelcomeState {
@@ -41,7 +44,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     super(props);
 
     this.state = {
-      stage: welcomeStage.open,
+      stage: welcomeStage.upload,
       useWizardForNew: true
     };
   }
@@ -180,6 +183,16 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
               </div>
             </div>
           )}
+          {this.state.stage == welcomeStage.upload && (
+            <div>
+              <FileUploader onTextLoaded={this.onFileTextReceived}/>
+              <div className={styles.navigationButtons}>
+                <div>
+                  <DefaultButton text={strings.WelcomeBackButton} onClick={() => {this.gotoStage(welcomeStage.open);}}/>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -298,8 +311,28 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
 
   @autobind
   private onOkForOpenClick(): void {
+    if(this.state.loadChoiceForOpen == 'list'){
 
+    } else {
+      if(this.state.fileChoiceForOpen == 'library'){
+
+      } else {
+        this.gotoStage(welcomeStage.upload);
+      }
+    }
   }
+
+  @autobind
+	private onFileTextReceived(fileText:string) {
+    //TODO: Check for wizard details in file
+    let validationErrors:Array<string> = new Array<string>();
+    try {
+      let curObj:any = JSON.parse(fileText);
+    } catch (e) {
+      validationErrors.push(e.message);
+    }
+    this.props.launchEditorWithCode(undefined, this.state.columnTypeForOpen || columnTypes.text, fileText, validationErrors);
+	}
 
 }
 
@@ -313,6 +346,9 @@ function mapDispatchToProps(dispatch: Dispatch<IColumnFormatterWelcomeProps>): I
 	return {
     launchEditor: (wizardName:string, colType:columnTypes) => {
       dispatch(launchEditor(wizardName, colType));
+    },
+    launchEditorWithCode: (wizardName:string, colType:columnTypes, editorString:string, validationErrors:Array<string>) => {
+      dispatch(launchEditorWithCode(wizardName, colType, editorString, validationErrors));
     }
 	};
 }

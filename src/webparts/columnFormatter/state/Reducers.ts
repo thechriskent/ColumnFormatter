@@ -5,7 +5,7 @@ import {
 	IAddDataRowAction, IRemoveDataRowAction,
 	IAddDataColumnAction, IRemoveDataColumnAction, IPaneResizeAction,
 	IUpdateEditorStringAction, ISelectTabAction,
-	ILaunchEditorAction, IDisconnectWizardAction
+	ILaunchEditorAction, IDisconnectWizardAction, ILaunchEditorWithCodeAction
 } from "./Actions";
 import { clone, forIn } from '@microsoft/sp-lodash-subset';
 import { generateRowValue } from './ValueGeneration';
@@ -21,6 +21,9 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 
 		case typeKeys.LAUNCH_EDITOR:
 			newState = LaunchEditorReducer(newState, action);
+			break;
+		case typeKeys.LAUNCH_EDITOR_WITH_CODE:
+			newState = LaunchEditorWithCodeReducer(newState, action);
 			break;
 		case typeKeys.CHANGE_UISTATE:
 			newState.ui.state = action.state;
@@ -97,6 +100,33 @@ function LaunchEditorReducer(state:IApplicationState, action:ILaunchEditorAction
 			formatterErrors: [],
 			formatterString: wizard !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType),
 			editorString: wizard !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType),
+			wizardName: wizard !== undefined ? wizard.name : undefined
+		}
+	};
+}
+
+function LaunchEditorWithCodeReducer(state:IApplicationState, action:ILaunchEditorWithCodeAction): IApplicationState {
+	let wizard:IWizard = getWizardByName(action.wizardName);
+	return {
+		data: {
+			columns: wizard !== undefined ? wizard.startingColumns(action.colType) : standardWizardStartingColumns(action.colType),
+			rows: wizard !== undefined ? wizard.startingRows(action.colType) : standardWizardStartingRows(action.colType)
+		},
+		ui: {
+			...state.ui,
+			state: uiState.editing,
+			tabs: {
+				...state.ui.tabs,
+				viewTab: (wizard !== undefined && !wizard.isTemplate) ? 0 : 2,
+				wizardTabVisible: (wizard !== undefined && !wizard.isTemplate)
+			}
+		},
+		code: {
+			...state.code,
+			validationErrors: action.validationErrors,
+			formatterErrors: [],
+			formatterString: action.editorString,
+			editorString: action.editorString,
 			wizardName: wizard !== undefined ? wizard.name : undefined
 		}
 	};

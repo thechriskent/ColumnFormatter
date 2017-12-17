@@ -2,6 +2,7 @@ import { columnTypes, editorThemes, uiState } from './State';
 
 export type ActionTypes = 
 	| ILaunchEditorAction
+	| ILaunchEditorWithCodeAction
 	| IChangeUIStateAction
 	| IDisconnectWizardAction
 	| IUpdateDataRowAction
@@ -20,6 +21,7 @@ export type ActionTypes =
 
 export enum typeKeys {
 	LAUNCH_EDITOR = "LAUNCH_EDITOR",
+	LAUNCH_EDITOR_WITH_CODE = "LAUNCH_EDITOR_WITH_CODE",
 	CHANGE_UISTATE = "CHANGE_UISTATE",
 	DISCONNECT_WIZARD = "DISCONNECT_WIZARD",
 
@@ -50,6 +52,21 @@ export const launchEditor = (wizardName:string, colType:columnTypes): ILaunchEdi
 	type: typeKeys.LAUNCH_EDITOR,
 	wizardName,
 	colType
+});
+
+export interface ILaunchEditorWithCodeAction {
+	type: typeKeys.LAUNCH_EDITOR_WITH_CODE;
+	wizardName: string;
+	colType: columnTypes;
+	editorString: string;
+	validationErrors: Array<string>;
+}
+export const launchEditorWithCode = (wizardName:string, colType:columnTypes, editorString:string, validationErrors:Array<string>): ILaunchEditorWithCodeAction => ({
+	type: typeKeys.LAUNCH_EDITOR_WITH_CODE,
+	wizardName,
+	colType,
+	editorString,
+	validationErrors
 });
 
 export interface IChangeUIStateAction {
