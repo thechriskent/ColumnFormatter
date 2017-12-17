@@ -75,23 +75,24 @@ function LaunchEditorReducer(state:IApplicationState, action:ILaunchEditorAction
 	let wizard:IWizard = getWizardByName(action.wizardName);
 	return {
 		data: {
-			columns: action.wizardName !== undefined ? wizard.startingColumns(action.colType) : standardWizardStartingColumns(action.colType),
-			rows: action.wizardName !== undefined ? wizard.startingRows(action.colType) : standardWizardStartingRows(action.colType)
+			columns: wizard !== undefined ? wizard.startingColumns(action.colType) : standardWizardStartingColumns(action.colType),
+			rows: wizard !== undefined ? wizard.startingRows(action.colType) : standardWizardStartingRows(action.colType)
 		},
 		ui: {
 			...state.ui,
 			state: uiState.editing,
 			tabs: {
 				...state.ui.tabs,
-				viewTab: action.wizardName !== undefined ? 0 : 2
+				viewTab: (wizard !== undefined && !wizard.isTemplate) ? 0 : 2,
+				wizardTabVisible: (wizard !== undefined && !wizard.isTemplate)
 			}
 		},
 		code: {
 			...state.code,
 			validationErrors: [],
 			formatterErrors: [],
-			formatterString: action.wizardName !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType),
-			editorString: action.wizardName !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType)
+			formatterString: wizard !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType),
+			editorString: wizard !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType)
 		}
 	};
 }

@@ -61,6 +61,7 @@ export interface IPaneState {
 export interface ITabState {
 	propertyTab: number;
 	viewTab: number;
+	wizardTabVisible: boolean;
 }
 
 export interface IUI {
@@ -96,7 +97,8 @@ export const initialState: IApplicationState = {
 		},
 		tabs: {
 			propertyTab: 0,
-			viewTab: 0
+			viewTab: 0,
+			wizardTabVisible: true
 		}
 	},
 	code: {

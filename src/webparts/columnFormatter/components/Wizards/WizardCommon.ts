@@ -7,6 +7,7 @@ export interface IWizard {
 	description: string;
 	iconName: string;
 	fieldTypes: Array<columnTypes>;
+	isTemplate: boolean;
 	startingCode: (colType:columnTypes) => string;
 	startingRows: (colType:columnTypes) => Array<Array<any>>;
 	startingColumns: (colType:columnTypes) => Array<IDataColumn>;
@@ -45,6 +46,7 @@ export const Wizards: Array<IWizard> = [
 		description: 'Testing Purposes, not a real wizard',
 		iconName: 'Mail',
 		fieldTypes: [],
+		isTemplate: true,
 		startingCode: (colType:columnTypes): string => {
 			return [
 				'{',

@@ -12,6 +12,7 @@ export const WizardInfoDataBars: IWizard = {
 	fieldTypes: [
 		columnTypes.number
 	],
+	isTemplate: false,
 	startingColumns: (colType:columnTypes): Array<IDataColumn> => {return standardWizardStartingColumns(colType);},
 	startingRows: (colType:columnTypes): Array<Array<any>> => {
 		return [

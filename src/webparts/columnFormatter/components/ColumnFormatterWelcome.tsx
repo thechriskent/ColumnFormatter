@@ -50,8 +50,8 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
           {this.state.stage == welcomeStage.start && (
             <div>
               <div className={styles.header}>
-                <h1>Column Formatter</h1>
-                <span>Easy editor for modern listview Column Formatting</span>
+                <h1>{strings.WelcomeTitle}</h1>
+                <span>{strings.WelcomeSubTitle}</span>
               </div>
               <div className={styles.startButtons}>
                 <div className={styles.startButton} onClick={() => {this.gotoStage(welcomeStage.new);}}>
@@ -59,8 +59,8 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
                     <Icon iconName='Filters'/>
                   </div>
                   <div className={styles.words}>
-                    <h2>New</h2>
-                    <span>Start with a blank canvas or choose from a template</span>
+                    <h2>{strings.WelcomeNewHeader}</h2>
+                    <span>{strings.WelcomeNewDescription}</span>
                   </div>
                 </div>
                 <div className={styles.startButton} onClick={() => {this.gotoStage(welcomeStage.open);}}>
@@ -68,8 +68,8 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
                     <Icon iconName='OpenFolderHorizontal'/>
                   </div>
                   <div className={styles.words}>
-                    <h2>Open</h2>
-                    <span>Load from a library or pull from a local list</span>
+                    <h2>{strings.WelcomeOpenHeader}</h2>
+                    <span>{strings.WelcomeOpenDescription}</span>
                   </div>
                 </div>
               </div>
@@ -78,7 +78,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
           {this.state.stage == welcomeStage.new && (
             <div className={styles.newForm}>
               <div className={styles.columnType}>
-                <Label required={true}>Column Type</Label>
+                <Label required={true}>{strings.WelcomeNewColumnTypeLabel}</Label>
                 <Dropdown
                  selectedKey={this.state.columnType}
                  onChanged={this.onChangeColumnType}
@@ -99,7 +99,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
                selectedKey={this.state.useWizardForNew ? 'wizard' : 'blank'}
                onChange={this.onNewStartWithChanged}
                options={[
-                 {key:'wizard', text:'Start with a template', onRenderField: (props, render) => {
+                 {key:'wizard', text:strings.WelcomeNewWizardOption, onRenderField: (props, render) => {
                   return(
                     <div>
                       { render!(props) }
@@ -107,20 +107,29 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
                     </div>
                   );
                  }},
-                 {key:'blank', text:'Start from scratch'}
+                 {key:'blank', text:strings.WelcomeNewBlankOption}
                ]}/>
               <div className={styles.navigationButtons}>
                 <div>
-                  <DefaultButton text="Back" onClick={() => {this.gotoStage(welcomeStage.start);}}/>
+                  <DefaultButton text={strings.WelcomeBackButton} onClick={() => {this.gotoStage(welcomeStage.start);}}/>
                 </div>
                 <div style={{textAlign: 'right'}}>
-                  <PrimaryButton text="OK" disabled={!this.okButtonEnabled()} onClick={this.onOkForNewClick}/>
+                  <PrimaryButton text={strings.WelcomeOKButton} disabled={!this.okButtonEnabled()} onClick={this.onOkForNewClick}/>
                 </div>
               </div>
             </div>
           )}
           {this.state.stage == welcomeStage.open && (
-            <div>Open!</div>
+            <div>
+              <div className={styles.navigationButtons}>
+                <div>
+                  <DefaultButton text={strings.WelcomeBackButton} onClick={() => {this.gotoStage(welcomeStage.start);}}/>
+                </div>
+                <div style={{textAlign: 'right'}}>
+                  <PrimaryButton text={strings.WelcomeOKButton} disabled={!this.okButtonEnabled()} onClick={this.onOkForNewClick}/>
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>

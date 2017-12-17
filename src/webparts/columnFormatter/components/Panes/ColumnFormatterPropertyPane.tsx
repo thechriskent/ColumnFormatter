@@ -12,6 +12,7 @@ import { ColumnFormatterTreePanel } from '../Panels/Tree/ColumnFormatterTreePane
 import { ColumnFormatterDataPanel } from '../Panels/Data/ColumnFormatterDataPanel';
 
 export interface IColumnFormatterPropertyPaneProps {
+	wizardTabVisible?: boolean;
 	tabIndex?: number;
 	selectTab?: (index:number) => void;
 }
@@ -22,19 +23,23 @@ class ColumnFormatterPropertyPane_ extends React.Component<IColumnFormatterPrope
 		  <Tabs
 			 selectedIndex={this.props.tabIndex}
 			 onSelect={this.onSelectTab}>
+			 	{this.props.wizardTabVisible && (
+					 <TabPanel>
+						Wowee!
+					</TabPanel>
+				)}
 				<TabPanel>
-					Wowee!
+					<ColumnFormatterDataPanel/>
 				</TabPanel>
 				<TabPanel>
 					<ColumnFormatterTreePanel/>
 				</TabPanel>
-				<TabPanel>
-					<ColumnFormatterDataPanel/>
-				</TabPanel>
 				<TabList>
-					<Tab><Icon iconName='LightningBolt'/><span>{strings.TabWizard}</span></Tab>
-					<Tab><Icon iconName='Bookmarks'/><span>{strings.TabTree}</span></Tab>
+					{this.props.wizardTabVisible && (
+						<Tab><Icon iconName='LightningBolt'/><span>{strings.TabWizard}</span></Tab>
+					)}
 					<Tab><Icon iconName='TextField'/><span>{strings.TabData}</span></Tab>
+					<Tab><Icon iconName='Bookmarks'/><span>{strings.TabTree}</span></Tab>
 				</TabList>
 		  </Tabs>
 		);
@@ -48,7 +53,8 @@ class ColumnFormatterPropertyPane_ extends React.Component<IColumnFormatterPrope
 
 function mapStateToProps(state: IApplicationState): IColumnFormatterPropertyPaneProps{
 	return {
-		tabIndex: state.ui.tabs.propertyTab
+		tabIndex: state.ui.tabs.propertyTab,
+		wizardTabVisible: state.ui.tabs.wizardTabVisible
 	};
 }
 
