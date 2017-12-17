@@ -29,10 +29,16 @@ declare interface IColumnFormatterWebPartStrings {
   CommandNew: string;
   CommandCustomize: string;
   CommandEditor: string;
+  
   NewConfirmationDialogTitle: string;
   NewConfirmationDialogText: string;
   NewConfirmationDialogConfirmButton: string;
   NewConfirmationDialogCancelButton: string;
+
+  CustomizeConfirmationDialogTitle: string;
+  CustomizeConfirmationDialogText: string;
+  CustomizeConfirmationDialogConfirmButton:string;
+  CustomizeConfirmationDialogCancelButton: string;
 
   DeleteRow: string;
   AddRow: string;

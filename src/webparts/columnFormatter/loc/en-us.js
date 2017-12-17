@@ -41,6 +41,12 @@ define([], function() {
     NewConfirmationDialogConfirmButton: 'Yes',
     NewConfirmationDialogCancelButton: 'Cancel',
 
+    //Customize Confirmation Dialog
+    CustomizeConfirmationDialogTitle: 'Remove Wizard?',
+    CustomizeConfirmationDialogText: 'You will be able to edit the code directly, but the wizard pane will no longer be available. This is for advanced users. Are you sure?',
+    CustomizeConfirmationDialogConfirmButton: 'Yes',
+    CustomizeConfirmationDialogCancelButton: 'Cancel',
+
     //Data Column/Row buttons
     DeleteRow: "Delete Row",
     AddRow: "Add Row",

@@ -3,6 +3,7 @@ import { columnTypes, editorThemes, uiState } from './State';
 export type ActionTypes = 
 	| ILaunchEditorAction
 	| IChangeUIStateAction
+	| IDisconnectWizardAction
 	| IUpdateDataRowAction
 	| IUpdateDataColumnNameAction
 	| IUpdateDataColumnTypeAction
@@ -20,6 +21,7 @@ export type ActionTypes =
 export enum typeKeys {
 	LAUNCH_EDITOR = "LAUNCH_EDITOR",
 	CHANGE_UISTATE = "CHANGE_UISTATE",
+	DISCONNECT_WIZARD = "DISCONNECT_WIZARD",
 
 	UPDATE_DATA_ROW = "UPDATE_DATA_ROW",
 	UPDATE_DATA_COLUMN_NAME = "UPDATE_DATA_COLUMN_NAME",
@@ -57,6 +59,13 @@ export interface IChangeUIStateAction {
 export const changeUIState = (state:uiState): IChangeUIStateAction => ({
 	type: typeKeys.CHANGE_UISTATE,
 	state
+});
+
+export interface IDisconnectWizardAction {
+	type: typeKeys.DISCONNECT_WIZARD;
+}
+export const disconnectWizard = (): IDisconnectWizardAction => ({
+	type: typeKeys.DISCONNECT_WIZARD
 });
 
 

@@ -1,6 +1,6 @@
 import { columnTypes, IDataColumn } from '../../state/State';
 import { WizardInfoDataBars } from './WizardDataBars';
-import { generateRowValue } from '../../../../../lib/webparts/columnFormatter/state/ValueGeneration';
+import { generateRowValue } from '../../state/ValueGeneration';
 
 export interface IWizard {
 	name: string;
@@ -29,11 +29,22 @@ export const standardWizardStartingColumns = (colType:columnTypes): Array<IDataC
 };
 
 export const standardWizardStartingCode = (colType:columnTypes): string => {
+	let currentField:string = '@currentField';
+	switch(colType) {
+		case columnTypes.lookup:
+			currentField = '@currentField.lookupValue';
+			break;
+		case columnTypes.person:
+			currentField = '@currentField.title';
+			break;
+		default:
+			break;
+	}
 	return [
 		'{',
 		'  "$schema": "http://columnformatting.sharepointpnp.com/columnFormattingSchema.json",',
 		'  "elmType": "div",',
-		'  "txtContent": "@currentField"',
+		'  "txtContent": "' + currentField + '"',
 		'}'
 	].join('\n');
 };

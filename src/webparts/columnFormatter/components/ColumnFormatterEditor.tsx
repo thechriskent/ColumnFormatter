@@ -3,14 +3,13 @@ import styles from './ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { resizePane } from '../state/Actions';
+import { resizePane, chooseTheme, changeUIState, disconnectWizard } from '../state/Actions';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { chooseTheme, changeUIState } from '../state/Actions';
 import { IApplicationState, editorThemes, uiState } from '../state/State';
 var SplitPane = require('react-split-pane');
 
@@ -19,13 +18,16 @@ import { ColumnFormatterViewPane } from './Panes/ColumnFormatterViewPane';
 
 export interface IColumnFormatterEditorProps {
   changeUIState?: (state:uiState) => void;
+  disconnectWizard?: () => void;
+  wizardTabVisible?: boolean;
   theme?: editorThemes;
   paneResized?: (size:number) => void;
   chooseTheme?: (theme:editorThemes) => void;
 }
 
 export interface IColumnFormatterEditorState {
-  confirmationDialogVisible: boolean;
+  newConfirmationDialogVisible: boolean;
+  customizeConfirmationDialogVisible: boolean;
 }
 
 class ColumnFormatterEditor_ extends React.Component<IColumnFormatterEditorProps, IColumnFormatterEditorState> {
@@ -34,7 +36,8 @@ class ColumnFormatterEditor_ extends React.Component<IColumnFormatterEditorProps
     super(props);
 
     this.state = {
-      confirmationDialogVisible: false
+      newConfirmationDialogVisible: false,
+      customizeConfirmationDialogVisible: false
     };
   }
 
@@ -42,19 +45,7 @@ class ColumnFormatterEditor_ extends React.Component<IColumnFormatterEditorProps
     return (
       <div>
         <CommandBar
-          items={[
-            {
-              key: 'new',
-              name: strings.CommandNew,
-              iconProps: {iconName: 'Add'},
-              onClick: this.onNewClick
-            },
-            {
-              key: 'customize',
-              name: strings.CommandCustomize,
-              iconProps: {iconName: 'Fingerprint'},
-            }
-          ]}
+          items={this.getCommandBarItems()}
           farItems={[
             {
               key: 'theme',
@@ -106,7 +97,7 @@ class ColumnFormatterEditor_ extends React.Component<IColumnFormatterEditorProps
           </SplitPane>
         </div>
         <Dialog
-         hidden={!this.state.confirmationDialogVisible}
+         hidden={!this.state.newConfirmationDialogVisible}
          onDismiss={this.closeDialog}
          dialogContentProps={{
            type: DialogType.normal,
@@ -114,25 +105,79 @@ class ColumnFormatterEditor_ extends React.Component<IColumnFormatterEditorProps
            subText: strings.NewConfirmationDialogText
          }}>
          <DialogFooter>
-           <PrimaryButton text={strings.NewConfirmationDialogConfirmButton} onClick={() => {this.props.changeUIState(uiState.welcome);}}/>
+           <PrimaryButton text={strings.NewConfirmationDialogConfirmButton} onClick={this.onNewConfirmationClick}/>
            <DefaultButton text={strings.NewConfirmationDialogCancelButton} onClick={this.closeDialog}/>
+         </DialogFooter>
+        </Dialog>
+        <Dialog
+         hidden={!this.state.customizeConfirmationDialogVisible}
+         onDismiss={this.closeDialog}
+         dialogContentProps={{
+           type: DialogType.normal,
+           title: strings.CustomizeConfirmationDialogTitle,
+           subText: strings.CustomizeConfirmationDialogText
+         }}>
+         <DialogFooter>
+           <PrimaryButton text={strings.CustomizeConfirmationDialogConfirmButton} onClick={this.onCustomizeConfirmationClick}/>
+           <DefaultButton text={strings.CustomizeConfirmationDialogCancelButton} onClick={this.closeDialog}/>
          </DialogFooter>
         </Dialog>
       </div>
     );
   }
 
+  private getCommandBarItems(): Array<IContextualMenuItem> {
+    let items:Array<IContextualMenuItem> = [
+      {
+        key: 'new',
+        name: strings.CommandNew,
+        iconProps: {iconName: 'Add'},
+        onClick: this.onNewClick
+      }
+    ];
+    if(this.props.wizardTabVisible) {
+      items.push({
+        key: 'customize',
+        name: strings.CommandCustomize,
+        iconProps: {iconName: 'Fingerprint'},
+        onClick: this.onCustomizeClick
+      });
+    }
+    return items;
+  }
+
   @autobind
   private onNewClick(ev?:React.MouseEvent<HTMLElement>, item?:IContextualMenuItem): void {
     this.setState({
-      confirmationDialogVisible: true
+      newConfirmationDialogVisible: true
+    });
+  }
+
+  @autobind
+  private onNewConfirmationClick(): void {
+    this.props.changeUIState(uiState.welcome);
+  }
+
+  @autobind
+  private onCustomizeClick(ev?:React.MouseEvent<HTMLElement>, item?:IContextualMenuItem): void {
+    this.setState({
+      customizeConfirmationDialogVisible: true
+    });
+  }
+
+  @autobind
+  private onCustomizeConfirmationClick(): void {
+    this.props.disconnectWizard();
+    this.setState({
+      customizeConfirmationDialogVisible: false
     });
   }
 
   @autobind
   private closeDialog(): void {
     this.setState({
-      confirmationDialogVisible: false
+      newConfirmationDialogVisible: false,
+      customizeConfirmationDialogVisible: false
     });
   }
 
@@ -144,6 +189,7 @@ class ColumnFormatterEditor_ extends React.Component<IColumnFormatterEditorProps
 
 function mapStateToProps(state: IApplicationState): IColumnFormatterEditorProps{
 	return {
+    wizardTabVisible: state.ui.tabs.wizardTabVisible,
 		theme: state.code.theme
 	};
 }
@@ -152,6 +198,9 @@ function mapDispatchToProps(dispatch: Dispatch<IColumnFormatterEditorProps>): IC
 	return {
     changeUIState: (state:uiState) => {
       dispatch(changeUIState(state));
+    },
+    disconnectWizard: () => {
+      dispatch(disconnectWizard());
     },
 		paneResized: (size:number) => {
 			dispatch(resizePane('main', size));

@@ -4,11 +4,11 @@ import {
 	IUpdateDataColumnNameAction, IUpdateDataColumnTypeAction,
 	IAddDataRowAction, IRemoveDataRowAction,
 	IAddDataColumnAction, IRemoveDataColumnAction, IPaneResizeAction,
-	IUpdateEditorStringAction, ISelectTabAction
+	IUpdateEditorStringAction, ISelectTabAction,
+	ILaunchEditorAction, IDisconnectWizardAction
 } from "./Actions";
 import { clone, forIn } from '@microsoft/sp-lodash-subset';
 import { generateRowValue } from './ValueGeneration';
-import { ILaunchEditorAction } from "../../../../lib/webparts/columnFormatter/state/Actions";
 import {
 	IWizard, getWizardByName, standardWizardStartingRows, 
 	standardWizardStartingColumns, standardWizardStartingCode
@@ -24,6 +24,9 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 			break;
 		case typeKeys.CHANGE_UISTATE:
 			newState.ui.state = action.state;
+			break;
+		case typeKeys.DISCONNECT_WIZARD:
+			newState.ui.tabs.wizardTabVisible = false;
 			break;
 
 		case typeKeys.UPDATE_DATA_ROW:
