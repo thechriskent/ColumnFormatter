@@ -82,10 +82,7 @@
       }
 
       .newForm {
-
         .columnType {
-          color:inherit;
-
           label {
             padding-top: 0;
           }
@@ -96,7 +93,24 @@
             margin-top: 0;
           }
         }
+      }
 
+      .openForm {
+        .columnType {
+          padding-top: 12px;
+
+          :global {
+            .ms-Dropdown-container {
+              padding-left: 26px;
+              padding-top: 4px;
+            }
+          }
+        }
+        
+        .subChoice {
+          padding-left: 16px;
+          padding-top: 2px;
+        }
       }
 
       .navigationButtons {

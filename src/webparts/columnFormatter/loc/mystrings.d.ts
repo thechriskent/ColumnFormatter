@@ -14,6 +14,12 @@ declare interface IColumnFormatterWebPartStrings {
   WelcomeNewBlankOption: string;
   WelcomeBackButton: string;
   WelcomeOKButton: string;
+  WelcomeNextButton: string;
+  WelcomeOpenLoadList: string;
+  WelcomeOpenLoadFile: string;
+  WelcomeOpenColumnTypeLabel: string;
+  WelcomeOpenLoadFileLibrary: string;
+  WelcomeOpenLoadFileUpload: string;
 
   TabWizard: string;
   TabTree: string;

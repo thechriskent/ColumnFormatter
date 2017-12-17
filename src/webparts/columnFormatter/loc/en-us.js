@@ -16,6 +16,12 @@ define([], function() {
     WelcomeNewBlankOption: 'Start from scratch',
     WelcomeBackButton: 'Back',
     WelcomeOKButton: 'OK',
+    WelcomeNextButton: 'Next',
+    WelcomeOpenLoadList: 'Load from a local list',
+    WelcomeOpenLoadFile: 'Load from a file:',
+    WelcomeOpenColumnTypeLabel: 'Column Type',
+    WelcomeOpenLoadFileLibrary: 'Open a file from a local library',
+    WelcomeOpenLoadFileUpload: 'Upload a file',
 
     //Tab Names
     TabWizard: "Wizard",

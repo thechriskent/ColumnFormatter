@@ -27,9 +27,12 @@ export interface IColumnFormatterWelcomeProps {
 
 export interface IColumnFormatterWelcomeState {
   stage: welcomeStage;
-  columnType?: columnTypes;
+  columnTypeForNew?: columnTypes;
   useWizardForNew: boolean;
   ChoosenWizardName?: string;
+  loadChoiceForOpen?: string;
+  columnTypeForOpen?: columnTypes;
+  fileChoiceForOpen?: string;
 }
 
 class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomeProps, IColumnFormatterWelcomeState> {
@@ -38,12 +41,17 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     super(props);
 
     this.state = {
-      stage: welcomeStage.new,
+      stage: welcomeStage.open,
       useWizardForNew: true
     };
   }
 
   public render(): React.ReactElement<IColumnFormatterWelcomeProps> {
+
+    //TEMP
+    //this.props.launchEditor(undefined,columnTypes.text);
+    //this.props.launchEditor('Data Bars', columnTypes.number);
+
     return (
       <div className={styles.welcome}>
         <div className={styles.welcomeBox}>
@@ -80,8 +88,8 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
               <div className={styles.columnType}>
                 <Label required={true}>{strings.WelcomeNewColumnTypeLabel}</Label>
                 <Dropdown
-                 selectedKey={this.state.columnType}
-                 onChanged={this.onChangeColumnType}
+                 selectedKey={this.state.columnTypeForNew}
+                 onChanged={this.onChangeColumnTypeForNew}
                  options={[
                    {key: columnTypes.choice, text: textForType(columnTypes.choice)},
                    {key: columnTypes.datetime, text: textForType(columnTypes.datetime)},
@@ -95,7 +103,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
                  ]}/>
               </div>
               <ChoiceGroup
-               disabled={this.state.columnType == undefined}
+               disabled={this.state.columnTypeForNew == undefined}
                selectedKey={this.state.useWizardForNew ? 'wizard' : 'blank'}
                onChange={this.onNewStartWithChanged}
                options={[
@@ -120,13 +128,54 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
             </div>
           )}
           {this.state.stage == welcomeStage.open && (
-            <div>
+            <div className={styles.openForm}>
+              <ChoiceGroup
+               selectedKey={this.state.loadChoiceForOpen}
+               onChange={this.onLoadChoiceForOpenChanged}
+               options={[
+                {key:'list', text: strings.WelcomeOpenLoadList},
+                {key:'file', text: strings.WelcomeOpenLoadFile, onRenderField: (props, render) => {
+                  return (
+                    <div>
+                      { render!(props) }
+                      <div className={styles.columnType}>
+                        <Label required={true}>{strings.WelcomeOpenColumnTypeLabel}</Label>
+                        <Dropdown
+                         selectedKey={this.state.columnTypeForOpen}
+                         onChanged={this.onChangeColumnTypeForOpen}
+                         disabled={this.state.loadChoiceForOpen !== 'file'}
+                         options={[
+                          {key: columnTypes.choice, text: textForType(columnTypes.choice)},
+                          {key: columnTypes.datetime, text: textForType(columnTypes.datetime)},
+                          {key: columnTypes.link, text: textForType(columnTypes.link)},
+                          {key: columnTypes.lookup, text: textForType(columnTypes.lookup)},
+                          {key: columnTypes.number, text: textForType(columnTypes.number)},
+                          {key: columnTypes.person, text: textForType(columnTypes.person)},
+                          {key: columnTypes.picture, text: textForType(columnTypes.picture)},
+                          {key: columnTypes.text, text: textForType(columnTypes.text)},
+                          {key: columnTypes.boolean, text: textForType(columnTypes.boolean)}
+                        ]}/>
+                      </div>
+                      <div className={styles.subChoice}>
+                        <ChoiceGroup
+                         selectedKey={this.state.fileChoiceForOpen}
+                         onChange={this.onFileChoiceForOpenChanged}
+                         disabled={this.state.loadChoiceForOpen !== 'file'}
+                         options={[
+                           {key:'library', text: strings.WelcomeOpenLoadFileLibrary},
+                           {key:'upload', text: strings.WelcomeOpenLoadFileUpload}
+                         ]}/>
+                      </div>
+                    </div>
+                   );
+                 }}
+               ]}/>
               <div className={styles.navigationButtons}>
                 <div>
                   <DefaultButton text={strings.WelcomeBackButton} onClick={() => {this.gotoStage(welcomeStage.start);}}/>
                 </div>
                 <div style={{textAlign: 'right'}}>
-                  <PrimaryButton text={strings.WelcomeOKButton} disabled={!this.okButtonEnabled()} onClick={this.onOkForNewClick}/>
+                  <PrimaryButton text={strings.WelcomeNextButton} disabled={!this.okButtonEnabled()} onClick={this.onOkForOpenClick}/>
                 </div>
               </div>
             </div>
@@ -147,8 +196,13 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     switch(this.state.stage) {
       case welcomeStage.new:
         return (
-          this.state.columnType !== undefined &&
+          this.state.columnTypeForNew !== undefined &&
           (!this.state.useWizardForNew || (this.state.useWizardForNew && this.state.ChoosenWizardName !== undefined))
+        );
+      case welcomeStage.open:
+        return (
+          this.state.loadChoiceForOpen == 'list' ||
+          (this.state.loadChoiceForOpen == 'file' && this.state.columnTypeForOpen !== undefined && this.state.fileChoiceForOpen !== undefined)
         );
       default:
         return false;
@@ -156,14 +210,14 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
   }
 
   @autobind
-  private onChangeColumnType(item: IDropdownOption): void {
+  private onChangeColumnTypeForNew(item: IDropdownOption): void {
     let selectedWizard: IWizard = getWizardByName(this.state.ChoosenWizardName);
     let wizardName:string = undefined;
     if(selectedWizard !== undefined && (selectedWizard.fieldTypes.length == 0 || selectedWizard.fieldTypes.indexOf(+item.key) >= 0)) {
       wizardName = selectedWizard.name;
     }
     this.setState({
-      columnType: +item.key,
+      columnTypeForNew: +item.key,
       ChoosenWizardName: wizardName,
       useWizardForNew: (getWizardsForColumnType(+item.key).length > 0 && this.state.useWizardForNew)
     });
@@ -178,13 +232,13 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
 
   private wizardOptions(): JSX.Element {
 
-    let filteredWizards = getWizardsForColumnType(this.state.columnType);
+    let filteredWizards = getWizardsForColumnType(this.state.columnTypeForNew);
 
     let topRowItemCount:number = filteredWizards.length > 0 ? Math.ceil(filteredWizards.length/2) : 0;
     let choicesWidth:number = Math.max(topRowItemCount * 64 + topRowItemCount * 4, 204);
 
     return (
-    <div className={styles.wizardChoiceSelection + (this.state.useWizardForNew && this.state.columnType !== undefined ? '' : ' ' + styles.disabled)}>
+    <div className={styles.wizardChoiceSelection + (this.state.useWizardForNew && this.state.columnTypeForNew !== undefined ? '' : ' ' + styles.disabled)}>
       <div className={styles.wizardChoices} style={{width: choicesWidth.toString() + 'px'}}>
         {filteredWizards.map((value:IWizard, index: number) => {
           return (
@@ -217,7 +271,34 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
 
   @autobind
   private onOkForNewClick(): void {
-    this.props.launchEditor(this.state.useWizardForNew ? this.state.ChoosenWizardName : undefined, this.state.columnType);
+    this.props.launchEditor(this.state.useWizardForNew ? this.state.ChoosenWizardName : undefined, this.state.columnTypeForNew);
+  }
+
+
+  @autobind
+	private onLoadChoiceForOpenChanged(ev: React.FormEvent<HTMLInputElement>, option: any) {
+    this.setState({
+      loadChoiceForOpen: option.key
+    });
+	}
+
+  @autobind
+  private onChangeColumnTypeForOpen(item: IDropdownOption): void {
+    this.setState({
+      columnTypeForOpen: +item.key
+    });
+  }
+
+  @autobind
+	private onFileChoiceForOpenChanged(ev: React.FormEvent<HTMLInputElement>, option: any) {
+    this.setState({
+      fileChoiceForOpen: option.key
+    });
+	}
+
+  @autobind
+  private onOkForOpenClick(): void {
+
   }
 
 }
