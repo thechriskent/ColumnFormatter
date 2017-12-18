@@ -126,8 +126,6 @@ You can change the additional columns by clicking the type icon in the data pane
 
 You can edit sub properties (such as a person's email address or a lookup id) by clicking the subproperties icon next to each row value. Not all field types have subproperties.
 
-![Subproperties](./assets/screenshots/Subproperties.png)
-
 ## Elements Tree
 The tree pane is provided as a way to visualize the hierarchy of your html elements. The elements are shown with their children nested underneath. Additionally, a guess at what the txtContent will be for an element is made and displayed to make it easy to find your nodes in a complex format structure.
 
@@ -143,6 +141,22 @@ The **Data Bars** wizard:
 ![Data Bars Wizard](./assets/screenshots/DataBarsWizard.png)
 
 When in a wizard, the editor is set to be read only to prevent you from making mistakes. However, once you've got the values configured how you want, you can break out of the wizard by pressing the **Customize** button. This will remove the wizard pane but give you full access to the code.
+
+## Additional Features
+
+### Supports full localization
+All strings have been provided to the code using localization opening the possibility to easily translate the project into multiple languages.
+
+### Utilizes Office UI Fabric
+Office UI Fabric was used for colors, icons, and typography. Additionally, the UI Fabric React Components were used wherever possible to ensure that Column Formatter matches the look and feel of Office 365 as much as possible. This keeps the experience from being jarring to end users, but also builds on knowledge they've already gained by using the rest of the suite.
+
+The theme colors were also used as much as possible to ensure that Column Formatter will match your site regardless of what theme you choose.
+
+### Contextual Awareness
+Column Formatter is aware when it is running in a local workbench and automatically curtails those features that require a connected experience (O365 context) rather than throwing errors.
+
+### Wizard / Templating system is setup to be extensible
+Creating a new template is fairly simple just by implementing the necessary interface and registering the component. Wizards only require a few additional steps. This means that additional templates and wizards can be easily created as Column Formatting evolves.
 
 ## Running the code
 
