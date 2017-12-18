@@ -1,6 +1,7 @@
 import { columnTypes, IDataColumn } from '../../state/State';
 import { WizardInfoDataBars } from './WizardDataBars';
 import { WizardInfoNumberTending } from './WizardNumberTrending';
+import { WizardInfoCheckboxes } from './WizardCheckboxes';
 import { generateRowValue } from '../../state/ValueGeneration';
 
 export interface IWizard {
@@ -55,8 +56,9 @@ export const standardWizardStartingCode = (colType:columnTypes): string => {
 export const Wizards: Array<IWizard> = [
 	WizardInfoDataBars,
 	WizardInfoNumberTending,
+	WizardInfoCheckboxes,
 	{
-		name: 'Fake',
+		name: 'Mail',
 		description: 'Testing Purposes, not a real wizard',
 		iconName: 'Mail',
 		fieldTypes: [],
