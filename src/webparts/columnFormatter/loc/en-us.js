@@ -63,6 +63,11 @@ define([], function() {
     SaveToLibraryDialogConfirmButton: 'Save',
     SaveToLibraryDialogCancelButton: 'Cancel',
 
+    //Apply To List Dialog
+    ApplyToListDialogTitle: 'Apply to local list field',
+    ApplyToListDialogConfirmButton: 'Save',
+    ApplyToListDialogCancelButton: 'Cancel',
+
     //Data Column/Row buttons
     DeleteRow: "Delete Row",
     AddRow: "Add Row",

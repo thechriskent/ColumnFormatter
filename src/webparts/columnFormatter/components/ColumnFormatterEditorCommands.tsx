@@ -10,10 +10,11 @@ import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { IApplicationState, editorThemes, uiState, IContext } from '../state/State';
+import { IApplicationState, editorThemes, uiState, IContext, columnTypes } from '../state/State';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { typeForTypeAsString, textForType } from '../helpers/ColumnTypeHelpers';
 import pnp from "sp-pnp-js";
 var fileDownload = require('js-file-download');
 
@@ -27,6 +28,7 @@ export interface IColumnFormatterEditorCommandsProps {
   chooseTheme?: (theme:editorThemes) => void;
   editorString?: string;
   fieldName?: string;
+  fieldType?: columnTypes;
   viewTab?: number;
 }
 
@@ -41,6 +43,13 @@ export interface IColumnFormatterEditorCommandsState {
   libraryFileName: string;
   libraryIsSaving: boolean;
   librarySaveError?: string;
+  applyToListDialogVisible: boolean;
+  listsLoaded: boolean;
+  lists: Array<any>;
+  selectedList?: string;
+  selectedField?: string;
+  listIsApplying: boolean;
+  listSaveError?: string;
 }
 
 class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEditorCommandsProps, IColumnFormatterEditorCommandsState> {
@@ -56,7 +65,11 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
       libraries: new Array<any>(),
       libraryFolderPath: '',
       libraryFileName: props.fieldName + '.json',
-      libraryIsSaving: false
+      libraryIsSaving: false,
+      applyToListDialogVisible: false,
+      listsLoaded: false,
+      lists: new Array<any>(),
+      listIsApplying: false
     };
   }
 
@@ -134,6 +147,47 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
           <DialogFooter>
             <PrimaryButton text={strings.SaveToLibraryDialogConfirmButton} disabled={!this.saveToLibrarySaveButtonEnabled()} onClick={this.onSaveToLibrarySaveButtonClick}/>
             <DefaultButton text={strings.SaveToLibraryDialogCancelButton} onClick={this.closeDialog}/>
+          </DialogFooter>
+        </Dialog>
+        <Dialog
+         hidden={!this.state.applyToListDialogVisible}
+         onDismiss={this.closeDialog}
+         dialogContentProps={{
+          type: DialogType.largeHeader,
+          title: strings.ApplyToListDialogTitle
+        }}>
+         {!this.props.context.isOnline && (
+           <span>This feature is not available from the local workbench</span>
+         )}
+         {!this.state.listsLoaded && this.props.context.isOnline && !this.state.listIsApplying && this.state.listSaveError == undefined && (
+           <Spinner size={SpinnerSize.large} label='Loading Lists...'/>
+         )}
+         {this.state.listsLoaded && this.props.context.isOnline && !this.state.listIsApplying && this.state.listSaveError == undefined && (
+           <div>
+             <Dropdown
+              label='Local list'
+              selectedKey={this.state.selectedList}
+              onChanged={(item:IDropdownOption)=> {this.setState({selectedList: item.key.toString(),selectedField: undefined});}}
+              required={true}
+              options={this.listsToOptions()} />
+             <Dropdown
+              label='Field'
+              selectedKey={this.state.selectedField}
+              disabled={this.state.selectedList == undefined}
+              onChanged={(item:IDropdownOption)=> {this.setState({selectedField: item.key.toString()});}}
+              required={true}
+              options={this.fieldsToOptions()} />
+           </div>
+         )}
+         {this.state.listIsApplying && this.state.listSaveError == undefined &&(
+           <Spinner size={SpinnerSize.large} label='Applying to list...'/>
+         )}
+         {this.state.listSaveError !== undefined && (
+           <span className={styles.errorMessage}>{this.state.listSaveError}</span>
+         )}
+          <DialogFooter>
+            <PrimaryButton text={strings.ApplyToListDialogConfirmButton} disabled={!this.applyToListSaveButtonEnabled()} onClick={this.onApplyToListSaveButtonClick}/>
+            <DefaultButton text={strings.ApplyToListDialogCancelButton} onClick={this.closeDialog}/>
           </DialogFooter>
         </Dialog>
       </div>
@@ -267,7 +321,8 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
       newConfirmationDialogVisible: false,
       customizeConfirmationDialogVisible: false,
       saveToLibraryDialogVisible: false,
-      librarySaveError: undefined
+      librarySaveError: undefined,
+      applyToListDialogVisible: false
     });
   }
 
@@ -314,6 +369,11 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
             this.setState({
               librariesLoaded: true,
               libraries: data
+            });
+          })
+          .catch((error:any) => {
+            this.setState({
+              librarySaveError: 'Error while loading libraries! Technical Details: ' + error.message
             });
           });
       }
@@ -365,6 +425,112 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
 
   @autobind
   private onApplyToListClick(ev?:React.MouseEvent<HTMLElement>, item?:IContextualMenuItem): void {
+    if(!this.state.listsLoaded) {
+      if(this.props.context.isOnline) {
+        pnp.sp.web.lists.filter('Hidden eq false').select('Id','Title','Fields/InternalName','Fields/TypeAsString','Fields/Hidden','Fields/Title','Fields/DisplayFormat').expand('Fields').get()
+          .then((data:any) => {
+            let listdata:Array<any> = new Array<any>();
+            for(var i=0; i<data.length; i++){
+              listdata.push({
+                Id: data[i].Id,
+                Title: data[i].Title,
+                Fields: data[i].Fields.map((field:any, index:number) => {
+                  if(!field.Hidden) {
+                    let ftype = typeForTypeAsString(field.TypeAsString, field.DisplayFormat);
+                    if(ftype !== undefined) {
+                      return {
+                        Title: field.Title,
+                        InternalName: field.InternalName,
+                        Type: ftype
+                      };
+                    }
+                  }
+                }).filter((field:any, index:number) => {return field !== undefined;})
+              });
+            }
+
+            this.setState({
+              listsLoaded: true,
+              lists: listdata
+            });
+          })
+          .catch((error:any) => {
+            this.setState({
+              listSaveError: 'Error while loading lists! Technical Details: ' + error.message
+            });
+          });
+      }
+    }
+    
+    this.setState({
+      applyToListDialogVisible: true
+    });
+  }
+
+  private listsToOptions(): Array<IDropdownOption> {
+    let items:Array<IDropdownOption> = new Array<IDropdownOption>();
+    for(var list of this.state.lists) {
+      items.push({
+        key: list.Id,
+        text: list.Title
+      });
+    }
+    return items;
+  }
+
+  private fieldsToOptions(): Array<IDropdownOption> {
+    let items:Array<IDropdownOption> = new Array<IDropdownOption>();
+    for(var list of this.state.lists) {
+      if(list.Id == this.state.selectedList) {
+        for(var field of list.Fields) {
+          if((this.props.fieldType == columnTypes.lookup && field.Type == columnTypes.lookup) ||
+            (this.props.fieldType == columnTypes.person && field.Type == columnTypes.person) ||
+            (this.props.fieldType !== columnTypes.person && field.Type !== columnTypes.person &&
+             this.props.fieldType !== columnTypes.lookup && field.Type !== columnTypes.lookup)) {
+               //formats for lookups can only be applied to lookups
+               //formats for users can only be applied to users
+               //the others are mostly interchangable (because @currentField works without subprops required)
+            items.push({
+                key: field.InternalName,
+                text: field.Title + ' [' + textForType(field.Type) + ']'
+              });    
+          }
+        }
+        break;
+      } 
+    }
+    return items;
+  }
+
+  private applyToListSaveButtonEnabled(): boolean{
+    return (
+      this.props.context.isOnline && this.state.selectedList !== undefined &&
+        this.state.selectedField !== undefined && this.state.listSaveError == undefined
+    );
+  }
+
+  @autobind
+  private onApplyToListSaveButtonClick(): void {
+    this.setState({
+      listIsApplying: true,
+      listSaveError: undefined
+    });
+    pnp.sp.web.lists.getById(this.state.selectedList)
+      .fields.getByInternalNameOrTitle(this.state.selectedField).update({
+        CustomFormatter: this.props.editorString
+      })
+      .then(()=>{
+        this.setState({
+          listIsApplying: false,
+          applyToListDialogVisible: false
+        });
+      })
+      .catch((error:any) => {
+        this.setState({
+          listIsApplying: false,
+          listSaveError: 'Error while applying! Verify you have permission to update this library\'s settings. Technical Details: ' + error.message
+        });
+      });
   }
 }
 
@@ -375,6 +541,7 @@ function mapStateToProps(state: IApplicationState): IColumnFormatterEditorComman
     theme: state.code.theme,
     editorString: state.code.editorString,
     fieldName: state.data.columns[0].name,
+    fieldType: state.data.columns[0].type,
     viewTab: state.ui.tabs.viewTab
 	};
 }

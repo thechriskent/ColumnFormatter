@@ -50,3 +50,35 @@ export const textForType = (type:columnTypes): string => {
 			return strings.ColumnTypeUnknown;
 	}
 };
+
+export const supportedTypes: Array<string> = [
+	'Text','Number','Choice','Boolean','User','URL','Lookup','DateTime','Integer'
+];
+
+export const typeForTypeAsString = (TypeAsString:string, DisplayFormat:number): columnTypes | undefined => {
+	switch(TypeAsString) {
+		case 'Text':
+			return columnTypes.text;
+		case 'Number':
+		case 'Integer':
+			return columnTypes.number;
+		case 'Choice':
+			return columnTypes.choice;
+		case 'Boolean':
+			return columnTypes.boolean;
+		case 'User':
+			return columnTypes.person;
+		case 'URL':
+			if(DisplayFormat == 0) {
+				return columnTypes.link;
+			} else {
+				return columnTypes.picture;
+			}
+		case 'Lookup':
+			return columnTypes.lookup;
+		case 'DateTime':
+			return columnTypes.datetime;
+		default:
+			return undefined;
+	}
+};
