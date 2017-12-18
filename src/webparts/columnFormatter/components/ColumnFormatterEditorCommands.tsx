@@ -10,11 +10,16 @@ import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { IApplicationState, editorThemes, uiState } from '../state/State';
+import { IApplicationState, editorThemes, uiState, IContext } from '../state/State';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import pnp from "sp-pnp-js";
 var fileDownload = require('js-file-download');
 
 
 export interface IColumnFormatterEditorCommandsProps {
+  context?: IContext;
   changeUIState?: (state:uiState) => void;
   disconnectWizard?: () => void;
   wizardTabVisible?: boolean;
@@ -22,11 +27,20 @@ export interface IColumnFormatterEditorCommandsProps {
   chooseTheme?: (theme:editorThemes) => void;
   editorString?: string;
   fieldName?: string;
+  viewTab?: number;
 }
 
 export interface IColumnFormatterEditorCommandsState {
   newConfirmationDialogVisible: boolean;
   customizeConfirmationDialogVisible: boolean;
+  saveToLibraryDialogVisible: boolean;
+  librariesLoaded: boolean;
+  libraries: Array<any>;
+  selectedLibraryUrl?: string;
+  libraryFolderPath: string;
+  libraryFileName: string;
+  libraryIsSaving: boolean;
+  librarySaveError?: string;
 }
 
 class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEditorCommandsProps, IColumnFormatterEditorCommandsState> {
@@ -36,7 +50,13 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
 
     this.state = {
       newConfirmationDialogVisible: false,
-      customizeConfirmationDialogVisible: false
+      customizeConfirmationDialogVisible: false,
+      saveToLibraryDialogVisible: false,
+      librariesLoaded: false,
+      libraries: new Array<any>(),
+      libraryFolderPath: '',
+      libraryFileName: props.fieldName + '.json',
+      libraryIsSaving: false
     };
   }
 
@@ -73,6 +93,49 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
            <DefaultButton text={strings.CustomizeConfirmationDialogCancelButton} onClick={this.closeDialog}/>
          </DialogFooter>
         </Dialog>
+        <Dialog
+         hidden={!this.state.saveToLibraryDialogVisible}
+         onDismiss={this.closeDialog}
+         dialogContentProps={{
+           type: DialogType.largeHeader,
+           title: strings.SaveToLibraryDialogTitle
+         }}>
+          {!this.props.context.isOnline && (
+            <span>This feature is not available from the local workbench</span>
+          )}
+          {!this.state.librariesLoaded && this.props.context.isOnline && !this.state.libraryIsSaving && this.state.librarySaveError == undefined && (
+            <Spinner size={SpinnerSize.large} label='Loading Libraries...'/>
+          )}
+          {this.state.librariesLoaded && this.props.context.isOnline && !this.state.libraryIsSaving && this.state.librarySaveError == undefined && (
+            <div>
+              <Dropdown
+               label='Local library'
+               selectedKey={this.state.selectedLibraryUrl}
+               onChanged={(item:IDropdownOption)=> {this.setState({selectedLibraryUrl: item.key.toString()});}}
+               required={true}
+               options={this.librariesToOptions()} />
+              <TextField
+               label='Folder Path (optional)'
+               value={this.state.libraryFolderPath}
+               onChanged={(value:string) => {this.setState({libraryFolderPath: value});}}/>
+              <TextField
+               label='Filename'
+               required={true}
+               value={this.state.libraryFileName}
+               onChanged={(value:string) => {this.setState({libraryFileName: value});}}/>
+            </div>
+          )}
+          {this.state.libraryIsSaving && this.state.librarySaveError == undefined &&(
+            <Spinner size={SpinnerSize.large} label='Saving to Library...'/>
+          )}
+          {this.state.librarySaveError !== undefined && (
+            <span className={styles.errorMessage}>{this.state.librarySaveError}</span>
+          )}
+          <DialogFooter>
+            <PrimaryButton text={strings.SaveToLibraryDialogConfirmButton} disabled={!this.saveToLibrarySaveButtonEnabled()} onClick={this.onSaveToLibrarySaveButtonClick}/>
+            <DefaultButton text={strings.SaveToLibraryDialogCancelButton} onClick={this.closeDialog}/>
+          </DialogFooter>
+        </Dialog>
       </div>
     );
   }
@@ -98,7 +161,9 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
   }
 
   private getCommandBarFarItems(): Array<IContextualMenuItem> {
-    let items:Array<IContextualMenuItem> = [
+    let items:Array<IContextualMenuItem> = [];
+    if(this.props.viewTab > 0) {
+      items.push(
         {
           key: 'theme',
           name: strings.CommandEditor,
@@ -128,7 +193,10 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
               }
             ]
           }
-        },
+        }
+      );
+    }
+    items.push(
         {
           key: 'saveas',
           name: strings.CommandSaveAs,
@@ -162,7 +230,7 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
             ]
           }
         }
-    ];
+    );
     return items;
   }
 
@@ -197,7 +265,9 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
   private closeDialog(): void {
     this.setState({
       newConfirmationDialogVisible: false,
-      customizeConfirmationDialogVisible: false
+      customizeConfirmationDialogVisible: false,
+      saveToLibraryDialogVisible: false,
+      librarySaveError: undefined
     });
   }
 
@@ -237,6 +307,60 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
 
   @autobind
   private onSaveToLibraryClick(ev?:React.MouseEvent<HTMLElement>, item?:IContextualMenuItem): void {
+    if(!this.state.librariesLoaded) {
+      if(this.props.context.isOnline) {
+        pnp.sp.site.getDocumentLibraries(this.props.context.webAbsoluteUrl)
+          .then((data:any) => {
+            this.setState({
+              librariesLoaded: true,
+              libraries: data
+            });
+          });
+      }
+    }
+    this.setState({
+      saveToLibraryDialogVisible: true
+    });
+  }
+
+  private librariesToOptions(): Array<IDropdownOption> {
+    let items:Array<IDropdownOption> = new Array<IDropdownOption>();
+    for(var library of this.state.libraries) {
+      items.push({
+        key: library.ServerRelativeUrl,
+        text: library.Title
+      });
+    }
+    return items;
+  }
+
+  private saveToLibrarySaveButtonEnabled(): boolean{
+    return (
+      this.props.context.isOnline && this.state.selectedLibraryUrl !== undefined &&
+        this.state.libraryFileName.length > 0 && this.state.librarySaveError == undefined
+    );
+  }
+
+  @autobind
+  private onSaveToLibrarySaveButtonClick(): void {
+    this.setState({
+      libraryIsSaving: true,
+      librarySaveError: undefined
+    });
+    pnp.sp.web.getFolderByServerRelativeUrl(this.state.selectedLibraryUrl + (this.state.libraryFolderPath.length > 0 ? '/' + this.state.libraryFolderPath : ''))
+      .files.add(this.state.libraryFileName, this.props.editorString, true)
+      .then(()=>{
+        this.setState({
+          libraryIsSaving: false,
+          saveToLibraryDialogVisible: false
+        });
+      })
+      .catch((error:any) => {
+        this.setState({
+          libraryIsSaving: false,
+          librarySaveError: 'Error while saving! Verify the folderpath is correct (if used) and that you have permission to save to this library. Technical Details: ' + error.message
+        });
+      });
   }
 
   @autobind
@@ -246,10 +370,12 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
 
 function mapStateToProps(state: IApplicationState): IColumnFormatterEditorCommandsProps{
 	return {
+    context: state.context,
     wizardTabVisible: state.ui.tabs.wizardTabVisible,
     theme: state.code.theme,
     editorString: state.code.editorString,
-    fieldName: state.data.columns[0].name
+    fieldName: state.data.columns[0].name,
+    viewTab: state.ui.tabs.viewTab
 	};
 }
 

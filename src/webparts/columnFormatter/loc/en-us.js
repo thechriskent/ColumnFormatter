@@ -39,7 +39,7 @@ define([], function() {
     //Editor CommandBar
     CommandNew: 'New',
     CommandCustomize: 'Customize',
-    CommandEditor: 'Editor Theme',
+    CommandEditor: 'Theme',
     CommandSaveAs: 'Save As',
     CommandDownload: 'Download',
     CommandCopy: 'Copy to clipboard',
@@ -57,6 +57,11 @@ define([], function() {
     CustomizeConfirmationDialogText: 'You will be able to edit the code directly, but the wizard pane will no longer be available. This is for advanced users. Are you sure?',
     CustomizeConfirmationDialogConfirmButton: 'Yes',
     CustomizeConfirmationDialogCancelButton: 'Cancel',
+
+    //Save To Library Dialog
+    SaveToLibraryDialogTitle: 'Save to local library',
+    SaveToLibraryDialogConfirmButton: 'Save',
+    SaveToLibraryDialogCancelButton: 'Cancel',
 
     //Data Column/Row buttons
     DeleteRow: "Delete Row",

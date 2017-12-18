@@ -51,6 +51,10 @@ declare interface IColumnFormatterWebPartStrings {
   CustomizeConfirmationDialogConfirmButton:string;
   CustomizeConfirmationDialogCancelButton: string;
 
+  SaveToLibraryDialogTitle: string;
+  SaveToLibraryDialogConfirmButton: string;
+  SaveToLibraryDialogCancelButton: string;
+
   DeleteRow: string;
   AddRow: string;
   DeleteColumn: string;

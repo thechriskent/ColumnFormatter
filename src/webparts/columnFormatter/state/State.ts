@@ -79,10 +79,16 @@ export interface ICode {
 	wizardName: string;
 }
 
+export interface IContext {
+	isOnline: boolean;
+	webAbsoluteUrl: string;
+}
+
 export interface IApplicationState {
 	data: IData;
 	ui: IUI;
 	code: ICode;
+	context: IContext;
 }
 
 export const initialState: IApplicationState = {
@@ -109,6 +115,10 @@ export const initialState: IApplicationState = {
 		formatterString:'',
 		theme: editorThemes.vs,
 		wizardName: undefined
+	},
+	context: {
+		isOnline: false,
+		webAbsoluteUrl:''
 	}
 };
 

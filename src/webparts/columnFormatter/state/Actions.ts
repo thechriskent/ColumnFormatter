@@ -1,6 +1,7 @@
 import { columnTypes, editorThemes, uiState } from './State';
 
 export type ActionTypes = 
+	| ISetContextAction
 	| ILaunchEditorAction
 	| ILaunchEditorWithCodeAction
 	| IChangeUIStateAction
@@ -20,6 +21,7 @@ export type ActionTypes =
 	| IOtherAction;
 
 export enum typeKeys {
+	SET_CONTEXT = "SET_CONTEXT",
 	LAUNCH_EDITOR = "LAUNCH_EDITOR",
 	LAUNCH_EDITOR_WITH_CODE = "LAUNCH_EDITOR_WITH_CODE",
 	CHANGE_UISTATE = "CHANGE_UISTATE",
@@ -42,6 +44,18 @@ export enum typeKeys {
 
 	OTHER_ACTION = "ANY_OTHER_ACTION"
 }
+
+
+export interface ISetContextAction {
+	type: typeKeys.SET_CONTEXT;
+	isOnline: boolean;
+	webAbsoluteUrl: string;
+}
+export const setContext = (isOnline:boolean, webAbsoluteUrl:string): ISetContextAction => ({
+	type: typeKeys.SET_CONTEXT,
+	isOnline,
+	webAbsoluteUrl
+});
 
 export interface ILaunchEditorAction {
 	type: typeKeys.LAUNCH_EDITOR;

@@ -9,11 +9,14 @@ import {
 
 import * as strings from 'ColumnFormatterWebPartStrings';
 import { ColumnFormatter, IColumnFormatterProps} from './components/ColumnFormatter';
+import pnp from "sp-pnp-js";
 
 import { Store, createStore } from 'redux';
 import { Provider, ProviderProps } from 'react-redux';
 import { IApplicationState } from './state/State';
+import { setContext } from './state/Actions';
 import { cfReducer } from './state/Reducers';
+import { Environment, EnvironmentType } from '@microsoft/sp-core-library';
 
 export interface IColumnFormatterWebPartProps {
   description: string;
@@ -26,8 +29,13 @@ export default class ColumnFormatterWebPart extends BaseClientSideWebPart<IColum
   public onInit(): Promise<void> {
 
     this.store = createStore(cfReducer);
+    this.store.dispatch(setContext(Environment.type !== EnvironmentType.Local, this.context.pageContext.web.absoluteUrl));
 
-    return super.onInit();
+    return super.onInit().then(_ => {
+      pnp.setup({
+        spfxContext: this.context
+      });
+    });
   }
 
   public render(): void {

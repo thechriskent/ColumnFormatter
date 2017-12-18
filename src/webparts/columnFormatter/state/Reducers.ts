@@ -1,10 +1,13 @@
-import { IApplicationState, initialState, columnTypes, IDataColumn, IData, IPaneState, ICode, ITabState, uiState } from "./State";
+import {
+	IApplicationState, initialState, columnTypes, IDataColumn,
+	IData, IPaneState, ICode, ITabState, uiState, IContext
+} from "./State";
 import { 
 	ActionTypes, typeKeys, IUpdateDataRowAction, 
 	IUpdateDataColumnNameAction, IUpdateDataColumnTypeAction,
 	IAddDataRowAction, IRemoveDataRowAction,
 	IAddDataColumnAction, IRemoveDataColumnAction, IPaneResizeAction,
-	IUpdateEditorStringAction, ISelectTabAction,
+	IUpdateEditorStringAction, ISelectTabAction, ISetContextAction,
 	ILaunchEditorAction, IDisconnectWizardAction, ILaunchEditorWithCodeAction
 } from "./Actions";
 import { clone, forIn } from '@microsoft/sp-lodash-subset';
@@ -18,6 +21,10 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 	let newState:IApplicationState = clone(state);
 
 	switch (action.type) {
+
+		case typeKeys.SET_CONTEXT:
+			newState.context = SetContextReducer(newState.context, action);
+			break;
 
 		case typeKeys.LAUNCH_EDITOR:
 			newState = LaunchEditorReducer(newState, action);
@@ -78,6 +85,13 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 	return newState;
 };
 
+function SetContextReducer(context:IContext, action:ISetContextAction): IContext {
+	return {
+		isOnline: action.isOnline,
+		webAbsoluteUrl: action.webAbsoluteUrl
+	};
+}
+
 function LaunchEditorReducer(state:IApplicationState, action:ILaunchEditorAction): IApplicationState {
 	let wizard:IWizard = getWizardByName(action.wizardName);
 	return {
@@ -101,7 +115,8 @@ function LaunchEditorReducer(state:IApplicationState, action:ILaunchEditorAction
 			formatterString: wizard !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType),
 			editorString: wizard !== undefined ? wizard.startingCode(action.colType) : standardWizardStartingCode(action.colType),
 			wizardName: wizard !== undefined ? wizard.name : undefined
-		}
+		},
+		context: state.context
 	};
 }
 
@@ -128,7 +143,8 @@ function LaunchEditorWithCodeReducer(state:IApplicationState, action:ILaunchEdit
 			formatterString: action.editorString,
 			editorString: action.editorString,
 			wizardName: wizard !== undefined ? wizard.name : undefined
-		}
+		},
+		context: state.context
 	};
 }
 
