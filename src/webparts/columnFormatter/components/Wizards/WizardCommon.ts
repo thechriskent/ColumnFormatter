@@ -2,6 +2,7 @@ import { columnTypes, IDataColumn } from '../../state/State';
 import { WizardInfoDataBars } from './WizardDataBars';
 import { WizardInfoNumberTending } from './WizardNumberTrending';
 import { WizardInfoCheckboxes } from './WizardCheckboxes';
+import { WizardInfoOverdue } from './WizardOverdue';
 import { generateRowValue } from '../../state/ValueGeneration';
 
 export interface IWizard {
@@ -57,6 +58,7 @@ export const Wizards: Array<IWizard> = [
 	WizardInfoDataBars,
 	WizardInfoNumberTending,
 	WizardInfoCheckboxes,
+	WizardInfoOverdue,
 	{
 		name: 'Mail',
 		description: 'Testing Purposes, not a real wizard',
