@@ -13,7 +13,7 @@ import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { IWizard, Wizards, getWizardByName, getWizardsForColumnType } from './Wizards/WizardCommon';
+import { IWizard, Wizards, getWizardByName, getWizardsForColumnType, standardWizardStartingCode } from './Wizards/WizardCommon';
 import { select } from 'glamor';
 import { FileUploader } from './FileUploader';
 import pnp from "sp-pnp-js";
@@ -387,6 +387,9 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
   }
 
   private launchEditorFromText(text:string, type:columnTypes): void {
+    if(text == undefined || text.length == 0) {
+      text = standardWizardStartingCode(type);
+    }
     //TODO: Check for wizard details in file
     let validationErrors:Array<string> = new Array<string>();
     try {
