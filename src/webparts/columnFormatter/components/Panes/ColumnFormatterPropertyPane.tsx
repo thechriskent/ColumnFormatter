@@ -25,7 +25,7 @@ class ColumnFormatterPropertyPane_ extends React.Component<IColumnFormatterPrope
 			 selectedIndex={this.props.tabIndex}
 			 onSelect={this.onSelectTab}>
 			 	{this.props.wizardTabVisible && (
-					 <TabPanel>
+					 <TabPanel forceRender={true}>
 						<ColumnFormatterWizardPanel/>
 					</TabPanel>
 				)}
