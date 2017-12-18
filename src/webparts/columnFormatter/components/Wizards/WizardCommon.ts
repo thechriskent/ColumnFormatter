@@ -1,5 +1,6 @@
 import { columnTypes, IDataColumn } from '../../state/State';
 import { WizardInfoDataBars } from './WizardDataBars';
+import { WizardInfoNumberTending } from './WizardNumberTrending';
 import { generateRowValue } from '../../state/ValueGeneration';
 
 export interface IWizard {
@@ -53,6 +54,7 @@ export const standardWizardStartingCode = (colType:columnTypes): string => {
 
 export const Wizards: Array<IWizard> = [
 	WizardInfoDataBars,
+	WizardInfoNumberTending,
 	{
 		name: 'Fake',
 		description: 'Testing Purposes, not a real wizard',
