@@ -9,6 +9,7 @@ import { LocalCustomFormatterStrings, IFormatterFieldInfo } from '../../../../..
 import * as tslib from 'tslib';
 import { updateFormatterErrors } from '../../../state/Actions';
 import { DetailsList, ColumnActionsMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
+import * as UIFabric from '@uifabric/styling/lib';
 
 export interface IPreviewViewProps {
 	columns?: Array<IDataColumn>;
@@ -34,7 +35,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		//Build the HTMLEncoding Object
 		LocalHtmlEncoding(null,this._heContainer);
 		//Build the CustomFormatter Object
-		LocalCustomFormatter(null,this._cfContainer,tslib,LocalCustomFormatterStrings,null,this._heContainer,null);
+		LocalCustomFormatter(null,this._cfContainer,tslib,LocalCustomFormatterStrings,null,this._heContainer,UIFabric);
 	}
 
 	public render(): React.ReactElement<IPreviewViewProps> {
