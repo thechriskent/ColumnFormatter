@@ -179,7 +179,7 @@ class ColumnFormatterTreePanel_ extends React.Component<IColumnFormatterTreePane
 			}
 		}
 		if(obj.elmType) {
-			let name:string = '<' + obj.elmType + '>';
+			let name:string = '<' + obj.elmType + ':';
 			if(obj.txtContent) {
 				if(typeof obj.txtContent == 'string') {
 					name += ' ' + obj.txtContent;
