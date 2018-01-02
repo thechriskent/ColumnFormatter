@@ -20,7 +20,7 @@
     "description": { "default": "Enables easy editing of Display Formatting for modern listview columns" },
     "officeFabricIconFontName": "Design",
     "properties": {
-      "description": "Enables easy editing of Display Formatting for modern listview columns"
+      "height": 340
     }
   }]
 }

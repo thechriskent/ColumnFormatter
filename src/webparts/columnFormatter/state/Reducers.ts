@@ -8,7 +8,8 @@ import {
 	IAddDataRowAction, IRemoveDataRowAction,
 	IAddDataColumnAction, IRemoveDataColumnAction, IPaneResizeAction,
 	IUpdateEditorStringAction, ISelectTabAction, ISetContextAction,
-	ILaunchEditorAction, IDisconnectWizardAction, ILaunchEditorWithCodeAction
+	ILaunchEditorAction, IDisconnectWizardAction, ILaunchEditorWithCodeAction,
+	ISetHeightAction
 } from "./Actions";
 import { clone, forIn } from '@microsoft/sp-lodash-subset';
 import { generateRowValue } from './ValueGeneration';
@@ -24,6 +25,11 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 
 		case typeKeys.SET_CONTEXT:
 			newState.context = SetContextReducer(newState.context, action);
+			newState.ui.height = action.height;
+			break;
+		
+		case typeKeys.SET_HEIGHT:
+			newState.ui.height = action.height;
 			break;
 
 		case typeKeys.LAUNCH_EDITOR:

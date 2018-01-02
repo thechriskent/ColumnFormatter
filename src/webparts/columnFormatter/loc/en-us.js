@@ -1,8 +1,8 @@
 define([], function() {
   return {
-    "PropertyPaneDescription": "Description",
-    "BasicGroupName": "Group Name",
-    "DescriptionFieldLabel": "Description Field",
+    //Property Pane
+    PropertyBasicGroupName: "Properties",
+    PropertyHeightLabel: "Height",
 
     //Welcome
     WelcomeTitle: 'Column Formatter',

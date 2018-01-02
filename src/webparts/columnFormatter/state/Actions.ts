@@ -2,6 +2,7 @@ import { columnTypes, editorThemes, uiState } from './State';
 
 export type ActionTypes = 
 	| ISetContextAction
+	| ISetHeightAction
 	| ILaunchEditorAction
 	| ILaunchEditorWithCodeAction
 	| IChangeUIStateAction
@@ -22,6 +23,7 @@ export type ActionTypes =
 
 export enum typeKeys {
 	SET_CONTEXT = "SET_CONTEXT",
+	SET_HEIGHT = "SET_HEIGHT",
 	LAUNCH_EDITOR = "LAUNCH_EDITOR",
 	LAUNCH_EDITOR_WITH_CODE = "LAUNCH_EDITOR_WITH_CODE",
 	CHANGE_UISTATE = "CHANGE_UISTATE",
@@ -50,11 +52,22 @@ export interface ISetContextAction {
 	type: typeKeys.SET_CONTEXT;
 	isOnline: boolean;
 	webAbsoluteUrl: string;
+	height: number;
 }
-export const setContext = (isOnline:boolean, webAbsoluteUrl:string): ISetContextAction => ({
+export const setContext = (isOnline:boolean, webAbsoluteUrl:string, height:number): ISetContextAction => ({
 	type: typeKeys.SET_CONTEXT,
 	isOnline,
-	webAbsoluteUrl
+	webAbsoluteUrl,
+	height
+});
+
+export interface ISetHeightAction {
+	type: typeKeys.SET_HEIGHT;
+	height: number;
+}
+export const setHeight = (height:number): ISetHeightAction => ({
+	type: typeKeys.SET_HEIGHT,
+	height
 });
 
 export interface ILaunchEditorAction {

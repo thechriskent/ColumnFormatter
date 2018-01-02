@@ -1,7 +1,6 @@
 declare interface IColumnFormatterWebPartStrings {
-  PropertyPaneDescription: string;
-  BasicGroupName: string;
-  DescriptionFieldLabel: string;
+  PropertyBasicGroupName: string;
+  PropertyHeightLabel: string;
 
   WelcomeTitle: string;
   WelcomeSubTitle: string;

@@ -68,6 +68,7 @@ export interface IUI {
 	state: uiState;
 	panes: IPaneState;
 	tabs: ITabState;
+	height: number;
 }
 
 export interface ICode {
@@ -106,7 +107,8 @@ export const initialState: IApplicationState = {
 			propertyTab: 0,
 			viewTab: 0,
 			wizardTabVisible: true
-		}
+		},
+		height: 340
 	},
 	code: {
 		validationErrors: [],

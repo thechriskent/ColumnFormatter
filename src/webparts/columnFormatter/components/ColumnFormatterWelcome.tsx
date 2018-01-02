@@ -28,6 +28,7 @@ export enum welcomeStage {
 
 export interface IColumnFormatterWelcomeProps {
   context?: IContext;
+  uiHeight?: number;
   launchEditor?: (wizardName:string, colType:columnTypes) => void;
   launchEditorWithCode?: (wizardName:string, colType:columnTypes, editorString:string, validationErrors:Array<string>) => void;
 }
@@ -69,7 +70,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     //this.props.launchEditor('Data Bars', columnTypes.number);
 
     return (
-      <div className={styles.welcome}>
+      <div className={styles.welcome} style={{height: this.props.uiHeight + 'px'}}>
         <div className={styles.welcomeBox}>
           {this.state.stage == welcomeStage.start && (
             <div>
@@ -494,6 +495,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
 function mapStateToProps(state: IApplicationState): IColumnFormatterWelcomeProps{
 	return {
     context: state.context,
+    uiHeight: state.ui.height
 	};
 }
 
