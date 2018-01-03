@@ -10,7 +10,7 @@ import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { IApplicationState, editorThemes, uiState, IContext, columnTypes } from '../state/State';
+import { IApplicationState, editorThemes, uiState, IContext, columnTypes, saveMethod } from '../state/State';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
@@ -50,6 +50,7 @@ export interface IColumnFormatterEditorCommandsState {
   selectedField?: string;
   listIsApplying: boolean;
   listSaveError?: string;
+  activeSaveMethod?: saveMethod;
 }
 
 class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEditorCommandsProps, IColumnFormatterEditorCommandsState> {
@@ -259,33 +260,74 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
             items: [
               {
                 key: 'saveas-download',
-                name: strings.CommandDownload,
-                iconProps: { iconName: 'CloudDownload' },
+                name: this.saveMethodTitle(saveMethod.Download),
+                iconProps: { iconName: this.saveMethodIcon(saveMethod.Download) },
                 onClick: this.onDownloadClick
               },
               {
                 key: 'saveas-copy',
-                name: strings.CommandCopy,
-                iconProps: { iconName: 'Copy' },
+                name: this.saveMethodTitle(saveMethod.Copy),
+                iconProps: { iconName: this.saveMethodIcon(saveMethod.Copy) },
                 onClick: this.onCopyClick
               },
               {
                 key: 'saveas-library',
-                name: strings.CommandSaveToLibrary,
-                iconProps: { iconName: 'DocLibrary' },
+                name: this.saveMethodTitle(saveMethod.Library),
+                iconProps: { iconName: this.saveMethodIcon(saveMethod.Library) },
                 onClick: this.onSaveToLibraryClick
               },
               {
                 key: 'saveas-listfield',
-                name: strings.CommandApplyToList,
-                iconProps: { iconName: 'Deploy' },
+                name: this.saveMethodTitle(saveMethod.ListField),
+                iconProps: { iconName: this.saveMethodIcon(saveMethod.ListField) },
                 onClick: this.onApplyToListClick
               }
             ]
           }
         }
     );
+    if(this.state.activeSaveMethod !== undefined &&
+      ((this.state.activeSaveMethod == saveMethod.Library && this.saveToLibrarySaveButtonEnabled()) || this.state.activeSaveMethod !== saveMethod.Library) &&
+      ((this.state.activeSaveMethod == saveMethod.ListField && this.applyToListSaveButtonEnabled()) || this.state.activeSaveMethod !== saveMethod.ListField)) {
+      items.push({
+        key: 'save',
+        name: strings.CommandSave,
+        iconProps: { iconName: this.saveMethodIcon(this.state.activeSaveMethod)},
+        title: this.saveMethodTitle(this.state.activeSaveMethod),
+        onClick: this.onSaveClick
+      });
+    }
     return items;
+  }
+
+  private saveMethodIcon(method:saveMethod): string {
+    switch (method) {
+      case saveMethod.Download:
+        return 'CloudDownload';
+      case saveMethod.Copy:
+        return 'Copy';
+      case saveMethod.Library:
+        return 'DocLibrary';
+      case saveMethod.ListField:
+        return 'Deploy';
+      default:
+        return 'Save';
+    }
+  }
+
+  private saveMethodTitle(method:saveMethod): string {
+    switch (method) {
+      case saveMethod.Download:
+        return strings.CommandDownload;
+      case saveMethod.Copy:
+        return strings.CommandCopy;
+      case saveMethod.Library:
+        return strings.CommandSaveToLibrary;
+      case saveMethod.ListField:
+        return strings.CommandApplyToList;
+      default:
+        return strings.CommandSave;
+    }
   }
 
   @autobind
@@ -332,8 +374,29 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
   }
 
   @autobind
+  private onSaveClick(ev?:React.MouseEvent<HTMLElement>, item?:IContextualMenuItem): void {
+    switch(this.state.activeSaveMethod) {
+      case saveMethod.Download:
+        this.onDownloadClick(ev, item);
+        break;
+      case saveMethod.Copy:
+        this.onCopyClick(ev, item);
+        break;
+      case saveMethod.Library:
+        this.onSaveToLibrarySaveButtonClick();
+        break;
+      case saveMethod.ListField:
+        this.onApplyToListSaveButtonClick();
+        break;
+    }
+  }
+
+  @autobind
   private onDownloadClick(ev?:React.MouseEvent<HTMLElement>, item?:IContextualMenuItem): void {
     fileDownload(this.props.editorString, this.props.fieldName + '.json');
+    this.setState({
+      activeSaveMethod: saveMethod.Download
+    });
   }
 
   @autobind
@@ -358,6 +421,9 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
         console.log('Unable to copy!');
       }
       document.body.removeChild(textArea);
+      this.setState({
+        activeSaveMethod: saveMethod.Copy
+      });
   }
 
   @autobind
@@ -405,20 +471,23 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
   private onSaveToLibrarySaveButtonClick(): void {
     this.setState({
       libraryIsSaving: true,
-      librarySaveError: undefined
+      librarySaveError: undefined,
+      saveToLibraryDialogVisible: true
     });
     pnp.sp.web.getFolderByServerRelativeUrl(this.state.selectedLibraryUrl + (this.state.libraryFolderPath.length > 0 ? '/' + this.state.libraryFolderPath : ''))
       .files.add(this.state.libraryFileName, this.props.editorString, true)
       .then(()=>{
         this.setState({
           libraryIsSaving: false,
-          saveToLibraryDialogVisible: false
+          saveToLibraryDialogVisible: false,
+          activeSaveMethod: saveMethod.Library
         });
       })
       .catch((error:any) => {
         this.setState({
           libraryIsSaving: false,
-          librarySaveError: 'Error while saving! Verify the folderpath is correct (if used) and that you have permission to save to this library. Technical Details: ' + error.message
+          librarySaveError: 'Error while saving! Verify the folderpath is correct (if used) and that you have permission to save to this library. Technical Details: ' + error.message,
+          activeSaveMethod: undefined
         });
       });
   }
@@ -513,7 +582,8 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
   private onApplyToListSaveButtonClick(): void {
     this.setState({
       listIsApplying: true,
-      listSaveError: undefined
+      listSaveError: undefined,
+      applyToListDialogVisible: true
     });
     pnp.sp.web.lists.getById(this.state.selectedList)
       .fields.getByInternalNameOrTitle(this.state.selectedField).update({
@@ -522,13 +592,15 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
       .then(()=>{
         this.setState({
           listIsApplying: false,
-          applyToListDialogVisible: false
+          applyToListDialogVisible: false,
+          activeSaveMethod: saveMethod.ListField
         });
       })
       .catch((error:any) => {
         this.setState({
           listIsApplying: false,
-          listSaveError: 'Error while applying! Verify you have permission to update this library\'s settings. Technical Details: ' + error.message
+          listSaveError: 'Error while applying! Verify you have permission to update this library\'s settings. Technical Details: ' + error.message,
+          activeSaveMethod: undefined
         });
       });
   }

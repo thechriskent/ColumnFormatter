@@ -23,6 +23,13 @@ export enum uiState {
 	welcome,
 	editing
 }
+
+export enum saveMethod {
+	Download,
+	Copy,
+	Library,
+	ListField
+}
 //#endregion
 
 export interface ILookupFieldValue {

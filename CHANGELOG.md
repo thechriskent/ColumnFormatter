@@ -2,6 +2,7 @@
 ## [1.1.0] - 2018-01-05
 ### Added
 - Height property to property pane
+- Save button to allow for quick resaving (once a save-as option has been performed)
 - This sweet Changelog
 
 ### Changed
