@@ -58,31 +58,7 @@ export const Wizards: Array<IWizard> = [
 	WizardInfoDataBars,
 	WizardInfoNumberTending,
 	WizardInfoCheckboxes,
-	WizardInfoOverdue,
-	{
-		name: 'Mail',
-		description: 'Testing Purposes, not a real wizard',
-		iconName: 'Mail',
-		fieldTypes: [],
-		isTemplate: true,
-		startingCode: (colType:columnTypes): string => {
-			return [
-				'{',
-				'  "$schema": "http://columnformatting.sharepointpnp.com/columnFormattingSchema.json",',
-				'  "elmType": "div",',
-				'  "txtContent": {',
-				'    "operator": "+",',
-				'    "operands": [',
-				'      "FAKE:",',
-				'      "@currentField"',
-				'    ]',
-				'  }',
-				'}'
-			].join('\n');
-		},
-		startingRows: standardWizardStartingRows,
-		startingColumns: standardWizardStartingColumns
-	}
+	WizardInfoOverdue
 ];
 
 export const getWizardByName = (name:string): IWizard | undefined => {
