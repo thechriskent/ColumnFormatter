@@ -13,6 +13,7 @@ import { ColumnFormatterPropertyPane } from './Panes/ColumnFormatterPropertyPane
 import { ColumnFormatterViewPane } from './Panes/ColumnFormatterViewPane';
 
 export interface IColumnFormatterEditorProps {
+  uiHeight?: number;
   paneResized?: (size:number) => void;
 }
 
@@ -21,7 +22,7 @@ class ColumnFormatterEditor_ extends React.Component<IColumnFormatterEditorProps
     return (
       <div>
         <ColumnFormatterEditorCommands/>
-        <div className={styles.app}>
+        <div className={styles.app} style={{height: (this.props.uiHeight - 40) + 'px'}}>
           <SplitPane
           split="vertical"
           className={styles.SplitPane}
@@ -38,6 +39,13 @@ class ColumnFormatterEditor_ extends React.Component<IColumnFormatterEditorProps
   }
 }
 
+
+function mapStateToProps(state: IApplicationState): IColumnFormatterEditorProps{
+	return {
+    uiHeight: state.ui.height
+	};
+}
+
 function mapDispatchToProps(dispatch: Dispatch<IColumnFormatterEditorProps>): IColumnFormatterEditorProps{
 	return {
 		paneResized: (size:number) => {
@@ -46,4 +54,4 @@ function mapDispatchToProps(dispatch: Dispatch<IColumnFormatterEditorProps>): IC
 	};
 }
 
-export const ColumnFormatterEditor = connect(null, mapDispatchToProps)(ColumnFormatterEditor_);
+export const ColumnFormatterEditor = connect(mapStateToProps, mapDispatchToProps)(ColumnFormatterEditor_);

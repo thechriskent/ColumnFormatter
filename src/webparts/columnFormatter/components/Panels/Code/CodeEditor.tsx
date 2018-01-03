@@ -17,6 +17,7 @@ export interface ICodeEditorProps {
 	// recalculate layout
 	mainPane?:number;
 	splitPane?:number;
+	uiHeight?:number;
 }
 
 export interface ICodeEditorState {
@@ -47,7 +48,8 @@ function mapStateToProps(state: IApplicationState): ICodeEditorProps{
 		editorString: state.code.editorString,
 		readOnly: state.ui.tabs.wizardTabVisible,
 		mainPane: state.ui.panes.main,
-		splitPane: state.ui.panes.split
+		splitPane: state.ui.panes.split,
+		uiHeight: state.ui.height
 	};
 }
 
