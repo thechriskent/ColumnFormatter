@@ -14,7 +14,6 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { IWizard, Wizards, getWizardByName, getWizardsForColumnType, standardWizardStartingCode } from './Wizards/WizardCommon';
-import { select } from 'glamor';
 import { FileUploader } from './FileUploader';
 import pnp from "sp-pnp-js";
 
