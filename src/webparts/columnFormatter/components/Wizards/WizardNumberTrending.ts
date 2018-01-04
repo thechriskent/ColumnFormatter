@@ -4,7 +4,7 @@ import { columnTypes, IDataColumn } from '../../state/State';
 import { generateRowValue } from '../../state/ValueGeneration';
 import { IWizard } from './WizardCommon';
 
-export const WizardInfoNumberTending: IWizard = {
+export const WizardNumberTending: IWizard = {
 	name: strings.WizardNumberTrendingName,
 	description: strings.WizardNumberTrendingDescription,
 	iconName: 'Sort',

@@ -3,7 +3,7 @@ import * as strings from 'ColumnFormatterWebPartStrings';
 import { columnTypes, IDataColumn } from '../../state/State';
 import { IWizard, standardWizardStartingColumns } from './WizardCommon';
 
-export const WizardInfoOverdue: IWizard = {
+export const WizardOverdue: IWizard = {
 	name: strings.WizardOverdueName,
 	description: strings.WizardOverdueDescription,
 	iconName: 'Warning',

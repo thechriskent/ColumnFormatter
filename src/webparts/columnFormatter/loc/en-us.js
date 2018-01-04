@@ -232,6 +232,10 @@ define([], function() {
 
     //Wizard Number Trending
     WizardNumberTrendingName: '# Trending',
-    WizardNumberTrendingDescription: 'Compares other fields in the row to provide an icon based on trending values'
+    WizardNumberTrendingDescription: 'Compares other fields in the row to provide an icon based on trending values',
+
+    //Wizard Action Link
+    WizardActionLinkName: 'Action Link',
+    WizardActionLinkDescription: 'Adds a Quick Action icon to a link'
   }
 });

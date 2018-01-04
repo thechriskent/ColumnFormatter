@@ -2,10 +2,11 @@ import * as strings from 'ColumnFormatterWebPartStrings';
 
 import { columnTypes, IDataColumn } from '../../state/State';
 import { generateRowValue } from '../../state/ValueGeneration';
-import { WizardInfoCheckboxes } from './WizardCheckboxes';
-import { WizardInfoDataBars } from './WizardDataBars';
-import { WizardInfoNumberTending } from './WizardNumberTrending';
-import { WizardInfoOverdue } from './WizardOverdue';
+import { WizardActionLink } from './WizardActionLink';
+import { WizardCheckboxes } from './WizardCheckboxes';
+import { WizardDataBars } from './WizardDataBars';
+import { WizardNumberTending } from './WizardNumberTrending';
+import { WizardOverdue } from './WizardOverdue';
 
 //** Implement this interface to create your own wizard/template */
 export interface IWizard {
@@ -39,10 +40,11 @@ export interface IWizard {
 
 //** The actual array of wizards/templates. Add yours here */
 export const Wizards: Array<IWizard> = [
-	WizardInfoDataBars,
-	WizardInfoNumberTending,
-	WizardInfoCheckboxes,
-	WizardInfoOverdue
+	WizardDataBars,
+	WizardNumberTending,
+	WizardCheckboxes,
+	WizardOverdue,
+	WizardActionLink
 ];
 
 

@@ -3,7 +3,7 @@ import * as strings from 'ColumnFormatterWebPartStrings';
 import { columnTypes, IDataColumn } from '../../state/State';
 import { IWizard, standardWizardStartingColumns } from './WizardCommon';
 
-export const WizardInfoCheckboxes: IWizard = {
+export const WizardCheckboxes: IWizard = {
 	name: strings.WizardCheckboxesName,
 	description: strings.WizardCheckboxesDescription,
 	iconName: 'CheckboxComposite',

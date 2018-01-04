@@ -232,6 +232,10 @@ declare interface IColumnFormatterWebPartStrings {
   //Wizard Number Trending
   WizardNumberTrendingName: string;
   WizardNumberTrendingDescription: string;
+
+  //Wizard Action Link
+  WizardActionLinkName: string;
+  WizardActionLinkDescription: string;
 }
 
 declare module 'ColumnFormatterWebPartStrings' {

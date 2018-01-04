@@ -4,6 +4,7 @@
 - Height property to property pane
 - Save button to allow for quick resaving (once a save-as option has been performed)
 - npm-shrinkwrap.json
+- Action Link Template
 - This sweet Changelog
 
 ### Changed

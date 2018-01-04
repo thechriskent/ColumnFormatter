@@ -34,7 +34,7 @@ export interface IWizardDataBarsState {
 	valueDisplay:string;
 }
 
-export class WizardDataBars extends React.Component<IWizardDataBarsProps, IWizardDataBarsState> {
+export class WizardDataBarsPanel extends React.Component<IWizardDataBarsProps, IWizardDataBarsState> {
 	
 	public constructor(props:IWizardDataBarsProps){
 		super(props);
@@ -251,7 +251,7 @@ const calculateCode = (emptyBarValue:number, fullBarValue:number, valueDisplay:s
 };
 
 
-export const WizardInfoDataBars: IWizard = {
+export const WizardDataBars: IWizard = {
 	name: strings.WizardDataBarsName,
 	description: strings.WizardDataBarsDescription,
 	iconName: 'BarChartHorizontal',
@@ -273,7 +273,7 @@ export const WizardInfoDataBars: IWizard = {
 	},
 	onWizardRender: (updateEditorString:(editorString:string) => void): JSX.Element => {
 		return (
-			<WizardDataBars
+			<WizardDataBarsPanel
 			 emptyBarValue={0}
 			 fullBarValue={20}
 			 updateValues={(emptyBarValue:number, fullBarValue:number, valueDisplay:string) => {
