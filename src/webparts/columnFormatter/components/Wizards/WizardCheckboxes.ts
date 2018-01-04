@@ -1,10 +1,11 @@
-import { IWizard, Wizards, standardWizardStartingColumns } from './WizardCommon';
-import { IDataColumn, columnTypes } from '../../state/State';
-import { generateRowValue } from '../../state/ValueGeneration';
+import * as strings from 'ColumnFormatterWebPartStrings';
+
+import { columnTypes, IDataColumn } from '../../state/State';
+import { IWizard, standardWizardStartingColumns } from './WizardCommon';
 
 export const WizardInfoCheckboxes: IWizard = {
-	name: 'Checkboxes',
-	description: 'Displays Yes/No fields as checkboxes',
+	name: strings.WizardCheckboxesName,
+	description: strings.WizardCheckboxesDescription,
 	iconName: 'CheckboxComposite',
 	fieldTypes: [
 		columnTypes.boolean

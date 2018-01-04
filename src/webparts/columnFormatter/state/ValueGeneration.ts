@@ -1,4 +1,4 @@
-import { columnTypes, IPersonFieldValue, ILookupFieldValue, ILinkFieldValue } from "./State";
+import { columnTypes, ILinkFieldValue, ILookupFieldValue, IPersonFieldValue } from './State';
 
 const getRandomInteger = (minValue:number, maxValue:number): number => {
 	minValue = Math.ceil(minValue);
@@ -8,9 +8,6 @@ const getRandomInteger = (minValue:number, maxValue:number): number => {
 
 const getRandomDate = (start:Date, end:Date): Date => {
 	let randomDate:Date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-	//let hour:number = getRandomInteger(0,23);
-	//date.setHours(hour);
-	//let minute:number = getRandom
 	return randomDate;
 };
 

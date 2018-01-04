@@ -1,23 +1,45 @@
-import {
-	IApplicationState, initialState, columnTypes, IDataColumn,
-	IData, IPaneState, ICode, ITabState, uiState, IContext
-} from "./State";
-import { 
-	ActionTypes, typeKeys, IUpdateDataRowAction, 
-	IUpdateDataColumnNameAction, IUpdateDataColumnTypeAction,
-	IAddDataRowAction, IRemoveDataRowAction,
-	IAddDataColumnAction, IRemoveDataColumnAction, IPaneResizeAction,
-	IUpdateEditorStringAction, ISelectTabAction, ISetContextAction,
-	ILaunchEditorAction, IDisconnectWizardAction, ILaunchEditorWithCodeAction,
-	ISetHeightAction
-} from "./Actions";
-import { clone, forIn } from '@microsoft/sp-lodash-subset';
-import { generateRowValue } from './ValueGeneration';
-import {
-	IWizard, getWizardByName, standardWizardStartingRows, 
-	standardWizardStartingColumns, standardWizardStartingCode
-} from "../components/Wizards/WizardCommon";
+import { clone } from '@microsoft/sp-lodash-subset';
+import * as strings from 'ColumnFormatterWebPartStrings';
 
+import {
+    getWizardByName,
+    IWizard,
+    standardWizardStartingCode,
+    standardWizardStartingColumns,
+    standardWizardStartingRows,
+} from '../components/Wizards/WizardCommon';
+import {
+    ActionTypes,
+    IAddDataColumnAction,
+    IAddDataRowAction,
+    ILaunchEditorAction,
+    ILaunchEditorWithCodeAction,
+    IPaneResizeAction,
+    IRemoveDataColumnAction,
+    IRemoveDataRowAction,
+    ISelectTabAction,
+    ISetContextAction,
+    IUpdateDataColumnNameAction,
+    IUpdateDataColumnTypeAction,
+    IUpdateDataRowAction,
+    IUpdateEditorStringAction,
+    typeKeys,
+} from './Actions';
+import {
+    columnTypes,
+    IApplicationState,
+    ICode,
+    IContext,
+    IData,
+    IDataColumn,
+    initialState,
+    IPaneState,
+    ITabState,
+    uiState,
+} from './State';
+import { generateRowValue } from './ValueGeneration';
+
+//** Primary reducer for adjusting redux state, calls individual reducer functions as necessary */
 export const cfReducer = (state:IApplicationState = initialState, action:ActionTypes): IApplicationState => {
 	let newState:IApplicationState = clone(state);
 
@@ -227,12 +249,12 @@ function AddDataColumnReducer(data:IData, action:IAddDataColumnAction): IData {
 	//Ensure new column has a unique name
 	let isUnique:boolean = false;
 	let fieldCounter:number = 1;
-	let fieldName:string = 'NewField';
+	let fieldName:string = strings.DataColumnDefaultName;
 	do {
 		for(var column of data.columns){
 			if(column.name == fieldName){
 				fieldCounter++;
-				fieldName = 'NewField' + fieldCounter.toString();
+				fieldName = strings.DataColumnDefaultName + fieldCounter.toString();
 				continue;
 			}
 		}

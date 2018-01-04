@@ -1,7 +1,14 @@
 declare interface IColumnFormatterWebPartStrings {
+  //Property Pane
   PropertyBasicGroupName: string;
   PropertyHeightLabel: string;
 
+  //General
+  FeatureUnavailableFromLocalWorkbench: string;
+  TechnicalDetailsErrorHeader: string;
+  WizardDefaultField: string;
+
+  //Welcome
   WelcomeTitle: string;
   WelcomeSubTitle: string;
   WelcomeNewHeader: string;
@@ -19,7 +26,18 @@ declare interface IColumnFormatterWebPartStrings {
   WelcomeOpenColumnTypeLabel: string;
   WelcomeOpenLoadFileLibrary: string;
   WelcomeOpenLoadFileUpload: string;
+  WelcomeUploadHeader: string;
+  WelcomeUploadInstructions1: string;
+  WelcomeUploadInstructions2: string;
+  WelcomeUploadUploadButton: string;
+  WelcomeUploadRejectError: string;
+  WelcomeUploadEmptyFileError: string;
+  WelcomeLoadFromListLoadingLists: string;
+  WelcomeLoadFromListListLabel: string;
+  WelcomeLoadFromListFieldLabel: string;
+  WelcomeLoadFromListLoading: string;
 
+  //Tab Names
   TabWizard: string;
   TabTree: string;
   TabData: string;
@@ -27,10 +45,12 @@ declare interface IColumnFormatterWebPartStrings {
   TabCode: string;
   TabSplit: string;
 
+  //Panel Headers
   PanelHeaderData: string;
   PanelHeaderPreview: string;
   PanelHeaderCode: string;
 
+  //Editor CommandBar
   CommandNew: string;
   CommandCustomize: string;
   CommandEditor: string;
@@ -41,34 +61,66 @@ declare interface IColumnFormatterWebPartStrings {
   CommandApplyToList: string;
   CommandSave: string;
   
+  //New Confirmation Dialog
   NewConfirmationDialogTitle: string;
   NewConfirmationDialogText: string;
   NewConfirmationDialogConfirmButton: string;
   NewConfirmationDialogCancelButton: string;
 
+  //Customize Confirmation Dialog
   CustomizeConfirmationDialogTitle: string;
   CustomizeConfirmationDialogText: string;
   CustomizeConfirmationDialogConfirmButton:string;
   CustomizeConfirmationDialogCancelButton: string;
 
+  //Save To Library Dialog
   SaveToLibraryDialogTitle: string;
   SaveToLibraryDialogConfirmButton: string;
   SaveToLibraryDialogCancelButton: string;
+  SaveToLibraryLoading: string;
+  SaveToLibraryLibraryLabel: string;
+  SaveToLibraryFolderPathLabel: string;
+  SaveToLibraryFilenameLabel: string;
+  SaveToLibrarySaving: string;
+  SaveToLibraryLoadError: string;
+  SaveToLibrarySaveError: string;
 
+  //Apply To List Dialog
   ApplyToListDialogTitle: string;
   ApplyToListDialogConfirmButton: string;
   ApplyToListDialogCancelButton: string;
+  ApplyToListLoading: string;
+  ApplyToListListLabel: string;
+  ApplyToListFieldLabel: string;
+  ApplyToListApplying: string;
+  ApplyToListLoadError: string;
+  ApplyToListApplyError: string;
 
+  //Copy
+  CopyToClipboardError: string;
+
+  //Data Column/Row buttons
   DeleteRow: string;
   AddRow: string;
   DeleteColumn: string;
   AddColumn: string;
   
+  //Data Column Editing
   ColumnNameChangeTooltip: string;
   ColumnTypeHeadline: string;
   ColumnTypeMessage: string;
   ColumnTypeChangeTooltip: string;
+  SubPropertiesHeadline: string;
+  TimeHeadline: string;
+  DataColumnDefaultName: string;
+  DataColumnLinkDescriptionLabel: string;
+  DataColumnLookupIdLabel: string;
+  DataColumnPersonIdLabel: string;
+  DataColumnPersonEmailLabel: string;
+  DataColumnPersonSIPLabel: string;
+  DataColumnPersonPictureLabel: string;
 
+  //Column Type Names
   ColumnTypeBoolean: string;
   ColumnTypeChoice: string;
   ColumnTypeDateTime: string;
@@ -80,12 +132,11 @@ declare interface IColumnFormatterWebPartStrings {
   ColumnTypeText: string;
   ColumnTypeUnknown: string;
 
+  //Boolean Values
   BoolValueStringTrue: string;
   BoolValueStringFalse: string;
 
-  SubPropertiesHeadline: string;
-  TimeHeadline: string;
-
+  //DateTime Editor Strings
   Month1: string;
   Month2: string;
   Month3: string;
@@ -133,6 +184,7 @@ declare interface IColumnFormatterWebPartStrings {
   MinuteLabel: string;
   SecondsLabel: string;
 
+  //Custom Formatting Error Strings
   CFSariaError: string;
   CFSelmTypeInvalid: string;
   CFSelmTypeMissing: string;
@@ -146,10 +198,19 @@ declare interface IColumnFormatterWebPartStrings {
   CFSoperatorMissing: string;
   CFSunsupportedType: string;
   CFSuserFieldError: string;
+  CFSRowLabel: string;
 
+  //Format Validation Messages
   PreviewValidationGood: string;
   PreviewValidationBad: string;
 
+  //Tree View
+  TreeViewHeader: string;
+  TreeViewError: string;
+
+  //Wizard Data Bars
+  WizardDataBarsName: string;
+  WizardDataBarsDescription: string;
   WizardDataBarsEmptyBarLabel: string;
   WizardDataBarsEmptyBarTooltip: string;
   WizardDataBarsFullBarLabel: string;
@@ -159,6 +220,18 @@ declare interface IColumnFormatterWebPartStrings {
   WizardDataBarsValueDisplayActual: string;
   WizardDataBarsValueDisplayPercentage: string;
   WizardDataBarsValueDisplayNone: string;
+
+  //Wizard Checkboxes
+  WizardCheckboxesName: string;
+  WizardCheckboxesDescription: string;
+
+  //Wizard Overdue
+  WizardOverdueName: string;
+  WizardOverdueDescription: string;
+
+  //Wizard Number Trending
+  WizardNumberTrendingName: string;
+  WizardNumberTrendingDescription: string;
 }
 
 declare module 'ColumnFormatterWebPartStrings' {

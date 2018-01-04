@@ -1,15 +1,14 @@
-import * as React from 'react';
-import styles from '../../../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
-import { DatePicker} from 'office-ui-fabric-react/lib/DatePicker';
-import { DatePickerStrings } from '../../../../helpers/DatePickerStrings';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
-import { SpinButton, ISpinButtonStyles } from 'office-ui-fabric-react/lib/SpinButton';
-import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
 import { IButtonStyles } from 'office-ui-fabric-react/lib/Button';
+import { DatePicker } from 'office-ui-fabric-react/lib/DatePicker';
+import { ISpinButtonStyles, SpinButton } from 'office-ui-fabric-react/lib/SpinButton';
+import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { ILookupFieldValue } from '../../../../state/State';
+import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
+import * as React from 'react';
+
+import { DatePickerStrings } from '../../../../helpers/DatePickerStrings';
+import styles from '../../../ColumnFormatter.module.scss';
 import { SubPropsButton } from './SubPropsButton';
 
 const spinStyles: Partial<ISpinButtonStyles> = {
@@ -44,7 +43,8 @@ export class SampleDateTime extends React.Component<ISampleDateTimeProps, ISampl
 	private second: number = 0;
 
 	public constructor(props: ISampleDateTimeProps){
-		super();
+		super(props);
+		
 		this.state = {
 			subPropertiesVisible: false
 		};

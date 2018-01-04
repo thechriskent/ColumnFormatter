@@ -1,13 +1,17 @@
-import * as React from 'react';
-import styles from '../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
+import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import { ISpinButtonStyles, SpinButton } from 'office-ui-fabric-react/lib/SpinButton';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { IWizard, Wizards, standardWizardStartingColumns } from './WizardCommon';
-import { IDataColumn, columnTypes } from '../../state/State';
-import { SpinButton, ISpinButtonStyles } from 'office-ui-fabric-react/lib/SpinButton';
 import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
-import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import * as React from 'react';
 
+import { columnTypes, IDataColumn } from '../../state/State';
+import styles from '../ColumnFormatter.module.scss';
+import { IWizard, standardWizardStartingColumns } from './WizardCommon';
+
+/*
+Wizard Tab Rendering
+*/
 
 const emptyBarStyle: Partial<ISpinButtonStyles> = {
 	labelWrapper: {
@@ -31,8 +35,6 @@ export interface IWizardDataBarsState {
 }
 
 export class WizardDataBars extends React.Component<IWizardDataBarsProps, IWizardDataBarsState> {
-
-	private _container: HTMLElement;
 	
 	public constructor(props:IWizardDataBarsProps){
 		super(props);
@@ -65,6 +67,7 @@ export class WizardDataBars extends React.Component<IWizardDataBarsProps, IWizar
 				 onValidate={this.onValidateFullBarValue}
 				 onIncrement={this.onIncrementFullBarValue}
 				 onDecrement={this.onDecrementFullBarValue}/>
+
 				<span className={styles.wizardGroupLabel}>{strings.WizardDataBarsValueDisplayGroupLabel}</span>
 				<ChoiceGroup
 				 selectedKey={this.state.valueDisplay}
@@ -143,6 +146,10 @@ export class WizardDataBars extends React.Component<IWizardDataBarsProps, IWizar
 	}
 }
 
+
+/*
+	Wizard Definition
+*/
 
 const calculateCode = (emptyBarValue:number, fullBarValue:number, valueDisplay:string): string => {
 	let percentage:number = 100 / (fullBarValue - emptyBarValue);
@@ -245,8 +252,8 @@ const calculateCode = (emptyBarValue:number, fullBarValue:number, valueDisplay:s
 
 
 export const WizardInfoDataBars: IWizard = {
-	name: 'Data Bars',
-	description: 'Adds horizontal bars to the field to visually express the value by length',
+	name: strings.WizardDataBarsName,
+	description: strings.WizardDataBarsDescription,
 	iconName: 'BarChartHorizontal',
 	fieldTypes: [
 		columnTypes.number
@@ -262,49 +269,7 @@ export const WizardInfoDataBars: IWizard = {
 		];
 	},
 	startingCode: (colType:columnTypes): string => {
-		return [
-			'{',
-			'  "debugMode": true,',
-			'  "elmType": "div",',
-			'  "txtContent": "@currentField",',
-			'  "attributes": {',
-			'    "class": "sp-field-dataBars"',
-			'  },',
-			'  "style": {',
-			'    "width": {',
-			'      "operator": "?",',
-			'      "operands": [',
-			'        {',
-			'          "operator": ">",',
-			'          "operands": [',
-			'            "@currentField",',
-			'            "20"',
-			'          ]',
-			'        },',
-			'        "100%",',
-			'        {',
-			'          "operator": "+",',
-			'          "operands": [',
-			'            {',
-			'              "operator": "toString()",',
-			'              "operands": [',
-			'                {',
-			'                  "operator": "*",',
-			'                  "operands": [',
-			'                    "@currentField",',
-			'                    5',
-			'                  ]',
-			'                }',
-			'              ]',
-			'            },',
-			'            "%"',
-			'          ]',
-			'        }',
-			'      ]',
-			'    }',
-			'  }',
-			'}'
-		].join('\n');
+		return calculateCode(0,20,'value');
 	},
 	onWizardRender: (updateEditorString:(editorString:string) => void): JSX.Element => {
 		return (

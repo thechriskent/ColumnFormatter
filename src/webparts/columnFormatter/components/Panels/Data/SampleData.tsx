@@ -1,25 +1,35 @@
-import * as React from 'react';
-import styles from '../../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
+import { IButtonStyles, IconButton } from 'office-ui-fabric-react/lib/Button';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+
 import {
-	IData, IApplicationState, IDataColumn, columnTypes,
-	ILookupFieldValue, ILinkFieldValue, IPersonFieldValue
-} from '../../../state/State';
-import {
-	updateDataRow, updateDataColumnName, updateDataColumnType,
-	addDataRow, removeDataRow, addDataColumn, removeDataColumn
+    addDataColumn,
+    addDataRow,
+    removeDataColumn,
+    removeDataRow,
+    updateDataColumnName,
+    updateDataColumnType,
+    updateDataRow,
 } from '../../../state/Actions';
+import {
+    columnTypes,
+    IApplicationState,
+    IDataColumn,
+    ILinkFieldValue,
+    ILookupFieldValue,
+    IPersonFieldValue,
+} from '../../../state/State';
+import styles from '../../ColumnFormatter.module.scss';
 import { DataColumnHeader } from './DataColumnHeader';
-import { SampleText } from './SampleValues/SampleText';
 import { SampleBoolean } from './SampleValues/SampleBoolean';
-import { SampleLookup } from './SampleValues/SampleLookup';
+import { SampleDateTime } from './SampleValues/SampleDateTime';
 import { SampleLink } from './SampleValues/SampleLink';
+import { SampleLookup } from './SampleValues/SampleLookup';
 import { SampleNumber } from './SampleValues/SampleNumber';
 import { SamplePerson } from './SampleValues/SamplePerson';
-import { SampleDateTime } from './SampleValues/SampleDateTime';
-import { IconButton, IButtonStyles } from 'office-ui-fabric-react/lib/Button';
+import { SampleText } from './SampleValues/SampleText';
 
 const buttonStyles: Partial<IButtonStyles> = {
 	root: {

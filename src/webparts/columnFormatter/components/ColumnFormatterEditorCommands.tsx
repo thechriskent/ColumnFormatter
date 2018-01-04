@@ -1,21 +1,22 @@
-import * as React from 'react';
-import styles from './ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { chooseTheme, changeUIState, disconnectWizard } from '../state/Actions';
-import { escape } from '@microsoft/sp-lodash-subset';
+import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import { IContextualMenuItem } from 'office-ui-fabric-react/lib/ContextualMenu';
-import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
-import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { IApplicationState, editorThemes, uiState, IContext, columnTypes, saveMethod } from '../state/State';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { Dialog, DialogFooter, DialogType } from 'office-ui-fabric-react/lib/Dialog';
 import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { typeForTypeAsString, textForType } from '../helpers/ColumnTypeHelpers';
-import pnp from "sp-pnp-js";
+import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import pnp from 'sp-pnp-js';
+
+import { textForType, typeForTypeAsString } from '../helpers/ColumnTypeHelpers';
+import { changeUIState, chooseTheme, disconnectWizard } from '../state/Actions';
+import { columnTypes, editorThemes, IApplicationState, IContext, saveMethod, uiState } from '../state/State';
+import styles from './ColumnFormatter.module.scss';
+
 var fileDownload = require('js-file-download');
 
 
@@ -77,10 +78,13 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
   public render(): React.ReactElement<IColumnFormatterEditorCommandsProps> {
     return (
       <div>
+
         <CommandBar
           items={this.getCommandBarItems()}
           farItems={this.getCommandBarFarItems()}
         />
+
+
         <Dialog
          hidden={!this.state.newConfirmationDialogVisible}
          onDismiss={this.closeDialog}
@@ -94,6 +98,8 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
            <DefaultButton text={strings.NewConfirmationDialogCancelButton} onClick={this.closeDialog}/>
          </DialogFooter>
         </Dialog>
+
+
         <Dialog
          hidden={!this.state.customizeConfirmationDialogVisible}
          onDismiss={this.closeDialog}
@@ -107,6 +113,8 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
            <DefaultButton text={strings.CustomizeConfirmationDialogCancelButton} onClick={this.closeDialog}/>
          </DialogFooter>
         </Dialog>
+
+
         <Dialog
          hidden={!this.state.saveToLibraryDialogVisible}
          onDismiss={this.closeDialog}
@@ -115,32 +123,32 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
            title: strings.SaveToLibraryDialogTitle
          }}>
           {!this.props.context.isOnline && (
-            <span>This feature is not available from the local workbench</span>
+            <span>{strings.FeatureUnavailableFromLocalWorkbench}</span>
           )}
           {!this.state.librariesLoaded && this.props.context.isOnline && !this.state.libraryIsSaving && this.state.librarySaveError == undefined && (
-            <Spinner size={SpinnerSize.large} label='Loading Libraries...'/>
+            <Spinner size={SpinnerSize.large} label={strings.SaveToLibraryLoading}/>
           )}
           {this.state.librariesLoaded && this.props.context.isOnline && !this.state.libraryIsSaving && this.state.librarySaveError == undefined && (
             <div>
               <Dropdown
-               label='Local library'
+               label={strings.SaveToLibraryLibraryLabel}
                selectedKey={this.state.selectedLibraryUrl}
                onChanged={(item:IDropdownOption)=> {this.setState({selectedLibraryUrl: item.key.toString()});}}
                required={true}
                options={this.librariesToOptions()} />
               <TextField
-               label='Folder Path (optional)'
+               label={strings.SaveToLibraryFolderPathLabel}
                value={this.state.libraryFolderPath}
                onChanged={(value:string) => {this.setState({libraryFolderPath: value});}}/>
               <TextField
-               label='Filename'
+               label={strings.SaveToLibraryFilenameLabel}
                required={true}
                value={this.state.libraryFileName}
                onChanged={(value:string) => {this.setState({libraryFileName: value});}}/>
             </div>
           )}
           {this.state.libraryIsSaving && this.state.librarySaveError == undefined &&(
-            <Spinner size={SpinnerSize.large} label='Saving to Library...'/>
+            <Spinner size={SpinnerSize.large} label={strings.SaveToLibrarySaving}/>
           )}
           {this.state.librarySaveError !== undefined && (
             <span className={styles.errorMessage}>{this.state.librarySaveError}</span>
@@ -150,6 +158,8 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
             <DefaultButton text={strings.SaveToLibraryDialogCancelButton} onClick={this.closeDialog}/>
           </DialogFooter>
         </Dialog>
+
+
         <Dialog
          hidden={!this.state.applyToListDialogVisible}
          onDismiss={this.closeDialog}
@@ -158,21 +168,21 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
           title: strings.ApplyToListDialogTitle
         }}>
          {!this.props.context.isOnline && (
-           <span>This feature is not available from the local workbench</span>
+           <span>{strings.FeatureUnavailableFromLocalWorkbench}</span>
          )}
          {!this.state.listsLoaded && this.props.context.isOnline && !this.state.listIsApplying && this.state.listSaveError == undefined && (
-           <Spinner size={SpinnerSize.large} label='Loading Lists...'/>
+           <Spinner size={SpinnerSize.large} label={strings.ApplyToListLoading}/>
          )}
          {this.state.listsLoaded && this.props.context.isOnline && !this.state.listIsApplying && this.state.listSaveError == undefined && (
            <div>
              <Dropdown
-              label='Local list'
+              label={strings.ApplyToListListLabel}
               selectedKey={this.state.selectedList}
               onChanged={(item:IDropdownOption)=> {this.setState({selectedList: item.key.toString(),selectedField: undefined});}}
               required={true}
               options={this.listsToOptions()} />
              <Dropdown
-              label='Field'
+              label={strings.ApplyToListFieldLabel}
               selectedKey={this.state.selectedField}
               disabled={this.state.selectedList == undefined}
               onChanged={(item:IDropdownOption)=> {this.setState({selectedField: item.key.toString()});}}
@@ -181,7 +191,7 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
            </div>
          )}
          {this.state.listIsApplying && this.state.listSaveError == undefined &&(
-           <Spinner size={SpinnerSize.large} label='Applying to list...'/>
+           <Spinner size={SpinnerSize.large} label={strings.ApplyToListApplying}/>
          )}
          {this.state.listSaveError !== undefined && (
            <span className={styles.errorMessage}>{this.state.listSaveError}</span>
@@ -191,6 +201,7 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
             <DefaultButton text={strings.ApplyToListDialogCancelButton} onClick={this.closeDialog}/>
           </DialogFooter>
         </Dialog>
+
       </div>
     );
   }
@@ -402,28 +413,30 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
   @autobind
   private onCopyClick(ev?:React.MouseEvent<HTMLElement>, item?:IContextualMenuItem): void {
     var textArea = document.createElement("textarea");
-      textArea.style.position = 'fixed';
-      textArea.style.top = '0';
-      textArea.style.left = '0';
-      textArea.style.width = '2em';
-      textArea.style.height = '2em';
-      textArea.style.padding = '0';
-      textArea.style.border = 'none';
-      textArea.style.outline = 'none';
-      textArea.style.boxShadow = 'none';
-      textArea.style.background = 'transparent';
-      textArea.value = this.props.editorString;
-      document.body.appendChild(textArea);
-      textArea.select();
-      try {
-        var successful = document.execCommand('copy');
-      } catch (err) {
-        console.log('Unable to copy!');
+    textArea.style.position = 'fixed';
+    textArea.style.top = '0';
+    textArea.style.left = '0';
+    textArea.style.width = '2em';
+    textArea.style.height = '2em';
+    textArea.style.padding = '0';
+    textArea.style.border = 'none';
+    textArea.style.outline = 'none';
+    textArea.style.boxShadow = 'none';
+    textArea.style.background = 'transparent';
+    textArea.value = this.props.editorString;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      var successful = document.execCommand('copy');
+    } catch (err) {
+      if(window.console && window.console.log) {
+        console.log(strings.CopyToClipboardError);
       }
-      document.body.removeChild(textArea);
-      this.setState({
-        activeSaveMethod: saveMethod.Copy
-      });
+    }
+    document.body.removeChild(textArea);
+    this.setState({
+      activeSaveMethod: saveMethod.Copy
+    });
   }
 
   @autobind
@@ -439,7 +452,7 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
           })
           .catch((error:any) => {
             this.setState({
-              librarySaveError: 'Error while loading libraries! Technical Details: ' + error.message
+              librarySaveError: strings.SaveToLibraryLoadError + ' ' + strings.TechnicalDetailsErrorHeader + ': ' + error.message
             });
           });
       }
@@ -486,7 +499,7 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
       .catch((error:any) => {
         this.setState({
           libraryIsSaving: false,
-          librarySaveError: 'Error while saving! Verify the folderpath is correct (if used) and that you have permission to save to this library. Technical Details: ' + error.message,
+          librarySaveError: strings.SaveToLibrarySaveError + ' ' + strings.TechnicalDetailsErrorHeader + ': ' + error.message,
           activeSaveMethod: undefined
         });
       });
@@ -525,7 +538,7 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
           })
           .catch((error:any) => {
             this.setState({
-              listSaveError: 'Error while loading lists! Technical Details: ' + error.message
+              listSaveError: strings.ApplyToListLoadError + ' ' + strings.TechnicalDetailsErrorHeader + ': ' + error.message
             });
           });
       }
@@ -599,7 +612,7 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
       .catch((error:any) => {
         this.setState({
           listIsApplying: false,
-          listSaveError: 'Error while applying! Verify you have permission to update this library\'s settings. Technical Details: ' + error.message,
+          listSaveError: strings.ApplyToListApplyError + ' ' + strings.TechnicalDetailsErrorHeader + ': ' + error.message,
           activeSaveMethod: undefined
         });
       });

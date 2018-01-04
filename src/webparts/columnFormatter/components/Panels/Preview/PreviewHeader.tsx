@@ -1,10 +1,11 @@
-import * as React from 'react';
-import styles from '../../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
-import { connect } from 'react-redux';
 import { Icon, IIconStyles } from 'office-ui-fabric-react/lib/Icon';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import * as React from 'react';
+import { connect } from 'react-redux';
+
 import { IApplicationState } from '../../../state/State';
+import styles from '../../ColumnFormatter.module.scss';
 
 const iconStyles: Partial<IIconStyles> = {
 	root: {

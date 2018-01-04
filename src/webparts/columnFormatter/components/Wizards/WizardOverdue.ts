@@ -1,9 +1,11 @@
-import { IWizard, Wizards, standardWizardStartingColumns } from './WizardCommon';
-import { IDataColumn, columnTypes } from '../../state/State';
+import * as strings from 'ColumnFormatterWebPartStrings';
+
+import { columnTypes, IDataColumn } from '../../state/State';
+import { IWizard, standardWizardStartingColumns } from './WizardCommon';
 
 export const WizardInfoOverdue: IWizard = {
-	name: 'Overdue',
-	description: 'Colors the field red once the date is greater than today',
+	name: strings.WizardOverdueName,
+	description: strings.WizardOverdueDescription,
 	iconName: 'Warning',
 	fieldTypes: [
 		columnTypes.datetime
@@ -13,9 +15,7 @@ export const WizardInfoOverdue: IWizard = {
 	startingRows: (colType:columnTypes): Array<Array<any>> => {
 		let today:Date = new Date();
 		let tomorrow:Date = new Date(new Date().setTime(today.getTime() + 1 * 86400000));
-		//today = new Date();
 		let old = new Date(new Date().setTime(today.getTime() - 5 * 86400000));
-		//today = new Date();
 		let older = new Date(new Date().setTime(today.getTime() - 30 * 86400000));
 		today = new Date(new Date().setTime(today.getTime() + 3600000));
 		return [

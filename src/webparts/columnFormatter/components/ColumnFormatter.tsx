@@ -1,10 +1,8 @@
 import * as React from 'react';
-import styles from './ColumnFormatter.module.scss';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { escape } from '@microsoft/sp-lodash-subset';
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+
 import { IApplicationState, uiState } from '../state/State';
+import styles from './ColumnFormatter.module.scss';
 import { ColumnFormatterEditor } from './ColumnFormatterEditor';
 import { ColumnFormatterWelcome } from './ColumnFormatterWelcome';
 
@@ -33,10 +31,4 @@ function mapStateToProps(state: IApplicationState): IColumnFormatterProps{
 	};
 }
 
-function mapDispatchToProps(dispatch: Dispatch<IColumnFormatterProps>): IColumnFormatterProps{
-	return {
-
-	};
-}
-
-export const ColumnFormatter = connect(mapStateToProps, mapDispatchToProps)(ColumnFormatter_);
+export const ColumnFormatter = connect(mapStateToProps, null)(ColumnFormatter_);

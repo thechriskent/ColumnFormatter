@@ -1,6 +1,5 @@
-import * as React from 'react';
-import styles from '../../../ColumnFormatter.module.scss';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import * as React from 'react';
 
 export interface ISampleTextProps {
 	value: string;

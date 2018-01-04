@@ -4,6 +4,11 @@ define([], function() {
     PropertyBasicGroupName: "Properties",
     PropertyHeightLabel: "Height",
 
+    //General
+    FeatureUnavailableFromLocalWorkbench: 'This feature is not available from the local workbench',
+    TechnicalDetailsErrorHeader: 'Technical Details',
+    WizardDefaultField: 'MyField',
+
     //Welcome
     WelcomeTitle: 'Column Formatter',
     WelcomeSubTitle: 'Easy editor for modern listview Column Formatting',
@@ -22,6 +27,16 @@ define([], function() {
     WelcomeOpenColumnTypeLabel: 'Column Type',
     WelcomeOpenLoadFileLibrary: 'Open a file from a local library',
     WelcomeOpenLoadFileUpload: 'Upload a file',
+    WelcomeUploadHeader: 'File Upload',
+    WelcomeUploadInstructions1: 'Drop your json file here, or click to select the file to upload.',
+    WelcomeUploadInstructions2: 'Only *.json files will be accepted',
+    WelcomeUploadUploadButton: 'Choose a File',
+    WelcomeUploadRejectError: 'Unable to accept',
+    WelcomeUploadEmptyFileError: 'File is empty!',
+    WelcomeLoadFromListLoadingLists: 'Loading Lists...',
+    WelcomeLoadFromListListLabel: 'Local list',
+    WelcomeLoadFromListFieldLabel: 'Field',
+    WelcomeLoadFromListLoading: 'Loading from list...',
 
     //Tab Names
     TabWizard: "Wizard",
@@ -63,11 +78,27 @@ define([], function() {
     SaveToLibraryDialogTitle: 'Save to local library',
     SaveToLibraryDialogConfirmButton: 'Save',
     SaveToLibraryDialogCancelButton: 'Cancel',
+    SaveToLibraryLoading: 'Loading Libraries...',
+    SaveToLibraryLibraryLabel: 'Local library',
+    SaveToLibraryFolderPathLabel: 'Folder Path (optional)',
+    SaveToLibraryFilenameLabel: 'Filename',
+    SaveToLibrarySaving: 'Saving to Library...',
+    SaveToLibraryLoadError: 'Error while loading libraries!',
+    SaveToLibrarySaveError: 'Error while saving! Verify the folderpath is correct (if used) and that you have permission to save to this library.',
 
     //Apply To List Dialog
     ApplyToListDialogTitle: 'Apply to local list field',
     ApplyToListDialogConfirmButton: 'Save',
     ApplyToListDialogCancelButton: 'Cancel',
+    ApplyToListLoading: 'Loading Lists...',
+    ApplyToListListLabel: 'Local list',
+    ApplyToListFieldLabel: 'Field',
+    ApplyToListApplying: 'Applying to list...',
+    ApplyToListLoadError: 'Error while loading lists!',
+    ApplyToListApplyError: 'Error while applying! Verify you have permission to update this library\'s settings.',
+
+    //Copy
+    CopyToClipboardError: 'Unable to copy!',
 
     //Data Column/Row buttons
     DeleteRow: "Delete Row",
@@ -82,6 +113,13 @@ define([], function() {
     ColumnTypeChangeTooltip: "Click to change",
     SubPropertiesHeadline: "Sub Properties",
     TimeHeadline: "Time",
+    DataColumnDefaultName: "NewField",
+    DataColumnLinkDescriptionLabel: 'desc:',
+    DataColumnLookupIdLabel: 'lookupId:',
+    DataColumnPersonIdLabel: 'id:',
+    DataColumnPersonEmailLabel: 'email:',
+    DataColumnPersonSIPLabel: 'sip:',
+    DataColumnPersonPictureLabel: 'picture:',
 
     //Column Type Names
     ColumnTypeBoolean: "Yes/No",
@@ -161,12 +199,19 @@ define([], function() {
     CFSoperatorMissing: "Missing operator in expression: {0}.",
     CFSunsupportedType: "The type of field {0} is unsupported at this time.",
     CFSuserFieldError: "The field '{0}' is of type 'User', and can't be used directly because it has sub-properties. You need to specify which sub-property you want to use. e.g. [$AssignedTo.email]",
+    CFSRowLabel: 'Row',
 
     //Format Validation Messages
     PreviewValidationGood: 'Validation Passed!',
     PreviewValidationBad: 'Invalid JSON (Code):',
 
+    //Tree View
+    TreeViewHeader: 'Elements Tree',
+    TreeViewError: 'Error Loading Tree!',
+
     //Wizard Data Bars
+    WizardDataBarsName: 'Data Bars',
+    WizardDataBarsDescription: 'Adds horizontal bars to the field to visually express the value by length',
     WizardDataBarsEmptyBarLabel: 'Low:',
     WizardDataBarsEmptyBarTooltip: 'The lowest value on the scale\nValues equal or lower than this will be shown as 0% full',
     WizardDataBarsFullBarLabel: 'High:',
@@ -175,6 +220,18 @@ define([], function() {
     WizardDataBarsValueDisplayGroupLabel: 'Value Display',
     WizardDataBarsValueDisplayActual: 'Show Actual Value',
     WizardDataBarsValueDisplayPercentage: 'Show Percentage',
-    WizardDataBarsValueDisplayNone: 'None'
+    WizardDataBarsValueDisplayNone: 'None',
+
+    //Wizard Checkboxes
+    WizardCheckboxesName: 'Checkboxes',
+    WizardCheckboxesDescription: 'Displays Yes/No fields as checkboxes',
+
+    //Wizard Overdue
+    WizardOverdueName: 'Overdue',
+    WizardOverdueDescription: 'Colors the field red once the date is greater than today',
+
+    //Wizard Number Trending
+    WizardNumberTrendingName: '# Trending',
+    WizardNumberTrendingDescription: 'Compares other fields in the row to provide an icon based on trending values'
   }
 });

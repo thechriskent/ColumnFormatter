@@ -1,15 +1,16 @@
-import * as React from 'react';
-import styles from '../../ColumnFormatter.module.scss';
+import * as UIFabric from '@uifabric/styling/lib';
 import * as strings from 'ColumnFormatterWebPartStrings';
+import { ColumnActionsMode, DetailsList, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { IData, IApplicationState, IDataColumn, columnTypes } from '../../../state/State';
-import { LocalCustomFormatter, LocalHtmlEncoding } from '../../../../../CustomFormatter/LocalCustomFormatter';
-import { LocalCustomFormatterStrings, IFormatterFieldInfo } from '../../../../../CustomFormatter/LocalFieldRendererFormat';
 import * as tslib from 'tslib';
+
+import { LocalCustomFormatter, LocalHtmlEncoding } from '../../../../../CustomFormatter/LocalCustomFormatter';
+import { IFormatterFieldInfo, LocalCustomFormatterStrings } from '../../../../../CustomFormatter/LocalFieldRendererFormat';
 import { updateFormatterErrors } from '../../../state/Actions';
-import { DetailsList, ColumnActionsMode, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
-import * as UIFabric from '@uifabric/styling/lib';
+import { columnTypes, IApplicationState, IDataColumn } from '../../../state/State';
+import styles from '../../ColumnFormatter.module.scss';
 
 export interface IPreviewViewProps {
 	columns?: Array<IDataColumn>;
@@ -122,7 +123,7 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		let htmlString:string = formatter.evaluate();
 		let errorString:string = formatter.errors();
 		if(errorString.length) {
-			this._formatterErrors.push('Row ' + rIndex.toString() + ': ' + errorString);
+			this._formatterErrors.push(strings.CFSRowLabel + ' ' + rIndex.toString() + ': ' + errorString);
 		}
 		let innerHtml:IHTMLmarkupObject = {
 			__html: htmlString

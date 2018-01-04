@@ -1,14 +1,14 @@
-import * as React from 'react';
-import styles from '../../../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
-import { SpinButton, ISpinButtonStyles } from 'office-ui-fabric-react/lib/SpinButton';
-import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
 import { IButtonStyles } from 'office-ui-fabric-react/lib/Button';
+import { ISpinButtonStyles, SpinButton } from 'office-ui-fabric-react/lib/SpinButton';
+import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
+import * as React from 'react';
+
 import { ILookupFieldValue } from '../../../../state/State';
+import styles from '../../../ColumnFormatter.module.scss';
 import { SubPropsButton } from './SubPropsButton';
 
 const spinStyles: Partial<ISpinButtonStyles> = {
@@ -65,7 +65,7 @@ export class SampleLookup extends React.Component<ISampleLookupProps, ISampleLoo
 					 	<div className={styles.tbSpinButtonOverride}>
 							<SpinButton
 							value={this.props.value.lookupId.toString()}
-							label="lookupId:"
+							label={strings.DataColumnLookupIdLabel}
 							labelPosition={Position.top}
 							onValidate={this.onLookupIdValidate}
 							onIncrement={this.onLookupIdIncrement}

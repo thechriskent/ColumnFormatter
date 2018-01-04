@@ -3,10 +3,13 @@
 ### Added
 - Height property to property pane
 - Save button to allow for quick resaving (once a save-as option has been performed)
+- npm-shrinkwrap.json
 - This sweet Changelog
 
 ### Changed
 - Updated solution for SPFx 1.4 and enabled asset packaging
+- Identified several additional string literals and moved to localization
+- Moved repository to [SharePoint/SP-Dev-Solutions](https://github.com/SharePoint/sp-dev-solutions)
 
 ### Removed
 - Description property from property pane

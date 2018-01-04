@@ -1,6 +1,5 @@
-import * as React from 'react';
-import styles from '../../../ColumnFormatter.module.scss';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
+import * as React from 'react';
 
 export interface ISampleBooleanProps {
 	value: boolean;

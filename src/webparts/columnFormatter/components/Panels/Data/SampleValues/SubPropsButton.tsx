@@ -1,8 +1,9 @@
-import * as React from 'react';
-import styles from '../../../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { IButtonStyles } from 'office-ui-fabric-react/lib/Button';
+import * as React from 'react';
+
+import styles from '../../../ColumnFormatter.module.scss';
 
 const propButtonStyles: Partial<IButtonStyles> = {
 	root: {

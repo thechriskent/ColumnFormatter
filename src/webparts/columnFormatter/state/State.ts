@@ -1,5 +1,3 @@
-import { standardWizardStartingCode, standardWizardStartingColumns, standardWizardStartingRows } from '../components/Wizards/WizardCommon';
-
 //#region Enums
 export enum columnTypes {
 	text,
@@ -130,37 +128,3 @@ export const initialState: IApplicationState = {
 		webAbsoluteUrl:''
 	}
 };
-
-/*export const initialState: IApplicationState = {
-	data: {
-		columns: [{
-			name: 'currentField',
-			type: columnTypes.text
-		},
-		{
-			name: 'somePerson',
-			type: columnTypes.person
-		},
-		{
-			name: 'someNum',
-			type: columnTypes.number
-		},
-		{
-			name: 'someLink',
-			type: columnTypes.link
-		},
-		{
-			name: 'someLookup',
-			type: columnTypes.lookup
-		},
-		{
-			name: 'someBool',
-			type: columnTypes.boolean
-		}],
-		rows: [
-			["Dog", {title:'Donkey Kong', id:1,email:'donkey@kong.com',sip:'donkey@kong.com',picture:''}, 4, {URL:"http://google.com",desc:"Google"}, {lookupValue:"Main",lookupId:3}, false],
-			["Cat", {title:'Mario Bro', id:1,email:'mario@nintendo.com',sip:'mario@nintendo.com',picture:''}, -37, {URL:"http://bing.com",desc:"Bing"}, {lookupValue:"West",lookupId:1}, true],
-			["Mouse", {title:'Luigi Bro', id:1,email:'luigi@nintendo.com',sip:'luigi@nintendo.com',picture:''}, 9.3478, {URL:"https://thechriskent.com",desc:"Chris' Blog"}, {lookupValue:"East",lookupId:7}, true]
-		]
-	}
-};*/

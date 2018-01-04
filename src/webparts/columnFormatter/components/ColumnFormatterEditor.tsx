@@ -1,17 +1,15 @@
 import * as React from 'react';
-import styles from './ColumnFormatter.module.scss';
-import * as strings from 'ColumnFormatterWebPartStrings';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+
 import { resizePane } from '../state/Actions';
-import { escape } from '@microsoft/sp-lodash-subset';
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { IApplicationState } from '../state/State';
-var SplitPane = require('react-split-pane');
+import styles from './ColumnFormatter.module.scss';
 import { ColumnFormatterEditorCommands } from './ColumnFormatterEditorCommands';
 import { ColumnFormatterPropertyPane } from './Panes/ColumnFormatterPropertyPane';
 import { ColumnFormatterViewPane } from './Panes/ColumnFormatterViewPane';
 
+var SplitPane = require('react-split-pane');
 export interface IColumnFormatterEditorProps {
   uiHeight?: number;
   paneResized?: (size:number) => void;

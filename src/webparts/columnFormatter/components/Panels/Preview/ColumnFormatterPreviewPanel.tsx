@@ -1,8 +1,8 @@
 import * as React from 'react';
+
 import styles from '../../ColumnFormatter.module.scss';
-import * as strings from 'ColumnFormatterWebPartStrings';
-import { PreviewView } from './PreviewView';
 import { PreviewHeader } from './PreviewHeader';
+import { PreviewView } from './PreviewView';
 
 export interface IColumnFormatterPreviewPanelProps {
 }  

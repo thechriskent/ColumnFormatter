@@ -1,11 +1,11 @@
-import * as React from 'react';
-import styles from '../../../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import * as React from 'react';
+
 import { ILinkFieldValue } from '../../../../state/State';
+import styles from '../../../ColumnFormatter.module.scss';
 import { SubPropsButton } from './SubPropsButton';
 
 export interface ISampleLinkProps {
@@ -21,8 +21,9 @@ export class SampleLink extends React.Component<ISampleLinkProps, ISampleLinkSta
 	
 	private _container: HTMLElement;
 
-	public constructor(){
-		super();
+	public constructor(props:ISampleLinkProps){
+		super(props);
+
 		this.state = {
 			subPropertiesVisible: false
 		};
@@ -51,7 +52,7 @@ export class SampleLink extends React.Component<ISampleLinkProps, ISampleLinkSta
 							<TextField
 							 value={this.props.value.desc}
 							 onChanged={this.linkDescChanged}
-							 label="desc:"/>
+							 label={strings.DataColumnLinkDescriptionLabel}/>
 						</div>
 					</TeachingBubble>
 				)}

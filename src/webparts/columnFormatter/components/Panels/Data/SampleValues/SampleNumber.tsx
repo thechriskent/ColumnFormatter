@@ -1,7 +1,8 @@
-import * as React from 'react';
-import styles from '../../../ColumnFormatter.module.scss';
-import { SpinButton, ISpinButtonStyles } from 'office-ui-fabric-react/lib/SpinButton';
+import { ISpinButtonStyles, SpinButton } from 'office-ui-fabric-react/lib/SpinButton';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import * as React from 'react';
+
+import styles from '../../../ColumnFormatter.module.scss';
 
 const spinStyles: Partial<ISpinButtonStyles> = {
 	root: {

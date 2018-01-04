@@ -1,9 +1,9 @@
 import * as React from 'react';
-import styles from '../../ColumnFormatter.module.scss';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+
+import { editorThemes, IApplicationState } from '../../../state/State';
 import { updateEditorString } from './../../../state/Actions';
-import { IApplicationState, ICode, editorThemes } from '../../../state/State';
 import { MonacoEditor } from './MonacoEditor';
 
 export interface ICodeEditorProps {

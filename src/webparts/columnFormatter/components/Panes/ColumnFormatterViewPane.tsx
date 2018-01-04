@@ -1,15 +1,17 @@
-import * as React from 'react';
-import styles from '../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { selectTab, resizePane } from '../../state/Actions';
-import { IApplicationState } from '../../state/State';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { ColumnFormatterPreviewPanel } from '../Panels/Preview/ColumnFormatterPreviewPanel';
+import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import { Dispatch } from 'redux';
+
+import { resizePane, selectTab } from '../../state/Actions';
+import { IApplicationState } from '../../state/State';
+import styles from '../ColumnFormatter.module.scss';
 import { ColumnFormatterCodePanel } from '../Panels/Code/ColumnFormatterCodePanel';
+import { ColumnFormatterPreviewPanel } from '../Panels/Preview/ColumnFormatterPreviewPanel';
+
 var SplitPane = require('react-split-pane');
 
 export interface IColumnFormatterViewPaneProps {

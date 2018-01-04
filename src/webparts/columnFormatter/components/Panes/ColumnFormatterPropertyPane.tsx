@@ -1,15 +1,15 @@
-import * as React from 'react';
-import styles from '../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { selectTab, resizePane } from '../../state/Actions';
-import { IApplicationState } from '../../state/State';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { ColumnFormatterTreePanel } from '../Panels/Tree/ColumnFormatterTreePanel';
+import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import { Dispatch } from 'redux';
+
+import { selectTab } from '../../state/Actions';
+import { IApplicationState } from '../../state/State';
 import { ColumnFormatterDataPanel } from '../Panels/Data/ColumnFormatterDataPanel';
+import { ColumnFormatterTreePanel } from '../Panels/Tree/ColumnFormatterTreePanel';
 import { ColumnFormatterWizardPanel } from '../Panels/Wizard/ColumnFormatterWizardPanel';
 
 export interface IColumnFormatterPropertyPaneProps {

@@ -1,5 +1,6 @@
 import { columnTypes, editorThemes, uiState } from './State';
 
+//** All the action interfaces */
 export type ActionTypes = 
 	| ISetContextAction
 	| ISetHeightAction
@@ -21,6 +22,7 @@ export type ActionTypes =
 	| IUpdateFormatterErrorsAction
 	| IOtherAction;
 
+//** Action keys (by using strings, TS can deduce the action interface in the reducer which is convienent)*/
 export enum typeKeys {
 	SET_CONTEXT = "SET_CONTEXT",
 	SET_HEIGHT = "SET_HEIGHT",

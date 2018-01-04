@@ -1,14 +1,14 @@
-import * as React from 'react';
-import styles from '../../../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
-import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
-import { SpinButton, ISpinButtonStyles } from 'office-ui-fabric-react/lib/SpinButton';
-import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
 import { IButtonStyles } from 'office-ui-fabric-react/lib/Button';
+import { ISpinButtonStyles, SpinButton } from 'office-ui-fabric-react/lib/SpinButton';
+import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
+import * as React from 'react';
+
 import { IPersonFieldValue } from '../../../../state/State';
+import styles from '../../../ColumnFormatter.module.scss';
 import { SubPropsButton } from './SubPropsButton';
 
 const spinStyles: Partial<ISpinButtonStyles> = {
@@ -68,7 +68,7 @@ export class SamplePerson extends React.Component<ISamplePersonProps, ISamplePer
 					 	<div className={styles.tbSpinButtonOverride}>
 							<SpinButton
 							value={this.props.value.id.toString()}
-							label="id:"
+							label={strings.DataColumnPersonIdLabel}
 							labelPosition={Position.top}
 							onValidate={this.onIdValidate}
 							onIncrement={this.onIdIncrement}
@@ -81,19 +81,19 @@ export class SamplePerson extends React.Component<ISamplePersonProps, ISamplePer
 							<TextField
 							 value={this.props.value.email}
 							 onChanged={this.emailChanged}
-							 label="email:"/>
+							 label={strings.DataColumnPersonEmailLabel}/>
 						</div>
 						<div className={styles.tbTextFieldOverride}>
 							<TextField
 							 value={this.props.value.sip}
 							 onChanged={this.sipChanged}
-							 label="sip:"/>
+							 label={strings.DataColumnPersonSIPLabel}/>
 						</div>
 						<div className={styles.tbTextFieldOverride}>
 							<TextField
 							 value={this.props.value.picture}
 							 onChanged={this.pictureChanged}
-							 label="picture:"/>
+							 label={strings.DataColumnPersonPictureLabel}/>
 						</div>
 					</TeachingBubble>
 				)}

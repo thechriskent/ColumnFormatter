@@ -1,6 +1,7 @@
-import * as React from 'react';
-import styles from '../../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
+import * as React from 'react';
+
+import styles from '../../ColumnFormatter.module.scss';
 import { SampleData } from './SampleData';
 
 export interface IColumnFormatterDataPanelProps {

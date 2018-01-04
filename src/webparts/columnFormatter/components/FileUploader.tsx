@@ -1,8 +1,10 @@
-import * as React from 'react';
-import styles from './ColumnFormatter.module.scss';
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import DropZone from 'react-dropzone';
+import * as strings from 'ColumnFormatterWebPartStrings';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import * as React from 'react';
+import DropZone from 'react-dropzone';
+
+import styles from './ColumnFormatter.module.scss';
 
 export interface IFileUploaderProps {
 	onTextLoaded: (text:string) => void;
@@ -29,7 +31,7 @@ export class FileUploader extends React.Component<IFileUploaderProps, IFileUploa
 	public render(): React.ReactElement<IFileUploaderProps> {
 		return (
 		  <div className={styles.uploadForm}>
-				<span className={styles.headerLabel}>File Upload</span>
+				<span className={styles.headerLabel}>{strings.WelcomeUploadHeader}</span>
 				<DropZone
 				 ref={(container) => this._uploadPanel = container!}
 				 accept='.json'
@@ -38,10 +40,10 @@ export class FileUploader extends React.Component<IFileUploaderProps, IFileUploa
 				 className={styles.dropZone}
 				 activeClassName={styles.dropZoneActive}
 				 rejectClassName={styles.dropZoneRejected}>
-					<p>Drop your json file here, or click to select the file to upload.</p>
-					<p>Only *.json files will be accepted</p>
+					<p>{strings.WelcomeUploadInstructions1}</p>
+					<p>{strings.WelcomeUploadInstructions2}</p>
 				</DropZone>
-				<PrimaryButton text='Choose a File' onClick={this.onChooseFileClick}/>
+				<PrimaryButton text={strings.WelcomeUploadUploadButton} onClick={this.onChooseFileClick}/>
 				<span className={styles.uploadError}>{this.state.uploadError}</span>
 		  </div>
 		);
@@ -56,10 +58,6 @@ export class FileUploader extends React.Component<IFileUploaderProps, IFileUploa
 
 	@autobind
 	private onFileDrop(accepted:Array<any>, rejected:Array<any>): void {
-		/*console.log('rejected');
-		console.log(rejected);
-		console.log('accepted');
-		console.log(accepted);*/
 		//Clean up rejected files
 		try {
 			if(rejected.length > 0) {
@@ -69,7 +67,7 @@ export class FileUploader extends React.Component<IFileUploaderProps, IFileUploa
 					}
 				}
 				this.setState({
-					uploadError: 'Unable to accept: ' + reject.name
+					uploadError: strings.WelcomeUploadRejectError + ': ' + reject.name
 				});
 			} else {
 				//Grab the accepted file
@@ -77,7 +75,6 @@ export class FileUploader extends React.Component<IFileUploaderProps, IFileUploa
 					var reader:FileReader = new FileReader();
 					reader.onload = () => {
 						let fileContents:string = reader.result;
-						console.log(fileContents);
 						//clean up files
 						for(var acceptable of accepted) {
 							if(acceptable.preview !== undefined) {
@@ -91,11 +88,11 @@ export class FileUploader extends React.Component<IFileUploaderProps, IFileUploa
 							});
 						} else {
 							this.setState({
-								uploadError: 'File is empty!'
+								uploadError: strings.WelcomeUploadEmptyFileError
 							});
 						}
 					};
-					reader.readAsText(accepted[0]);
+					reader.readAsText(accepted[0]); //only process the first file regardless of how many selected
 				}
 			}
 		}

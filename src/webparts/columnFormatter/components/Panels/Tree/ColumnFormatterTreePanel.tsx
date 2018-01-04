@@ -1,12 +1,11 @@
-import * as React from 'react';
-import styles from '../../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { IApplicationState } from '../../../state/State';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { Treebeard } from 'react-treebeard';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { Treebeard } from 'react-treebeard';
+
+import { IApplicationState } from '../../../state/State';
+import styles from '../../ColumnFormatter.module.scss';
 
 export interface ITreeNode {
 	name: string;
@@ -120,7 +119,7 @@ class ColumnFormatterTreePanel_ extends React.Component<IColumnFormatterTreePane
 	public render(): React.ReactElement<IColumnFormatterTreePanelProps> {
 		return (
 		  <div className={styles.panel}>
-				<span className={styles.panelHeader}>Elements Tree</span>
+				<span className={styles.panelHeader}>{strings.TreeViewHeader}</span>
 				{this.state.treeError == undefined && this.state.treeData !== undefined && (
 					<Treebeard
 					 data={this.state.treeData}
@@ -128,7 +127,7 @@ class ColumnFormatterTreePanel_ extends React.Component<IColumnFormatterTreePane
 					 style={treeStyles}/>
 				)}
 				{this.state.treeError !== undefined && (
-					<span className={styles.errorMessage}>Error loading Tree! Technical Details: {this.state.treeError}</span>
+					<span className={styles.errorMessage}>{strings.TreeViewError + ' ' + strings.TechnicalDetailsErrorHeader + ': ' + this.state.treeError}</span>
 				)}
 		  </div>
 		);

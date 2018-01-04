@@ -1,4 +1,5 @@
 import * as strings from 'ColumnFormatterWebPartStrings';
+
 import { columnTypes } from '../state/State';
 
 export const iconForType = (type:columnTypes): string => {

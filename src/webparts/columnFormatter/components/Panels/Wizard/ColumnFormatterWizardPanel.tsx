@@ -1,12 +1,12 @@
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import * as React from 'react';
-import styles from '../../ColumnFormatter.module.scss';
-import * as strings from 'ColumnFormatterWebPartStrings';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+
 import { updateEditorString } from '../../../state/Actions';
 import { IApplicationState } from '../../../state/State';
-import { IWizard, getWizardByName } from '../../Wizards/WizardCommon';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import styles from '../../ColumnFormatter.module.scss';
+import { getWizardByName, IWizard } from '../../Wizards/WizardCommon';
 
 export interface IColumnFormatterWizardPanelProps {
 	wizardName?:string;

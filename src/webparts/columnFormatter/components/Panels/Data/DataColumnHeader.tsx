@@ -1,14 +1,15 @@
-import * as React from 'react';
-import styles from '../../ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
-import { columnTypes } from '../../../state/State';
-import { iconForType, textForType } from '../../../helpers/ColumnTypeHelpers';
-import { Icon, IIconStyles } from 'office-ui-fabric-react/lib/Icon';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { IconButton, IButtonStyles } from 'office-ui-fabric-react/lib/Button';
-import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
+import { IButtonStyles, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import { Icon, IIconStyles } from 'office-ui-fabric-react/lib/Icon';
+import { TeachingBubble } from 'office-ui-fabric-react/lib/TeachingBubble';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import * as React from 'react';
+
+import { iconForType, textForType } from '../../../helpers/ColumnTypeHelpers';
+import { columnTypes } from '../../../state/State';
+import styles from '../../ColumnFormatter.module.scss';
 
 const iconStyles: Partial<IIconStyles> = {
 	root: {

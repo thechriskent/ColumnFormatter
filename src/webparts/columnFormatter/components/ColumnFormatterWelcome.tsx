@@ -1,21 +1,22 @@
-import * as React from 'react';
-import styles from './ColumnFormatter.module.scss';
 import * as strings from 'ColumnFormatterWebPartStrings';
+import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import { Label } from 'office-ui-fabric-react/lib/Label';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { IApplicationState, columnTypes, IContext } from '../state/State';
+import pnp from 'sp-pnp-js';
+
+import { textForType, typeForTypeAsString } from '../helpers/ColumnTypeHelpers';
 import { launchEditor, launchEditorWithCode } from '../state/Actions';
-import { iconForType, typeForTypeAsString, textForType } from '../helpers/ColumnTypeHelpers';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { IWizard, Wizards, getWizardByName, getWizardsForColumnType, standardWizardStartingCode } from './Wizards/WizardCommon';
+import { columnTypes, IApplicationState, IContext } from '../state/State';
+import styles from './ColumnFormatter.module.scss';
 import { FileUploader } from './FileUploader';
-import pnp from "sp-pnp-js";
+import { getWizardByName, getWizardsForColumnType, IWizard, standardWizardStartingCode } from './Wizards/WizardCommon';
 
 export enum welcomeStage {
   start,
@@ -64,13 +65,14 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
 
   public render(): React.ReactElement<IColumnFormatterWelcomeProps> {
 
-    //TEMP
+    //TEMP (helpful for testing and skipping the welcome altogether)
     //this.props.launchEditor(undefined,columnTypes.text);
     //this.props.launchEditor('Data Bars', columnTypes.number);
 
     return (
       <div className={styles.welcome} style={{height: this.props.uiHeight + 'px'}}>
         <div className={styles.welcomeBox}>
+
           {this.state.stage == welcomeStage.start && (
             <div>
               <div className={styles.header}>
@@ -99,6 +101,8 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
               </div>
             </div>
           )}
+
+
           {this.state.stage == welcomeStage.new && (
             <div className={styles.newForm}>
               <div className={styles.columnType}>
@@ -143,6 +147,8 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
               </div>
             </div>
           )}
+
+
           {this.state.stage == welcomeStage.open && (
             <div className={styles.openForm}>
               <ChoiceGroup
@@ -196,6 +202,8 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
               </div>
             </div>
           )}
+
+
           {this.state.stage == welcomeStage.upload && (
             <div>
               <FileUploader onTextLoaded={this.onFileTextReceived}/>
@@ -206,24 +214,26 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
               </div>
             </div>
           )}
+
+
           {this.state.stage == welcomeStage.loadFromList && (
             <div>
               {!this.props.context.isOnline && (
-                <span>This feature is not available from the local workbench</span>
+                <span>{strings.FeatureUnavailableFromLocalWorkbench}</span>
               )}
               {!this.state.listsLoaded && this.props.context.isOnline && !this.state.loadingFromList && this.state.loadFromListError == undefined && (
-                <Spinner size={SpinnerSize.large} label='Loading Lists...'/>
+                <Spinner size={SpinnerSize.large} label={strings.WelcomeLoadFromListLoadingLists}/>
               )}
               {this.state.listsLoaded && this.props.context.isOnline && !this.state.loadingFromList && this.state.loadFromListError == undefined && (
                 <div>
                   <Dropdown
-                  label='Local list'
+                  label={strings.WelcomeLoadFromListListLabel}
                   selectedKey={this.state.selectedList}
                   onChanged={(item:IDropdownOption)=> {this.setState({selectedList: item.key.toString(),selectedField: undefined});}}
                   required={true}
                   options={this.listsToOptions()} />
                   <Dropdown
-                  label='Field'
+                  label={strings.WelcomeLoadFromListFieldLabel}
                   selectedKey={this.state.selectedField}
                   disabled={this.state.selectedList == undefined}
                   onChanged={(item:IDropdownOption)=> {this.setState({selectedField: item.key.toString()});}}
@@ -232,7 +242,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
                 </div>
               )}
               {this.state.loadingFromList && this.state.loadFromListError == undefined &&(
-                <Spinner size={SpinnerSize.large} label='Loading from list...'/>
+                <Spinner size={SpinnerSize.large} label={strings.WelcomeLoadFromListLoading}/>
               )}
               {this.state.loadFromListError !== undefined && (
                 <span className={styles.errorMessage}>{this.state.loadFromListError}</span>
@@ -247,6 +257,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
               </div>
             </div>
           )}
+
         </div>
       </div>
     );
