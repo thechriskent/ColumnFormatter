@@ -22,21 +22,21 @@ const emptyBarStyle: Partial<ISpinButtonStyles> = {
 	}
 };
 
-export interface IWizardDataBarsProps {
+export interface IWizardDataBarsPanelProps {
 	emptyBarValue:number;
 	fullBarValue:number;
 	updateValues:(emptyBarValue:number, fullBarValue:number, valueDisplay:string) => void;
 }
 
-export interface IWizardDataBarsState {
+export interface IWizardDataBarsPanelState {
 	emptyBarValue:number;
 	fullBarValue:number;
 	valueDisplay:string;
 }
 
-export class WizardDataBarsPanel extends React.Component<IWizardDataBarsProps, IWizardDataBarsState> {
+export class WizardDataBarsPanel extends React.Component<IWizardDataBarsPanelProps, IWizardDataBarsPanelState> {
 	
-	public constructor(props:IWizardDataBarsProps){
+	public constructor(props:IWizardDataBarsPanelProps){
 		super(props);
 
 		this.state = {
@@ -46,7 +46,7 @@ export class WizardDataBarsPanel extends React.Component<IWizardDataBarsProps, I
 		};
 	}
 
-	public render(): React.ReactElement<IWizardDataBarsProps> {
+	public render(): React.ReactElement<IWizardDataBarsPanelProps> {
 		return (
 			<div>
 				<span className={styles.wizardGroupLabel}>{strings.WizardDataBarsRangeGroupLabel}</span>
