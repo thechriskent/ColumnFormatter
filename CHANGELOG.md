@@ -5,11 +5,16 @@
 - Save button to allow for quick resaving (once a save-as option has been performed)
 - npm-shrinkwrap.json
 - Action Link Template
+- Severity Wizard
+- Current User Template
 - This sweet Changelog
 
 ### Changed
 - Updated solution for SPFx 1.4 and enabled asset packaging
 - Identified several additional string literals and moved to localization
+- Refactored the # Trending Template
+  - Now uses the primary column
+  - Provides styles when the previous and current are equal
 - Moved repository to [SharePoint/SP-Dev-Solutions](https://github.com/SharePoint/sp-dev-solutions)
 
 ### Removed
@@ -17,7 +22,7 @@
 - Invalid template (listed as Mail)
 
 ### Fixed
-- ?
+- Issue with `@me` not correctly resolving
 
 ## [1.0.0] - 2017-12-18
 ### Added

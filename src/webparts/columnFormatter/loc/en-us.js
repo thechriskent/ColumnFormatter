@@ -234,6 +234,8 @@ define([], function() {
     //Wizard Number Trending
     WizardNumberTrendingName: '# Trending',
     WizardNumberTrendingDescription: 'Compares other fields in the row to provide an icon based on trending values',
+    WizardNumberTrendingCurrent: 'Current',
+    WizardNumberTrendingPrevious: 'Previous',
 
     //Wizard Action Link
     WizardActionLinkName: 'Action Link',

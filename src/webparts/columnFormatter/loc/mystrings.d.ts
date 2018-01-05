@@ -233,6 +233,8 @@ declare interface IColumnFormatterWebPartStrings {
   //Wizard Number Trending
   WizardNumberTrendingName: string;
   WizardNumberTrendingDescription: string;
+  WizardNumberTrendingCurrent: string;
+  WizardNumberTrendingPrevious: string;
 
   //Wizard Action Link
   WizardActionLinkName: string;
