@@ -149,12 +149,12 @@ const generateLink = (): ILinkFieldValue => {
 	};
 };
 
-const generatePictureLink = (): ILinkFieldValue => {
+export const generatePictureLink = (width:number, height:number): ILinkFieldValue => {
 	let text:string = nouns[getRandomInteger(0,nouns.length-1)];
 	//let color:string = getRandomInteger(0,200).toString(16) + getRandomInteger(0,200).toString(16) + getRandomInteger(0,200).toString(16);
 	let color:IPictureColor = pictureColors[getRandomInteger(0,pictureColors.length-1)];
 	return {
-		URL: `https://dummyimage.com/150x100/${color.color}/${color.lightText ? 'ffffff' : '000000'}&text=${text}`,
+		URL: `https://dummyimage.com/${width}x${height}/${color.color}/${color.lightText ? 'ffffff' : '000000'}&text=${text}`,
 		desc: text
 	};
 };
@@ -183,7 +183,7 @@ export const generateRowValue = (type:columnTypes): any => {
 		case columnTypes.link:
 			return generateLink();
 		case columnTypes.picture:
-			return generatePictureLink();
+			return generatePictureLink(150,100);
 		case columnTypes.datetime:
 			return generateDate();
 		case columnTypes.lookup:

@@ -265,6 +265,10 @@ define([], function() {
 
     //Wizard Current User
     WizardCurrentUserName: 'Current User',
-    WizardCurrentUserDescription: 'Highlights the current user'
+    WizardCurrentUserDescription: 'Highlights the current user',
+
+    //Wizard Round Image
+    WizardRoundImageName: 'Round Image',
+    WizardRoundImageDescription: 'Displays the picture / user picture as a circle'
   }
 });

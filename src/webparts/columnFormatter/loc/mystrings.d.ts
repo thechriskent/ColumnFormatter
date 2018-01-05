@@ -265,6 +265,10 @@ declare interface IColumnFormatterWebPartStrings {
   //Wizard Current User
   WizardCurrentUserName: string;
   WizardCurrentUserDescription: string;
+
+  //Wizard Round Image
+  WizardRoundImageName: string;
+  WizardRoundImageDescription: string;
 }
 
 declare module 'ColumnFormatterWebPartStrings' {

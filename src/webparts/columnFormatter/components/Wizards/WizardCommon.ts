@@ -8,6 +8,7 @@ import { WizardCurrentUser } from './WizardCurrentUser';
 import { WizardDataBars } from './WizardDataBars';
 import { WizardNumberTending } from './WizardNumberTrending';
 import { WizardOverdue } from './WizardOverdue';
+import { WizardRoundImage } from './WizardRoundImage';
 import { WizardSeverity } from './WizardSeverity';
 
 //** Implement this interface to create your own wizard/template */
@@ -48,7 +49,8 @@ export const Wizards: Array<IWizard> = [
 	WizardOverdue,
 	WizardActionLink,
 	WizardSeverity,
-	WizardCurrentUser
+	WizardCurrentUser,
+	WizardRoundImage
 ];
 
 

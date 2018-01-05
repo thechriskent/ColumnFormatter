@@ -1,8 +1,8 @@
 import * as strings from 'ColumnFormatterWebPartStrings';
 
 import { columnTypes, IDataColumn, IUserContext } from '../../state/State';
-import { IWizard, standardWizardStartingColumns } from './WizardCommon';
 import { generateRowValue } from '../../state/ValueGeneration';
+import { IWizard, standardWizardStartingColumns } from './WizardCommon';
 
 export const WizardCurrentUser: IWizard = {
 	name: strings.WizardCurrentUserName,

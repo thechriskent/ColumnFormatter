@@ -7,6 +7,7 @@
 - Action Link Template
 - Severity Wizard
 - Current User Template
+- Round Image Template
 - This sweet Changelog
 
 ### Changed
