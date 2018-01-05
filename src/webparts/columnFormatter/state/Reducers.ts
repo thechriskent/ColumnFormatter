@@ -116,7 +116,11 @@ export const cfReducer = (state:IApplicationState = initialState, action:ActionT
 function SetContextReducer(context:IContext, action:ISetContextAction): IContext {
 	return {
 		isOnline: action.isOnline,
-		webAbsoluteUrl: action.webAbsoluteUrl
+		webAbsoluteUrl: action.webAbsoluteUrl,
+		user: {
+			displayName: action.userDisplayName,
+			email: action.userEmail
+		}
 	};
 }
 

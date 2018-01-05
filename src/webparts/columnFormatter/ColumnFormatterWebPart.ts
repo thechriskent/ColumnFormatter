@@ -34,6 +34,8 @@ export default class ColumnFormatterWebPart extends BaseClientSideWebPart<IColum
       setContext(
         Environment.type !== EnvironmentType.Local,
         this.context.pageContext.web.absoluteUrl,
+        this.context.pageContext.user.displayName,
+        this.context.pageContext.user.email,
         this.properties.height || 340
       )
     );

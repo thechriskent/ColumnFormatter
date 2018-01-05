@@ -16,6 +16,7 @@ export interface IPreviewViewProps {
 	columns?: Array<IDataColumn>;
 	rows?: Array<Array<any>>;
 	formatterString?: string;
+	userEmail?: string;
 	updateFormatterErrors?: (formatterErrors:Array<string>) => void;
 }
 
@@ -249,7 +250,9 @@ class PreviewView_ extends React.Component<IPreviewViewProps, {}> {
 		return {
 			currentFieldName: this.props.columns[0].name,
 			fieldRendererFormat: this.props.formatterString,
-			pageContextInfo: null,
+			pageContextInfo: {
+				userLoginName: this.props.userEmail
+			},
 			row: row,
 			rowSchema: rowSchema
 		};
@@ -283,7 +286,8 @@ function mapStateToProps(state: IApplicationState): IPreviewViewProps{
 	return {
 		columns: state.data.columns,
 		rows: state.data.rows,
-		formatterString: state.code.formatterString
+		formatterString: state.code.formatterString,
+		userEmail: state.context.user.email
 	};
 }
 

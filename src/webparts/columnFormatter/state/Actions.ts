@@ -54,12 +54,16 @@ export interface ISetContextAction {
 	type: typeKeys.SET_CONTEXT;
 	isOnline: boolean;
 	webAbsoluteUrl: string;
+	userDisplayName: string;
+	userEmail: string;
 	height: number;
 }
-export const setContext = (isOnline:boolean, webAbsoluteUrl:string, height:number): ISetContextAction => ({
+export const setContext = (isOnline:boolean, webAbsoluteUrl:string, userDisplayName:string, userEmail:string, height:number): ISetContextAction => ({
 	type: typeKeys.SET_CONTEXT,
 	isOnline,
 	webAbsoluteUrl,
+	userDisplayName,
+	userEmail,
 	height
 });
 

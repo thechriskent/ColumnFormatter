@@ -85,9 +85,15 @@ export interface ICode {
 	wizardName: string;
 }
 
+export interface IUserContext {
+	displayName: string;
+	email: string;
+}
+
 export interface IContext {
 	isOnline: boolean;
 	webAbsoluteUrl: string;
+	user: IUserContext;
 }
 
 export interface IApplicationState {
@@ -125,6 +131,10 @@ export const initialState: IApplicationState = {
 	},
 	context: {
 		isOnline: false,
-		webAbsoluteUrl:''
+		webAbsoluteUrl:'',
+		user: {
+			displayName: undefined,
+			email: undefined
+		}
 	}
 };
