@@ -18,6 +18,7 @@ declare interface IColumnFormatterWebPartStrings {
   WelcomeNewColumnTypeLabel: string;
   WelcomeNewWizardOption: string;
   WelcomeNewBlankOption: string;
+  WelcomeNewNoTemplates: string;
   WelcomeBackButton: string;
   WelcomeOKButton: string;
   WelcomeNextButton: string;
@@ -236,6 +237,28 @@ declare interface IColumnFormatterWebPartStrings {
   //Wizard Action Link
   WizardActionLinkName: string;
   WizardActionLinkDescription: string;
+
+  //Wizard Severity
+  WizardSeverityName: string;
+  WizardSeverityDescription: string;
+  WizardSeverityGood: string;
+  WizardSeverityLow: string;
+  WizardSeverityWarning: string;
+  WizardSeveritySevereWarning: string;
+  WizardSeverityBlocked: string;
+  WizardSeverityOther: string;
+  WizardSeverityGroupValues: string;
+  WizardSeverityGoodLabel: string;
+  WizardSeverityLowLabel: string;
+  WizardSeverityWarningLabel: string;
+  WizardSeveritySevereWarningLabel: string;
+  WizardSeverityBlockedLabel: string;
+  WizardSeverityDefaultSeverityLabel: string;
+  WizardSeverityGroupDisplay: string;
+  WizardSeverityValueVisible: string;
+  WizardSeverityValueHidden: string;
+  WizardSeverityIconVisible: string;
+  WizardSeverityIconHidden: string;
 }
 
 declare module 'ColumnFormatterWebPartStrings' {

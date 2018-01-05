@@ -188,6 +188,7 @@ const calculateCode = (emptyBarValue:number, fullBarValue:number, valueDisplay:s
 
 	return [
 		'{',
+		'  "$schema": "http://columnformatting.sharepointpnp.com/columnFormattingSchema.json",',
 		'  "debugMode": true,',
 		'  "elmType": "div",',
 		txtContent,
@@ -271,7 +272,7 @@ export const WizardDataBars: IWizard = {
 	startingCode: (colType:columnTypes): string => {
 		return calculateCode(0,20,'value');
 	},
-	onWizardRender: (updateEditorString:(editorString:string) => void): JSX.Element => {
+	onWizardRender: (updateEditorString:(editorString:string) => void, colType:columnTypes): JSX.Element => {
 		return (
 			<WizardDataBarsPanel
 			 emptyBarValue={0}

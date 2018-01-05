@@ -19,6 +19,7 @@ define([], function() {
     WelcomeNewColumnTypeLabel: 'Column Type',
     WelcomeNewWizardOption: 'Start with a template',
     WelcomeNewBlankOption: 'Start from scratch',
+    WelcomeNewNoTemplates: 'No templates available for the choosen column type',
     WelcomeBackButton: 'Back',
     WelcomeOKButton: 'OK',
     WelcomeNextButton: 'Next',
@@ -236,6 +237,28 @@ define([], function() {
 
     //Wizard Action Link
     WizardActionLinkName: 'Action Link',
-    WizardActionLinkDescription: 'Adds a Quick Action icon to a link'
+    WizardActionLinkDescription: 'Adds a Quick Action icon to a link',
+
+    //Wizard Severity
+    WizardSeverityName: 'Severity',
+    WizardSeverityDescription: 'Conditionally applies the severity styles based on the field\'s value',
+    WizardSeverityGood: 'Done',
+    WizardSeverityLow: 'In progress',
+    WizardSeverityWarning: 'In review',
+    WizardSeveritySevereWarning: 'Has issues',
+    WizardSeverityBlocked: 'Blocked',
+    WizardSeverityOther: 'Other Value',
+    WizardSeverityGroupValues: 'Conditional Values',
+    WizardSeverityGoodLabel: 'Good',
+    WizardSeverityLowLabel: 'Low',
+    WizardSeverityWarningLabel: 'Warning',
+    WizardSeveritySevereWarningLabel: 'Severe Warning',
+    WizardSeverityBlockedLabel: 'Blocked',
+    WizardSeverityDefaultSeverityLabel: 'Default Severity',
+    WizardSeverityGroupDisplay: 'Display',
+    WizardSeverityValueVisible: 'Value Visible',
+    WizardSeverityValueHidden: 'Value Hidden',
+    WizardSeverityIconVisible: 'Icon Visible',
+    WizardSeverityIconHidden: 'Icon Hidden'
   }
 });

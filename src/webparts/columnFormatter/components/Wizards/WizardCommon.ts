@@ -7,6 +7,7 @@ import { WizardCheckboxes } from './WizardCheckboxes';
 import { WizardDataBars } from './WizardDataBars';
 import { WizardNumberTending } from './WizardNumberTrending';
 import { WizardOverdue } from './WizardOverdue';
+import { WizardSeverity } from './WizardSeverity';
 
 //** Implement this interface to create your own wizard/template */
 export interface IWizard {
@@ -35,7 +36,7 @@ export interface IWizard {
 	startingColumns: (colType:columnTypes) => Array<IDataColumn>;
 
 	//** callback that allows wizards (not templates) to create a custom interface in the Wizard tab */
-	onWizardRender?: (updateEditorString:(editorString:string) => void) => JSX.Element;
+	onWizardRender?: (updateEditorString:(editorString:string) => void, colType:columnTypes) => JSX.Element;
 }
 
 //** The actual array of wizards/templates. Add yours here */
@@ -44,7 +45,8 @@ export const Wizards: Array<IWizard> = [
 	WizardNumberTending,
 	WizardCheckboxes,
 	WizardOverdue,
-	WizardActionLink
+	WizardActionLink,
+	WizardSeverity
 ];
 
 
@@ -109,4 +111,83 @@ export const getWizardsForColumnType = (colType: columnTypes): Array<IWizard> =>
 		}
 		return true;
 	});
+};
+
+
+/** Helper function to add an indention string to the front of every value in an array */
+export const addIndent = (values:Array<string>, indent:string): Array<string> => {
+	return values.map((value:string, index:number) => {
+		return indent + value;
+	});
+};
+
+/** Helper function to properly format a value for json code whether it's a single string or several lines of code */
+export const singleOrMultiValue = (value:string|Array<string>, indent:string, addComma:boolean): Array<string> => {
+	if(typeof value == 'string') {
+		return [indent + '"' + value + '"' + (addComma ? ',' : '')];
+	} else {
+		let values:Array<string> = addIndent(<Array<string>>value, indent);
+		if(addComma) {
+			values[values.length-1] = values[values.length-1] + ',';
+		}
+		return values;
+	}
+};
+
+export interface IConditionalValue {
+	compareTo: string | Array<string>;
+	result: string | Array<string>;
+}
+
+export const conditionalValues = (property:string, startingIndentation: string, conditionals:Array<IConditionalValue>, defaultResult:string|Array<string>, value:string|Array<string>, ensureStringValue:boolean): string => {
+
+	//No conditions means always use the default
+	if (conditionals.length == 0) {
+		return singleOrMultiValue(defaultResult, startingIndentation, false).join('\n');
+	}
+	
+	let logic: Array<string> = [
+		startingIndentation + '"' + property +'": {'
+	];
+	let logicAppend: Array<string> = [
+		startingIndentation + '}'
+	];
+
+	for(var c = 0; c < conditionals.length; c++){
+		let indent:string = startingIndentation + '  ';
+		for(var i = 1; i <= c; i++) {
+			indent += '    ';
+		}
+		logic.push(indent + '"operator": "?",');
+		logic.push(indent + '"operands": [');
+		logic.push(indent + '  {');
+		logic.push(indent + '    "operator": "==",');
+		logic.push(indent + '    "operands": [');
+		if(ensureStringValue) {
+			logic.push(indent + '      {');
+			logic.push(indent + '        "operator": "toString()",');
+			logic.push(indent + '        "operands": [');
+			logic.push(...singleOrMultiValue(value, indent + '          ', false));
+			logic.push(indent + '        ]');
+			logic.push(indent + '      },');
+		} else {
+			logic.push(...singleOrMultiValue(value, indent + '      ', true));
+		}
+		logic.push(...singleOrMultiValue(conditionals[c].compareTo, indent + '      ', false));
+		logic.push(indent + '    ]');
+		logic.push(indent + '  },');
+		logic.push(...singleOrMultiValue(conditionals[c].result, indent + '  ', true));
+		if(c < conditionals.length - 1) {
+			logic.push(indent + '  {');
+			logicAppend.push(indent + ']');
+			logicAppend.push(indent + '  }');
+		} else {
+			logic.push(...singleOrMultiValue(defaultResult, indent + '  ', false));
+			logic.push(indent + ']');
+		}
+	}
+
+	logic.push(...logicAppend.reverse());
+
+	return logic.join('\n');
 };

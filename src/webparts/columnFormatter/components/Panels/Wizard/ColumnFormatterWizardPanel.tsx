@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { updateEditorString } from '../../../state/Actions';
-import { IApplicationState } from '../../../state/State';
+import { columnTypes, IApplicationState } from '../../../state/State';
 import styles from '../../ColumnFormatter.module.scss';
 import { getWizardByName, IWizard } from '../../Wizards/WizardCommon';
 
 export interface IColumnFormatterWizardPanelProps {
 	wizardName?:string;
+	colType?:columnTypes;
 	updateEditorString?: (editorString:string) => void;
 }
 
@@ -38,7 +39,7 @@ class ColumnFormatterWizardPanel_ extends React.Component<IColumnFormatterWizard
 					</div>
 				)}
 				<div className={styles.wizardControls}>
-					{this.state.wizard !== undefined && !this.state.wizard.isTemplate && this.state.wizard.onWizardRender(this.props.updateEditorString)}
+					{this.state.wizard !== undefined && !this.state.wizard.isTemplate && this.state.wizard.onWizardRender(this.props.updateEditorString, this.props.colType)}
 				</div>
 			</div>
 		);
@@ -47,7 +48,8 @@ class ColumnFormatterWizardPanel_ extends React.Component<IColumnFormatterWizard
 
 function mapStateToProps(state: IApplicationState): IColumnFormatterWizardPanelProps{
 	return {
-		wizardName: state.code.wizardName
+		wizardName: state.code.wizardName,
+		colType: state.data.columns[0].type
 	};
 }
 

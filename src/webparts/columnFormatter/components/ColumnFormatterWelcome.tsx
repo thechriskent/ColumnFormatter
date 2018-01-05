@@ -68,6 +68,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     //TEMP (helpful for testing and skipping the welcome altogether)
     //this.props.launchEditor(undefined,columnTypes.text);
     //this.props.launchEditor('Data Bars', columnTypes.number);
+    //this.props.launchEditor('Severity', columnTypes.text);
 
     return (
       <div className={styles.welcome} style={{height: this.props.uiHeight + 'px'}}>
@@ -336,7 +337,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
           );
         })}
         {filteredWizards.length == 0 && (
-          <span className={styles.noWizards}>No templates available for the choosen column type</span>
+          <span className={styles.noWizards}>{strings.WelcomeNewNoTemplates}</span>
         )}
       </div>
     </div>
