@@ -271,6 +271,8 @@ const calculateCode = (colType:columnTypes, showValue:boolean, showIcon:boolean,
 	let ensureString:boolean = false;
 	if(colType == columnTypes.lookup) {
 		currentField = '@currentField.lookupValue';
+	}
+	if(colType == columnTypes.number) {
 		ensureString = true;
 	}
 	
@@ -362,6 +364,16 @@ export const WizardSeverity: IWizard = {
 				[{lookupId:6, lookupValue: strings.WizardSeverityOther}]
 			];
 		}
+		if(colType == columnTypes.number) {
+			return [
+				[1],
+				[2],
+				[3],
+				[4],
+				[5],
+				[6]
+			];
+		}
 		return [
 			[strings.WizardSeverityGood],
 			[strings.WizardSeverityLow],
@@ -374,22 +386,22 @@ export const WizardSeverity: IWizard = {
 	startingCode: (colType:columnTypes): string => {
 		return calculateCode(colType, true, true, [
 			{
-				value: strings.WizardSeverityGood,
+				value: colType == columnTypes.number ? "1" : strings.WizardSeverityGood,
 				class: 'sp-field-severity--good',
 				icon: 'CheckMark'
 			},
 			{
-				value: strings.WizardSeverityLow,
+				value: colType == columnTypes.number ? "2" : strings.WizardSeverityLow,
 				class: 'sp-field-severity--low',
 				icon: 'Forward'
 			},
 			{
-				value: strings.WizardSeverityWarning,
+				value: colType == columnTypes.number ? "3" : strings.WizardSeverityWarning,
 				class: 'sp-field-severity--warning',
 				icon: 'Error'
 			},
 			{
-				value: strings.WizardSeveritySevereWarning,
+				value: colType == columnTypes.number ? "4" : strings.WizardSeveritySevereWarning,
 				class: 'sp-field-severity--severeWarning',
 				icon: 'Warning'
 			}
@@ -400,11 +412,11 @@ export const WizardSeverity: IWizard = {
 			<WizardSeverityPanel
 			 showValue={true}
 			 showIcon={true}
-			 goodValue={strings.WizardSeverityGood}
-			 lowValue={strings.WizardSeverityLow}
-			 warningValue={strings.WizardSeverityWarning}
-			 severeWarningValue={strings.WizardSeveritySevereWarning}
-			 blockedValue={strings.WizardSeverityBlocked}
+			 goodValue={colType == columnTypes.number ? "1" : strings.WizardSeverityGood}
+			 lowValue={colType == columnTypes.number ? "2" : strings.WizardSeverityLow}
+			 warningValue={colType == columnTypes.number ? "3" : strings.WizardSeverityWarning}
+			 severeWarningValue={colType == columnTypes.number ? "4" : strings.WizardSeveritySevereWarning}
+			 blockedValue={colType == columnTypes.number ? "5" : strings.WizardSeverityBlocked}
 			 updateValues={(showValue:boolean, showIcon:boolean, levels:Array<ISeverityLevel>, defaultClass:string, defaultIcon:string) => {
 				updateEditorString(calculateCode(colType, showValue, showIcon, levels, defaultClass, defaultIcon));
 			 }}/>
