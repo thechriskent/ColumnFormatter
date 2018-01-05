@@ -269,6 +269,19 @@ declare interface IColumnFormatterWebPartStrings {
   //Wizard Round Image
   WizardRoundImageName: string;
   WizardRoundImageDescription: string;
+
+  //Wizard Mail To
+  WizardMailToName: string;
+  WizardMailToDescription: string;
+  WizardMailToGroupDisplay: string;
+  WizardMailToDisplayValue: string;
+  WizardMailToGroupParameters: string;
+  WizardMailToSubject: string;
+  WizardMailToBody: string;
+  WizardMailToBCC: string;
+  WizardMailToCC: string;
+  WizardMailToIconLink: string;
+  WizardMailToTextLink: string;
 }
 
 declare module 'ColumnFormatterWebPartStrings' {

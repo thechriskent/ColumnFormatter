@@ -1,15 +1,13 @@
 import * as strings from 'ColumnFormatterWebPartStrings';
+import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { Position } from 'office-ui-fabric-react/lib/utilities/positioning';
 import * as React from 'react';
 
 import { columnTypes, IDataColumn } from '../../state/State';
 import styles from '../ColumnFormatter.module.scss';
 import { conditionalValues, IConditionalValue, IWizard, standardWizardStartingColumns } from './WizardCommon';
-
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { Dropdown, IDropdown, DropdownMenuItemType, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 
 /*
 Wizard Tab Rendering
@@ -275,12 +273,6 @@ const calculateCode = (colType:columnTypes, showValue:boolean, showIcon:boolean,
 	if(colType == columnTypes.number) {
 		ensureString = true;
 	}
-	
-	let classLogic: Array<string> = [
-		'  "attributes": {',
-		'    "class": {'
-	];
-
 
 	let logic: Array<string> = [
 		'  "attributes": {',

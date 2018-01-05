@@ -1,12 +1,12 @@
 import { columnTypes, ILinkFieldValue, ILookupFieldValue, IPersonFieldValue } from './State';
 
-const getRandomInteger = (minValue:number, maxValue:number): number => {
+export const getRandomInteger = (minValue:number, maxValue:number): number => {
 	minValue = Math.ceil(minValue);
 	maxValue = Math.floor(maxValue);
 	return Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
 };
 
-const getRandomDate = (start:Date, end:Date): Date => {
+export const getRandomDate = (start:Date, end:Date): Date => {
 	let randomDate:Date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 	return randomDate;
 };
@@ -121,15 +121,15 @@ const pictureColors: Array<IPictureColor> = [
 	{color:'ff8c00',lightText:false},{color:'a80000',lightText:true},{color:'e81123',lightText:true}
 ];
 
-const generateTextValue = (): string => {
+export const generateTextValue = (): string => {
 	return adjectives[getRandomInteger(0,adjectives.length-1)] + ' ' + nouns[getRandomInteger(0,nouns.length-1)];
 };
 
-const generateDomainName = (): string => {
+export const generateDomainName = (): string => {
 	return generateTextValue().replace(/\s/g,'') + '.' + domainSuffixes[getRandomInteger(0,domainSuffixes.length-1)];
 };
 
-const generatePerson = (): IPersonFieldValue => {
+export const generatePerson = (): IPersonFieldValue => {
 	let fName:string = firstNames[getRandomInteger(0,firstNames.length-1)];
 	let lName:string = lastNames[getRandomInteger(0,lastNames.length-1)];
 	let emailAddress:string = fName.substring(0,1) + lName.replace(/\s/g,'.') + '@' + generateDomainName();
@@ -142,7 +142,7 @@ const generatePerson = (): IPersonFieldValue => {
 	};
 };
 
-const generateLink = (): ILinkFieldValue => {
+export const generateLink = (): ILinkFieldValue => {
 	return {
 		URL: 'http://www.' + generateDomainName(),
 		desc: generateTextValue()
@@ -159,14 +159,14 @@ export const generatePictureLink = (width:number, height:number): ILinkFieldValu
 	};
 };
 
-const generateLookup = (): ILookupFieldValue => {
+export const generateLookup = (): ILookupFieldValue => {
 	return {
 		lookupId: getRandomInteger(1,999),
 		lookupValue: generateTextValue()
 	};
 };
 
-const generateDate = (): Date => {
+export const generateDate = (): Date => {
 	let today:Date = new Date();
 	//Random date between 90 days ago and 90 days in the future
 	return getRandomDate(new Date(today.setTime(today.getTime() - 90 * 86400000)), new Date(today.setTime(today.getTime() + 90 * 86400000)));

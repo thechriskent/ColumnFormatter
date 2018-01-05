@@ -269,6 +269,19 @@ define([], function() {
 
     //Wizard Round Image
     WizardRoundImageName: 'Round Image',
-    WizardRoundImageDescription: 'Displays the picture / user picture as a circle'
+    WizardRoundImageDescription: 'Displays the picture / user picture as a circle',
+
+    //Wizard Mail To
+    WizardMailToName: 'Mail To',
+    WizardMailToDescription: 'Creates a link to launch an email',
+    WizardMailToGroupDisplay: 'Display',
+    WizardMailToDisplayValue: 'Text',
+    WizardMailToGroupParameters: 'Parameters',
+    WizardMailToSubject: 'Subject',
+    WizardMailToBody: 'Body',
+    WizardMailToBCC: 'bcc',
+    WizardMailToCC: 'cc',
+    WizardMailToIconLink: 'Icon Link',
+    WizardMailToTextLink: 'Text Link'
   }
 });

@@ -6,6 +6,7 @@ import { WizardActionLink } from './WizardActionLink';
 import { WizardCheckboxes } from './WizardCheckboxes';
 import { WizardCurrentUser } from './WizardCurrentUser';
 import { WizardDataBars } from './WizardDataBars';
+import { WizardMailTo } from './WizardMailTo';
 import { WizardNumberTending } from './WizardNumberTrending';
 import { WizardOverdue } from './WizardOverdue';
 import { WizardRoundImage } from './WizardRoundImage';
@@ -43,14 +44,15 @@ export interface IWizard {
 
 //** The actual array of wizards/templates. Add yours here */
 export const Wizards: Array<IWizard> = [
-	WizardDataBars,
 	WizardNumberTending,
-	WizardCheckboxes,
-	WizardOverdue,
 	WizardActionLink,
-	WizardSeverity,
+	WizardCheckboxes,
 	WizardCurrentUser,
-	WizardRoundImage
+	WizardDataBars,
+	WizardMailTo,
+	WizardOverdue,
+	WizardRoundImage,
+	WizardSeverity
 ];
 
 
