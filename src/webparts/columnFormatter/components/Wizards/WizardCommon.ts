@@ -1,9 +1,10 @@
 import * as strings from 'ColumnFormatterWebPartStrings';
 
-import { columnTypes, IDataColumn } from '../../state/State';
+import { columnTypes, IDataColumn, IUserContext } from '../../state/State';
 import { generateRowValue } from '../../state/ValueGeneration';
 import { WizardActionLink } from './WizardActionLink';
 import { WizardCheckboxes } from './WizardCheckboxes';
+import { WizardCurrentUser } from './WizardCurrentUser';
 import { WizardDataBars } from './WizardDataBars';
 import { WizardNumberTending } from './WizardNumberTrending';
 import { WizardOverdue } from './WizardOverdue';
@@ -30,7 +31,7 @@ export interface IWizard {
 	startingCode: (colType:columnTypes) => string;
 
 	//** callback that should return the initial sample data */
-	startingRows: (colType:columnTypes) => Array<Array<any>>;
+	startingRows: (colType:columnTypes, user?:IUserContext) => Array<Array<any>>;
 
 	//** callback that should return the initial sample column definitions */
 	startingColumns: (colType:columnTypes) => Array<IDataColumn>;
@@ -46,7 +47,8 @@ export const Wizards: Array<IWizard> = [
 	WizardCheckboxes,
 	WizardOverdue,
 	WizardActionLink,
-	WizardSeverity
+	WizardSeverity,
+	WizardCurrentUser
 ];
 
 

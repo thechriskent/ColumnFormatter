@@ -259,6 +259,10 @@ declare interface IColumnFormatterWebPartStrings {
   WizardSeverityValueHidden: string;
   WizardSeverityIconVisible: string;
   WizardSeverityIconHidden: string;
+
+  //Wizard Current User
+  WizardCurrentUserName: string;
+  WizardCurrentUserDescription: string;
 }
 
 declare module 'ColumnFormatterWebPartStrings' {

@@ -129,7 +129,7 @@ function LaunchEditorReducer(state:IApplicationState, action:ILaunchEditorAction
 	return {
 		data: {
 			columns: wizard !== undefined ? wizard.startingColumns(action.colType) : standardWizardStartingColumns(action.colType),
-			rows: wizard !== undefined ? wizard.startingRows(action.colType) : standardWizardStartingRows(action.colType)
+			rows: wizard !== undefined ? wizard.startingRows(action.colType, state.context.user) : standardWizardStartingRows(action.colType)
 		},
 		ui: {
 			...state.ui,

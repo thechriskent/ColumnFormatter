@@ -259,6 +259,10 @@ define([], function() {
     WizardSeverityValueVisible: 'Value Visible',
     WizardSeverityValueHidden: 'Value Hidden',
     WizardSeverityIconVisible: 'Icon Visible',
-    WizardSeverityIconHidden: 'Icon Hidden'
+    WizardSeverityIconHidden: 'Icon Hidden',
+
+    //Wizard Current User
+    WizardCurrentUserName: 'Current User',
+    WizardCurrentUserDescription: 'Highlights the current user'
   }
 });
