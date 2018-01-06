@@ -3,6 +3,7 @@
 ### Added
 - Height property to property pane
 - Save button to allow for quick resaving (once a save-as option has been performed)
+  - Additionally, save details are now prepopulated when opening from either a list or library to make saving back to those destinations even easier
 - npm-shrinkwrap.json
 - Action Link Template
 - Severity Wizard

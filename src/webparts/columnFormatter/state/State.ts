@@ -69,11 +69,21 @@ export interface ITabState {
 	wizardTabVisible: boolean;
 }
 
+export interface ISaveDetails {
+	activeSaveMethod?: saveMethod;
+	libraryUrl?: string;
+	libraryFolderPath?: string;
+	libraryFilename?: string;
+	list?: string;
+	field?: string;
+}
+
 export interface IUI {
 	state: uiState;
 	panes: IPaneState;
 	tabs: ITabState;
 	height: number;
+	saveDetails: ISaveDetails;
 }
 
 export interface ICode {
@@ -119,7 +129,15 @@ export const initialState: IApplicationState = {
 			viewTab: 0,
 			wizardTabVisible: true
 		},
-		height: 340
+		height: 340,
+		saveDetails: {
+			activeSaveMethod: undefined,
+			libraryUrl: undefined,
+			libraryFolderPath: '',
+			libraryFilename: '',
+			list: undefined,
+			field: undefined
+		}
 	},
 	code: {
 		validationErrors: [],

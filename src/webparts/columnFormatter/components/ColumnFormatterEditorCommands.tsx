@@ -14,7 +14,7 @@ import pnp from 'sp-pnp-js';
 
 import { textForType, typeForTypeAsString } from '../helpers/ColumnTypeHelpers';
 import { changeUIState, chooseTheme, disconnectWizard } from '../state/Actions';
-import { columnTypes, editorThemes, IApplicationState, IContext, saveMethod, uiState } from '../state/State';
+import { columnTypes, editorThemes, IApplicationState, IContext, ISaveDetails, saveMethod, uiState } from '../state/State';
 import styles from './ColumnFormatter.module.scss';
 
 var fileDownload = require('js-file-download');
@@ -31,6 +31,7 @@ export interface IColumnFormatterEditorCommandsProps {
   fieldName?: string;
   fieldType?: columnTypes;
   viewTab?: number;
+  saveDetailsFromLoad?: ISaveDetails;
 }
 
 export interface IColumnFormatterEditorCommandsState {
@@ -65,13 +66,17 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
       saveToLibraryDialogVisible: false,
       librariesLoaded: false,
       libraries: new Array<any>(),
-      libraryFolderPath: '',
-      libraryFileName: props.fieldName + '.json',
+      selectedLibraryUrl: (props.saveDetailsFromLoad.activeSaveMethod == saveMethod.Library ? props.saveDetailsFromLoad.libraryUrl : undefined),
+      libraryFolderPath: (props.saveDetailsFromLoad.activeSaveMethod == saveMethod.Library ? props.saveDetailsFromLoad.libraryFolderPath : ''),
+      libraryFileName: (props.saveDetailsFromLoad.activeSaveMethod == saveMethod.Library ? props.saveDetailsFromLoad.libraryFilename : props.fieldName + '.json'),
       libraryIsSaving: false,
       applyToListDialogVisible: false,
       listsLoaded: false,
       lists: new Array<any>(),
-      listIsApplying: false
+      listIsApplying: false,
+      selectedList: (props.saveDetailsFromLoad.activeSaveMethod == saveMethod.ListField ? props.saveDetailsFromLoad.list : undefined),
+      selectedField: (props.saveDetailsFromLoad.activeSaveMethod == saveMethod.ListField ? props.saveDetailsFromLoad.field : undefined),
+      activeSaveMethod: props.saveDetailsFromLoad.activeSaveMethod
     };
   }
 
@@ -627,7 +632,8 @@ function mapStateToProps(state: IApplicationState): IColumnFormatterEditorComman
     editorString: state.code.editorString,
     fieldName: state.data.columns[0].name,
     fieldType: state.data.columns[0].type,
-    viewTab: state.ui.tabs.viewTab
+    viewTab: state.ui.tabs.viewTab,
+    saveDetailsFromLoad: state.ui.saveDetails
 	};
 }
 

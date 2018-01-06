@@ -138,6 +138,14 @@ function LaunchEditorReducer(state:IApplicationState, action:ILaunchEditorAction
 				...state.ui.tabs,
 				viewTab: (wizard !== undefined && !wizard.isTemplate) ? 0 : 2,
 				wizardTabVisible: (wizard !== undefined && !wizard.isTemplate)
+			},
+			saveDetails: {
+				activeSaveMethod: undefined,
+				libraryUrl: undefined,
+				libraryFolderPath: '',
+				libraryFilename: '',
+				list: undefined,
+				field: undefined
 			}
 		},
 		code: {
@@ -166,6 +174,9 @@ function LaunchEditorWithCodeReducer(state:IApplicationState, action:ILaunchEdit
 				...state.ui.tabs,
 				viewTab: (wizard !== undefined && !wizard.isTemplate) ? 0 : 2,
 				wizardTabVisible: (wizard !== undefined && !wizard.isTemplate)
+			},
+			saveDetails: {
+				...action.saveDetails
 			}
 		},
 		code: {

@@ -5,6 +5,7 @@ import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -13,11 +14,10 @@ import pnp from 'sp-pnp-js';
 
 import { textForType, typeForTypeAsString } from '../helpers/ColumnTypeHelpers';
 import { launchEditor, launchEditorWithCode } from '../state/Actions';
-import { columnTypes, IApplicationState, IContext } from '../state/State';
+import { columnTypes, IApplicationState, IContext, ISaveDetails, saveMethod } from '../state/State';
 import styles from './ColumnFormatter.module.scss';
 import { FileUploader } from './FileUploader';
 import { getWizardByName, getWizardsForColumnType, IWizard, standardWizardStartingCode } from './Wizards/WizardCommon';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
 export enum welcomeStage {
   start,
@@ -32,7 +32,7 @@ export interface IColumnFormatterWelcomeProps {
   context?: IContext;
   uiHeight?: number;
   launchEditor?: (wizardName:string, colType:columnTypes) => void;
-  launchEditorWithCode?: (wizardName:string, colType:columnTypes, editorString:string, validationErrors:Array<string>) => void;
+  launchEditorWithCode?: (wizardName:string, colType:columnTypes, editorString:string, validationErrors:Array<string>, saveDetails: ISaveDetails) => void;
 }
 
 export interface IColumnFormatterWelcomeState {
@@ -463,7 +463,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     this.launchEditorFromText(fileText, this.state.columnTypeForOpen || columnTypes.text);
   }
 
-  private launchEditorFromText(text:string, type:columnTypes): void {
+  private launchEditorFromText(text:string, type:columnTypes, loadMethod?:saveMethod): void {
     if(text == undefined || text.length == 0) {
       text = standardWizardStartingCode(type);
     }
@@ -474,7 +474,18 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     } catch (e) {
       validationErrors.push(e.message);
     }
-    this.props.launchEditorWithCode(undefined, type, text, validationErrors);
+
+    //provide details of loading (if applicable) to intialize saving
+    // this makes it easier to save back to the list loaded from, etc.
+    let saveDetails:ISaveDetails = {
+      activeSaveMethod: loadMethod,
+      libraryUrl: (loadMethod == saveMethod.Library ? this.state.selectedLibraryUrl : undefined),
+      libraryFolderPath: (loadMethod == saveMethod.Library ? this.state.libraryFolderPath : ''),
+      libraryFilename: (loadMethod == saveMethod.Library ? this.state.libraryFileName : ''),
+      list: (loadMethod == saveMethod.ListField ? this.state.selectedList : undefined),
+      field: (loadMethod == saveMethod.ListField ? this.state.selectedField : undefined)
+    };
+    this.props.launchEditorWithCode(undefined, type, text, validationErrors, saveDetails);
   }
   
   private gotoLoadFromList(): void {
@@ -553,7 +564,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     pnp.sp.web.lists.getById(this.state.selectedList)
       .fields.getByInternalNameOrTitle(this.state.selectedField).select('CustomFormatter','TypeAsString','DisplayFormat').get()
       .then((data)=>{
-        this.launchEditorFromText(data.CustomFormatter, typeForTypeAsString(data.TypeAsString, data.DisplayFormat));
+        this.launchEditorFromText(data.CustomFormatter, typeForTypeAsString(data.TypeAsString, data.DisplayFormat), saveMethod.ListField);
         this.setState({
           loadingFromList: false,
         });
@@ -607,7 +618,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     pnp.sp.web.getFileByServerRelativeUrl(this.state.selectedLibraryUrl + (this.state.libraryFolderPath.length > 0 ? '/' + this.state.libraryFolderPath : '') + '/' + this.state.libraryFileName)
       .getText()
       .then((text:string)=>{
-        this.launchEditorFromText(text, this.state.columnTypeForOpen);
+        this.launchEditorFromText(text, this.state.columnTypeForOpen, saveMethod.Library);
         this.setState({
           loadingFromLibrary: false
         });
@@ -634,8 +645,8 @@ function mapDispatchToProps(dispatch: Dispatch<IColumnFormatterWelcomeProps>): I
     launchEditor: (wizardName:string, colType:columnTypes) => {
       dispatch(launchEditor(wizardName, colType));
     },
-    launchEditorWithCode: (wizardName:string, colType:columnTypes, editorString:string, validationErrors:Array<string>) => {
-      dispatch(launchEditorWithCode(wizardName, colType, editorString, validationErrors));
+    launchEditorWithCode: (wizardName:string, colType:columnTypes, editorString:string, validationErrors:Array<string>, saveDetails:ISaveDetails) => {
+      dispatch(launchEditorWithCode(wizardName, colType, editorString, validationErrors, saveDetails));
     }
 	};
 }

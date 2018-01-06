@@ -1,4 +1,4 @@
-import { columnTypes, editorThemes, uiState } from './State';
+import { columnTypes, editorThemes, ISaveDetails, uiState } from './State';
 
 //** All the action interfaces */
 export type ActionTypes = 
@@ -93,13 +93,15 @@ export interface ILaunchEditorWithCodeAction {
 	colType: columnTypes;
 	editorString: string;
 	validationErrors: Array<string>;
+	saveDetails: ISaveDetails;
 }
-export const launchEditorWithCode = (wizardName:string, colType:columnTypes, editorString:string, validationErrors:Array<string>): ILaunchEditorWithCodeAction => ({
+export const launchEditorWithCode = (wizardName:string, colType:columnTypes, editorString:string, validationErrors:Array<string>, saveDetails:ISaveDetails): ILaunchEditorWithCodeAction => ({
 	type: typeKeys.LAUNCH_EDITOR_WITH_CODE,
 	wizardName,
 	colType,
 	editorString,
-	validationErrors
+	validationErrors,
+	saveDetails
 });
 
 export interface IChangeUIStateAction {
