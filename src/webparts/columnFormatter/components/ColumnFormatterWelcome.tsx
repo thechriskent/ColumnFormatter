@@ -17,13 +17,15 @@ import { columnTypes, IApplicationState, IContext } from '../state/State';
 import styles from './ColumnFormatter.module.scss';
 import { FileUploader } from './FileUploader';
 import { getWizardByName, getWizardsForColumnType, IWizard, standardWizardStartingCode } from './Wizards/WizardCommon';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
 export enum welcomeStage {
   start,
   new,
   open,
   upload,
-  loadFromList
+  loadFromList,
+  loadFromLibrary
 }
 
 export interface IColumnFormatterWelcomeProps {
@@ -47,6 +49,13 @@ export interface IColumnFormatterWelcomeState {
   selectedField?: string;
   loadingFromList: boolean;
   loadFromListError?: string;
+  librariesLoaded: boolean;
+  libraries: Array<any>;
+  selectedLibraryUrl?: string;
+  libraryFolderPath: string;
+  libraryFileName: string;
+  loadingFromLibrary: boolean;
+  loadFromLibraryError?: string;
 }
 
 class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomeProps, IColumnFormatterWelcomeState> {
@@ -60,7 +69,12 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
       loadChoiceForOpen: 'list',
       listsLoaded: false,
       lists: new Array<any>(),
-      loadingFromList: false
+      loadingFromList: false,
+      librariesLoaded: false,
+      libraries: new Array<any>(),
+      libraryFolderPath: '',
+      libraryFileName: strings.WizardDefaultField + '.json',
+      loadingFromLibrary: false
     };
   }
 
@@ -260,6 +274,51 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
             </div>
           )}
 
+
+          {this.state.stage == welcomeStage.loadFromLibrary && (
+            <div>
+              {!this.props.context.isOnline && (
+                <span>{strings.FeatureUnavailableFromLocalWorkbench}</span>
+              )}
+              {!this.state.librariesLoaded && this.props.context.isOnline && !this.state.loadingFromLibrary && this.state.loadFromLibraryError == undefined && (
+                <Spinner size={SpinnerSize.large} label={strings.WelcomeLoadFromLibraryLoadingLibraries}/>
+              )}
+              {this.state.librariesLoaded && this.props.context.isOnline && !this.state.loadingFromLibrary && this.state.loadFromLibraryError == undefined && (
+                <div>
+                  <Dropdown
+                   label={strings.WelcomeLoadFromLibraryLibraryLabel}
+                   selectedKey={this.state.selectedLibraryUrl}
+                   onChanged={(item:IDropdownOption)=> {this.setState({selectedLibraryUrl: item.key.toString()});}}
+                   required={true}
+                   options={this.librariesToOptions()} />
+                  <TextField
+                   label={strings.WelcomeLoadFromLibraryFolderPathLabel}
+                   value={this.state.libraryFolderPath}
+                   onChanged={(value:string) => {this.setState({libraryFolderPath: value});}}/>
+                  <TextField
+                   label={strings.WelcomeLoadFromLibraryFilenameLabel}
+                   required={true}
+                   value={this.state.libraryFileName}
+                   onChanged={(value:string) => {this.setState({libraryFileName: value});}}/>
+                </div>
+              )}
+              {this.state.loadingFromLibrary && this.state.loadFromLibraryError == undefined &&(
+                <Spinner size={SpinnerSize.large} label={strings.WelcomeLoadFromLibraryLoading}/>
+              )}
+              {this.state.loadFromLibraryError !== undefined && (
+                <span className={styles.errorMessage}>{this.state.loadFromLibraryError}</span>
+              )}
+              <div className={styles.navigationButtons}>
+                <div>
+                  <DefaultButton text={strings.WelcomeBackButton} onClick={() => {this.gotoStage(welcomeStage.open);}}/>
+                </div>
+                <div style={{textAlign: 'right'}}>
+                  <PrimaryButton text={strings.WelcomeOKButton} disabled={!this.okButtonEnabled()} onClick={this.onOkForLoadFromLibraryClick}/>
+                </div>
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
     );
@@ -288,6 +347,11 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
         return (
           this.props.context.isOnline && this.state.selectedList !== undefined &&
             this.state.selectedField !== undefined && this.state.loadFromListError == undefined
+        );
+      case welcomeStage.loadFromLibrary:
+        return (
+          this.props.context.isOnline && this.state.selectedLibraryUrl !== undefined &&
+            this.state.libraryFileName.length > 0 && this.state.loadFromLibraryError == undefined
         );
       default:
         return false;
@@ -387,7 +451,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
       this.gotoLoadFromList();
     } else {
       if(this.state.fileChoiceForOpen == 'library'){
-
+        this.gotoLoadFromLibrary();
       } else {
         this.gotoStage(welcomeStage.upload);
       }
@@ -445,7 +509,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
           })
           .catch((error:any) => {
             this.setState({
-              loadFromListError: 'Error while loading lists! Technical Details: ' + error.message
+              loadFromListError: strings.WelcomeLoadFromListLoadingListsError + ' ' + strings.TechnicalDetailsErrorHeader + ': ' + error.message
             });
           });
       }
@@ -497,7 +561,61 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
       .catch((error:any) => {
         this.setState({
           loadingFromList: false,
-          loadFromListError: 'Error while loading! Technical Details: ' + error.message
+          loadFromListError: strings.WelcomeLoadFromListLoadingError + ' ' + strings.TechnicalDetailsErrorHeader + ': ' + error.message
+        });
+      });
+  }
+
+  private gotoLoadFromLibrary(): void {
+    if(!this.state.librariesLoaded) {
+      if(this.props.context.isOnline) {
+        pnp.sp.site.getDocumentLibraries(this.props.context.webAbsoluteUrl)
+          .then((data:any) => {
+            this.setState({
+              librariesLoaded: true,
+              libraries: data
+            });
+          })
+          .catch((error:any) => {
+            this.setState({
+              loadFromLibraryError: strings.WelcomeLoadFromLibraryLoadingLibrariesError + ' ' + strings.TechnicalDetailsErrorHeader + ': ' + error.message
+            });
+          });
+      }
+    }
+    
+    this.gotoStage(welcomeStage.loadFromLibrary);
+  }
+
+  private librariesToOptions(): Array<IDropdownOption> {
+    let items:Array<IDropdownOption> = new Array<IDropdownOption>();
+    for(var library of this.state.libraries) {
+      items.push({
+        key: library.ServerRelativeUrl,
+        text: library.Title
+      });
+    }
+    return items;
+  }
+
+  @autobind
+  private onOkForLoadFromLibraryClick(): void {
+    this.setState({
+      loadingFromLibrary: true,
+      loadFromLibraryError: undefined
+    });
+    pnp.sp.web.getFileByServerRelativeUrl(this.state.selectedLibraryUrl + (this.state.libraryFolderPath.length > 0 ? '/' + this.state.libraryFolderPath : '') + '/' + this.state.libraryFileName)
+      .getText()
+      .then((text:string)=>{
+        this.launchEditorFromText(text, this.state.columnTypeForOpen);
+        this.setState({
+          loadingFromLibrary: false
+        });
+      })
+      .catch((error:any) => {
+        this.setState({
+          loadingFromLibrary: false,
+          loadFromLibraryError: strings.WelcomeLoadFromLibraryLoadingError + ' ' + strings.TechnicalDetailsErrorHeader + ': ' + error.message
         });
       });
   }

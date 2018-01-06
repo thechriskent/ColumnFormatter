@@ -38,6 +38,15 @@ define([], function() {
     WelcomeLoadFromListListLabel: 'Local list',
     WelcomeLoadFromListFieldLabel: 'Field',
     WelcomeLoadFromListLoading: 'Loading from list...',
+    WelcomeLoadFromListLoadingListsError: 'Error while loading lists!',
+    WelcomeLoadFromListLoadingError: 'Error while loading!',
+    WelcomeLoadFromLibraryLoadingLibraries: 'Loading Libraries...',
+    WelcomeLoadFromLibraryLibraryLabel: 'Local library',
+    WelcomeLoadFromLibraryFolderPathLabel: 'Folder Path',
+    WelcomeLoadFromLibraryFilenameLabel: 'Filename',
+    WelcomeLoadFromLibraryLoading: 'Loading from Library...',
+    WelcomeLoadFromLibraryLoadingLibrariesError: 'Error while loading libraries!',
+    WelcomeLoadFromLibraryLoadingError: 'Error while loading! Verify the folderpath is correct (if used) and that you have permission to access this library.',
 
     //Tab Names
     TabWizard: "Wizard",

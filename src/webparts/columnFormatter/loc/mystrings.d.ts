@@ -37,6 +37,15 @@ declare interface IColumnFormatterWebPartStrings {
   WelcomeLoadFromListListLabel: string;
   WelcomeLoadFromListFieldLabel: string;
   WelcomeLoadFromListLoading: string;
+  WelcomeLoadFromListLoadingListsError: string;
+  WelcomeLoadFromListLoadingError: string;
+  WelcomeLoadFromLibraryLoadingLibraries: string;
+  WelcomeLoadFromLibraryLibraryLabel: string;
+  WelcomeLoadFromLibraryFolderPathLabel: string;
+  WelcomeLoadFromLibraryFilenameLabel: string;
+  WelcomeLoadFromLibraryLoading: string;
+  WelcomeLoadFromLibraryLoadingLibrariesError: string;
+  WelcomeLoadFromLibraryLoadingError: string;
 
   //Tab Names
   TabWizard: string;

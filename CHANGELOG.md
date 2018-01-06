@@ -24,6 +24,7 @@
 
 ### Fixed
 - Issue with `@me` not correctly resolving
+- Broken Open from Library functionality
 
 ## [1.0.0] - 2017-12-18
 ### Added
