@@ -282,6 +282,10 @@ define([], function() {
     WizardMailToBCC: 'bcc',
     WizardMailToCC: 'cc',
     WizardMailToIconLink: 'Icon Link',
-    WizardMailToTextLink: 'Text Link'
+    WizardMailToTextLink: 'Text Link',
+
+    //Wizard Mini Map
+    WizardMiniMapName: 'Mini Map',
+    WizardMiniMapDescription: 'Displays a tiny map image for a location (be sure to use your own API key)'
   }
 });

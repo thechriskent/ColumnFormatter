@@ -7,6 +7,7 @@ import { WizardCheckboxes } from './WizardCheckboxes';
 import { WizardCurrentUser } from './WizardCurrentUser';
 import { WizardDataBars } from './WizardDataBars';
 import { WizardMailTo } from './WizardMailTo';
+import { WizardMiniMap } from './WizardMiniMap';
 import { WizardNumberTending } from './WizardNumberTrending';
 import { WizardOverdue } from './WizardOverdue';
 import { WizardRoundImage } from './WizardRoundImage';
@@ -50,6 +51,7 @@ export const Wizards: Array<IWizard> = [
 	WizardCurrentUser,
 	WizardDataBars,
 	WizardMailTo,
+	WizardMiniMap,
 	WizardOverdue,
 	WizardRoundImage,
 	WizardSeverity

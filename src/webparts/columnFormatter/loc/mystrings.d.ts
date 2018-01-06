@@ -282,6 +282,10 @@ declare interface IColumnFormatterWebPartStrings {
   WizardMailToCC: string;
   WizardMailToIconLink: string;
   WizardMailToTextLink: string;
+
+  //Wizard Mini Map
+  WizardMiniMapName: string;
+  WizardMiniMapDescription: string;
 }
 
 declare module 'ColumnFormatterWebPartStrings' {
