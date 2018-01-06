@@ -57,6 +57,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     this.state = {
       stage: welcomeStage.start,
       useWizardForNew: true,
+      loadChoiceForOpen: 'list',
       listsLoaded: false,
       lists: new Array<any>(),
       loadingFromList: false
