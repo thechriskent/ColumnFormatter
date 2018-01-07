@@ -1,15 +1,18 @@
 # Releases
-## [1.1.0] - 2018-01-05
+## [1.1.0] - 2018-01-07
 ### Added
 - Height property to property pane
 - Save button to allow for quick resaving (once a save-as option has been performed)
   - Additionally, save details are now prepopulated when opening from either a list or library to make saving back to those destinations even easier
-- npm-shrinkwrap.json
 - Action Link Template
 - Severity Wizard
 - Current User Template
 - Round Image Template
+- Mail To Wizard
+- Mini Map Template
+- npm-shrinkwrap.json
 - This sweet Changelog
+- Documentation & Guides
 
 ### Changed
 - Updated solution for SPFx 1.4 and enabled asset packaging
