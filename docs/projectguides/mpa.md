@@ -12,10 +12,10 @@ If you've already been working on SPFx, then you're good to go.
 
 - fork this repository
 - clone your fork
+- Navigate to the Column Formatter directory
 - in the command line:
   - run `npm install` to restore dependencies
-  - run `gulp serve` to serve your project
-  - Start making your changes
+  - run `gulp serve` to serve the project
 
 > **Note** - There are some features that are not supported in the local workbench (such as saving/loading to a list). If you want to work on these features then you'll need an O365 tenant and you'll want to use the online workbench (_layouts/15/workbench.aspx)
 
@@ -31,3 +31,5 @@ Once you have MkDocs installed on your machine, in the command line:
 - run `mkdocs serve` to start the local web server with MkDocs and view the documentation in the [web browser](http://localhost:8000)
 
 You can also **skip all of that** and just read the [documentation](../documentation/docs/index.md) directly in the browser (but without the fancy navigation and search). 
+
+<img src="https://telemetry.sharepointpnp.com/sp-dev-solutions/solutions/ColumnFormatter/guides/MPA" />

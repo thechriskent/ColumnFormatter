@@ -2,6 +2,8 @@
 
 Column Formatter is a client-side webpart that makes creating and applying column formatting in O365 easy and approachable. Column Formatter is advanced enough that you can use it to write "code", but it's simple enough that anyone can use it without having to write a single line!
 
+![Side by Side](./assets/SideBySide.png)
+
 ## Introduction
 
 Modern listviews support the addition of [custom formatting](https://docs.microsoft.com/en-us/sharepoint/dev/declarative-customization/column-formatting) for most field types. This is an awesome feature designed to make custom formatting simpler and less administratively difficult than packaged solutions.
@@ -31,4 +33,4 @@ Installing Column Formatter is just a matter of uploading a package to your app 
 
 Using Column Formatter isn't too hard, but you can details on specific features in the [Getting Started](./getting-started.md) section.
 
-![](https://telemetry.sharepointpnp.com/sp-dev-solutions/ColumnFormatter/wiki/Index)
+![](https://telemetry.sharepointpnp.com/sp-dev-solutions/solutions/ColumnFormatter/wiki/Index)

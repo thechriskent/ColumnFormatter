@@ -12,4 +12,4 @@ When in a wizard, the editor is set to be read only to prevent you from making m
 
 > Go [Home](../index.md)
 
-![](https://telemetry.sharepointpnp.com/sp-dev-solutions/ColumnFormatter/wiki/Wizards)
+![](https://telemetry.sharepointpnp.com/sp-dev-solutions/solutions/ColumnFormatter/wiki/Wizards)
