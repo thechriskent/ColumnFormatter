@@ -33,7 +33,7 @@ export interface IWizardDataBarsState {
 export class WizardDataBars extends React.Component<IWizardDataBarsProps, IWizardDataBarsState> {
 
 	private _container: HTMLElement;
-	
+
 	public constructor(props:IWizardDataBarsProps){
 		super(props);
 
@@ -146,7 +146,7 @@ export class WizardDataBars extends React.Component<IWizardDataBarsProps, IWizar
 
 const calculateCode = (emptyBarValue:number, fullBarValue:number, valueDisplay:string): string => {
 	let percentage:number = 100 / (fullBarValue - emptyBarValue);
-	
+
 	let txtContent:string = '  "txtContent": "@currentField",';
 	if(valueDisplay == 'none') {
 		txtContent = '  "txtContent": "",';
@@ -199,7 +199,7 @@ const calculateCode = (emptyBarValue:number, fullBarValue:number, valueDisplay:s
 		'          ]',
 		'        },',
 		'        "100%",',
-		'        {',  
+		'        {',
 		'          "operator": "?",',
 		'          "operands": [',
 		'            {',
@@ -245,8 +245,8 @@ const calculateCode = (emptyBarValue:number, fullBarValue:number, valueDisplay:s
 
 
 export const WizardInfoDataBars: IWizard = {
-	name: 'Data Bars',
-	description: 'Adds horizontal bars to the field to visually express the value by length',
+	name: strings.WizardInfoDataBarsTitle, //'Data Bars',
+	description:  strings.WizardInfoDataBarsDesc, //'Adds horizontal bars to the field to visually express the value by length',
 	iconName: 'BarChartHorizontal',
 	fieldTypes: [
 		columnTypes.number

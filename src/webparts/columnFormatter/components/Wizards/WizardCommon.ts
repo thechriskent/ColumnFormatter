@@ -4,6 +4,7 @@ import { WizardInfoNumberTending } from './WizardNumberTrending';
 import { WizardInfoCheckboxes } from './WizardCheckboxes';
 import { WizardInfoOverdue } from './WizardOverdue';
 import { generateRowValue } from '../../state/ValueGeneration';
+import * as strings from 'ColumnFormatterWebPartStrings';
 
 export interface IWizard {
 	name: string;
@@ -27,7 +28,7 @@ export const standardWizardStartingRows = (colType:columnTypes): Array<Array<any
 
 export const standardWizardStartingColumns = (colType:columnTypes): Array<IDataColumn> => {
 	return [{
-		name: 'MyField',
+		name: strings.WizardStartingColumnsTitle, //'MyField',
 		type: colType
 	}];
 };
@@ -60,8 +61,8 @@ export const Wizards: Array<IWizard> = [
 	WizardInfoCheckboxes,
 	WizardInfoOverdue,
 	{
-		name: 'Mail',
-		description: 'Testing Purposes, not a real wizard',
+		name: strings.WizardInfoMailTitle,
+		description: strings.WizardInfoMailDesc,
 		iconName: 'Mail',
 		fieldTypes: [],
 		isTemplate: true,

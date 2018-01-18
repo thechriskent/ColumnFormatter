@@ -217,13 +217,13 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
               {this.state.listsLoaded && this.props.context.isOnline && !this.state.loadingFromList && this.state.loadFromListError == undefined && (
                 <div>
                   <Dropdown
-                  label='Local list'
+                  label={strings.LocalListDropdownTitle}
                   selectedKey={this.state.selectedList}
                   onChanged={(item:IDropdownOption)=> {this.setState({selectedList: item.key.toString(),selectedField: undefined});}}
                   required={true}
                   options={this.listsToOptions()} />
                   <Dropdown
-                  label='Field'
+                  label={strings.LocalListFieldTitle}
                   selectedKey={this.state.selectedField}
                   disabled={this.state.selectedList == undefined}
                   onChanged={(item:IDropdownOption)=> {this.setState({selectedField: item.key.toString()});}}
@@ -399,7 +399,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
     }
     this.props.launchEditorWithCode(undefined, type, text, validationErrors);
   }
-  
+
   private gotoLoadFromList(): void {
     if(!this.state.listsLoaded) {
       if(this.props.context.isOnline) {
@@ -462,7 +462,7 @@ class ColumnFormatterWelcome_ extends React.Component<IColumnFormatterWelcomePro
           });
         }
         break;
-      } 
+      }
     }
     return items;
   }

@@ -1,4 +1,4 @@
-define([], function() {
+define([], function () {
   return {
     "PropertyPaneDescription": "Description",
     "BasicGroupName": "Group Name",
@@ -23,6 +23,12 @@ define([], function() {
     WelcomeOpenLoadFileLibrary: 'Open a file from a local library',
     WelcomeOpenLoadFileUpload: 'Upload a file',
 
+    WelcomeOpenLoadFileUploadTitle: 'File Upload',
+    WelcomeOpenLoadFileUploadDesc: 'Drop your json file here, or click to select the file to upload. Only *.json files will be accepted',
+    WelcomeOpenLoadFileUploadChooseBtnLabel: 'Choose a File',
+    WelcomeOpenLoadFileUploadRejectError:'Unable to accept: ',
+    WelcomeOpenLoadFileUploadFileError:'File is empty!',
+
     //Tab Names
     TabWizard: "Wizard",
     TabTree: "Tree",
@@ -45,6 +51,14 @@ define([], function() {
     CommandCopy: 'Copy to clipboard',
     CommandSaveToLibrary: 'Save to local library',
     CommandApplyToList: 'Apply to local list field',
+
+    // Local list
+    LocalListDropdownTitle: 'Local List',
+    LocalListFieldTitle: 'Field',
+
+    // Tree
+    TreePanelElementsTreeTitle: 'Elements Tree',
+    TreePanelElementsTreeError: 'Error loading Tree! Technical Details:',
 
     //New Confirmation Dialog
     NewConfirmationDialogTitle: 'Start Fresh?',
@@ -174,6 +188,28 @@ define([], function() {
     WizardDataBarsValueDisplayGroupLabel: 'Value Display',
     WizardDataBarsValueDisplayActual: 'Show Actual Value',
     WizardDataBarsValueDisplayPercentage: 'Show Percentage',
-    WizardDataBarsValueDisplayNone: 'None'
+    WizardDataBarsValueDisplayNone: 'None',
+
+    WizardInfoDataBarsTitle: 'Data Bars',
+    WizardInfoDataBarsDesc: 'Adds horizontal bars to the field to visually express the value by length',
+
+    // Wizard Trending
+    WizardInfoTrendingTitle: '# Trending',
+    WizardInfoTrendingDesc: 'Compares other fields in the row to provide an icon based on trending values',
+
+    // Wizard Overdue
+    WizardInfoOverdueTitle: 'Overdue',
+    WizardInfoOverdueDesc: 'Colors the field red once the date is greater than today',
+
+    // Wizard standard
+    WizardStartingColumnsTitle: 'MyField',
+
+    // Wizard mail
+    WizardInfoMailTitle:'Mail',
+    WizardInfoMailDesc:'Testing Purposes, not a real wizard',
+
+    // Wizard checkbox
+    WizardInfoCheckboxesTitle:'Checkboxes',
+    WizardInfoCheckboxesDesc:'Displays Yes/No fields as checkboxes'
   }
 });

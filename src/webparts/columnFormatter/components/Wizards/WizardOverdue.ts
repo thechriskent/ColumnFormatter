@@ -1,9 +1,10 @@
 import { IWizard, Wizards, standardWizardStartingColumns } from './WizardCommon';
 import { IDataColumn, columnTypes } from '../../state/State';
+import * as strings from 'ColumnFormatterWebPartStrings';
 
 export const WizardInfoOverdue: IWizard = {
-	name: 'Overdue',
-	description: 'Colors the field red once the date is greater than today',
+	name: strings.WizardInfoOverdueTitle,
+	description:  strings.WizardInfoOverdueDesc,
 	iconName: 'Warning',
 	fieldTypes: [
 		columnTypes.datetime

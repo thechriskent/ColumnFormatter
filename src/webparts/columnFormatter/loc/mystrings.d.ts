@@ -21,6 +21,12 @@ declare interface IColumnFormatterWebPartStrings {
   WelcomeOpenLoadFileLibrary: string;
   WelcomeOpenLoadFileUpload: string;
 
+  WelcomeOpenLoadFileUploadTitle: string;
+  WelcomeOpenLoadFileUploadDesc: string;
+  WelcomeOpenLoadFileUploadChooseBtnLabel: string;
+  WelcomeOpenLoadFileUploadRejectError:string;
+  WelcomeOpenLoadFileUploadFileError:string;
+
   TabWizard: string;
   TabTree: string;
   TabData: string;
@@ -40,7 +46,7 @@ declare interface IColumnFormatterWebPartStrings {
   CommandCopy: string;
   CommandSaveToLibrary: string;
   CommandApplyToList: string;
-  
+
   NewConfirmationDialogTitle: string;
   NewConfirmationDialogText: string;
   NewConfirmationDialogConfirmButton: string;
@@ -48,12 +54,18 @@ declare interface IColumnFormatterWebPartStrings {
 
   CustomizeConfirmationDialogTitle: string;
   CustomizeConfirmationDialogText: string;
-  CustomizeConfirmationDialogConfirmButton:string;
+  CustomizeConfirmationDialogConfirmButton: string;
   CustomizeConfirmationDialogCancelButton: string;
 
   SaveToLibraryDialogTitle: string;
   SaveToLibraryDialogConfirmButton: string;
   SaveToLibraryDialogCancelButton: string;
+
+  LocalListDropdownTitle: string;
+  LocalListFieldTitle: string;
+
+  TreePanelElementsTreeTitle: string;
+  TreePanelElementsTreeError: string;
 
   ApplyToListDialogTitle: string;
   ApplyToListDialogConfirmButton: string;
@@ -63,7 +75,7 @@ declare interface IColumnFormatterWebPartStrings {
   AddRow: string;
   DeleteColumn: string;
   AddColumn: string;
-  
+
   ColumnNameChangeTooltip: string;
   ColumnTypeHeadline: string;
   ColumnTypeMessage: string;
@@ -159,6 +171,24 @@ declare interface IColumnFormatterWebPartStrings {
   WizardDataBarsValueDisplayActual: string;
   WizardDataBarsValueDisplayPercentage: string;
   WizardDataBarsValueDisplayNone: string;
+
+  WizardInfoDataBarsTitle: string;
+  WizardInfoDataBarsDesc: string;
+
+  WizardInfoTrendingTitle: string;
+  WizardInfoTrendingDesc: string;
+
+  WizardInfoOverdueTitle:string;
+  WizardInfoOverdueDesc:string;
+
+  WizardStartingColumnsTitle: string;
+
+  WizardInfoMailTitle:string;
+  WizardInfoMailDesc:string;
+
+  WizardInfoCheckboxesTitle:string;
+  WizardInfoCheckboxesDesc:string;
+
 }
 
 declare module 'ColumnFormatterWebPartStrings' {

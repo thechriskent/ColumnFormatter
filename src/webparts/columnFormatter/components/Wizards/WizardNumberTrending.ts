@@ -1,10 +1,11 @@
 import { IWizard, Wizards } from './WizardCommon';
 import { IDataColumn, columnTypes } from '../../state/State';
 import { generateRowValue } from '../../state/ValueGeneration';
+import * as strings from 'ColumnFormatterWebPartStrings';
 
 export const WizardInfoNumberTending: IWizard = {
-	name: '# Trending',
-	description: 'Compares other fields in the row to provide an icon based on trending values',
+	name: strings.WizardInfoTrendingTitle, //'# Trending',
+	description:  strings.WizardInfoTrendingDesc, //'Compares other fields in the row to provide an icon based on trending values',
 	iconName: 'Sort',
 	fieldTypes: [],
 	isTemplate: true,

@@ -165,13 +165,13 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
          {this.state.listsLoaded && this.props.context.isOnline && !this.state.listIsApplying && this.state.listSaveError == undefined && (
            <div>
              <Dropdown
-              label='Local list'
+              label={strings.LocalListDropdownTitle}
               selectedKey={this.state.selectedList}
               onChanged={(item:IDropdownOption)=> {this.setState({selectedList: item.key.toString(),selectedField: undefined});}}
               required={true}
               options={this.listsToOptions()} />
              <Dropdown
-              label='Field'
+              label={strings.LocalListFieldTitle}
               selectedKey={this.state.selectedField}
               disabled={this.state.selectedList == undefined}
               onChanged={(item:IDropdownOption)=> {this.setState({selectedField: item.key.toString()});}}
@@ -461,7 +461,7 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
           });
       }
     }
-    
+
     this.setState({
       applyToListDialogVisible: true
     });
@@ -493,11 +493,11 @@ class ColumnFormatterEditorCommands_ extends React.Component<IColumnFormatterEdi
             items.push({
                 key: field.InternalName,
                 text: field.Title + ' [' + textForType(field.Type) + ']'
-              });    
+              });
           }
         }
         break;
-      } 
+      }
     }
     return items;
   }

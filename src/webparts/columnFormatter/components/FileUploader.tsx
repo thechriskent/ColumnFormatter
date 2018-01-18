@@ -3,6 +3,7 @@ import styles from './ColumnFormatter.module.scss';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import DropZone from 'react-dropzone';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import * as strings from 'ColumnFormatterWebPartStrings';
 
 export interface IFileUploaderProps {
 	onTextLoaded: (text:string) => void;
@@ -29,7 +30,7 @@ export class FileUploader extends React.Component<IFileUploaderProps, IFileUploa
 	public render(): React.ReactElement<IFileUploaderProps> {
 		return (
 		  <div className={styles.uploadForm}>
-				<span className={styles.headerLabel}>File Upload</span>
+				<span className={styles.headerLabel}>{strings.WelcomeOpenLoadFileUploadTitle}</span>
 				<DropZone
 				 ref={(container) => this._uploadPanel = container!}
 				 accept='.json'
@@ -37,11 +38,9 @@ export class FileUploader extends React.Component<IFileUploaderProps, IFileUploa
 				 onDrop={this.onFileDrop}
 				 className={styles.dropZone}
 				 activeClassName={styles.dropZoneActive}
-				 rejectClassName={styles.dropZoneRejected}>
-					<p>Drop your json file here, or click to select the file to upload.</p>
-					<p>Only *.json files will be accepted</p>
+				 rejectClassName={styles.dropZoneRejected}>{strings.WelcomeOpenLoadFileUploadDesc}
 				</DropZone>
-				<PrimaryButton text='Choose a File' onClick={this.onChooseFileClick}/>
+				<PrimaryButton text={strings.WelcomeOpenLoadFileUploadChooseBtnLabel} onClick={this.onChooseFileClick}/>
 				<span className={styles.uploadError}>{this.state.uploadError}</span>
 		  </div>
 		);
@@ -69,7 +68,7 @@ export class FileUploader extends React.Component<IFileUploaderProps, IFileUploa
 					}
 				}
 				this.setState({
-					uploadError: 'Unable to accept: ' + reject.name
+					uploadError: strings.WelcomeOpenLoadFileUploadRejectError + reject.name
 				});
 			} else {
 				//Grab the accepted file
@@ -91,7 +90,7 @@ export class FileUploader extends React.Component<IFileUploaderProps, IFileUploa
 							});
 						} else {
 							this.setState({
-								uploadError: 'File is empty!'
+								uploadError: strings.WelcomeOpenLoadFileUploadFileError
 							});
 						}
 					};
