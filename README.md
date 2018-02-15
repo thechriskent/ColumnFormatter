@@ -1,3 +1,7 @@
+> Column Formatter is now part of SharePoint Patterns and Practices (PnP)! Please use this repo ([SP-Dev-Solutions](https://github.com/SharePoint/sp-dev-solutions/)) for all updates, issues, contributions, and more. Whoo Whoo!
+
+https://github.com/SharePoint/sp-dev-solutions/tree/master/solutions/ColumnFormatter
+
 # Column Formatter
 
 Easy editor for modern listview Column Formatting
